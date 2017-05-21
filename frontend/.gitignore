@@ -1,0 +1,8 @@
+## FRONTEND ##
+target
+src/main/frontend/node
+src/main/frontend/node_modules
+
+# e2e
+/e2e/*.js
+/e2e/*.map
