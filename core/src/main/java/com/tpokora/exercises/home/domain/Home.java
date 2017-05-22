@@ -1,4 +1,4 @@
-package com.tpokora.exercises.home;
+package com.tpokora.exercises.home.domain;
 
 /**
  * Created by pokor on 21.05.2017.

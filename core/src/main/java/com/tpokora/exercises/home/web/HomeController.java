@@ -1,5 +1,6 @@
-package com.tpokora.exercises.home;
+package com.tpokora.exercises.home.web;
 
+import com.tpokora.exercises.home.domain.Home;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
