@@ -1,4 +1,7 @@
 <h1>
-    {{title}}
-    <app-home></app-home>
+    <nav>
+        <a routerLink="/" routerLinkActive="active">Home</a>
+        <a routerLink="/exercise" routerLinkActive="active">Exercise</a>
+    </nav>
+    <router-outlet></router-outlet>
 </h1>

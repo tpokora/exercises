@@ -1,3 +1,4 @@
+import { appRoutes } from './app.routes';
 import { HomeService } from './home/shared/home.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -6,16 +7,20 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { RouterModule, Routes } from '@angular/router';
+import { ExerciseComponent } from './exercise/exercise.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    ExerciseComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     HomeService
