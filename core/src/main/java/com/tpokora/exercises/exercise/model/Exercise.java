@@ -1,4 +1,4 @@
-package com.tpokora.exercises.exercise;
+package com.tpokora.exercises.exercise.model;
 
 import com.tpokora.exercises.common.AbstractEntity;
 
@@ -16,6 +16,12 @@ public class Exercise extends AbstractEntity {
 
     public Exercise(Integer id) {
         super(id);
+    }
+
+    public Exercise(Integer id, String name, String description) {
+        this(id);
+        this.name = name;
+        this.description = description;
     }
 
     public String getName() {
