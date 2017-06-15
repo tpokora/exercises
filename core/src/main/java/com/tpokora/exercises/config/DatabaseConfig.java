@@ -20,7 +20,7 @@ import java.util.Properties;
  * Created by pokor on 15.06.2017.
  */
 @Configuration
-@PropertySource("classpath:properties/test.properties")
+@PropertySource("classpath:properties/${env}.properties")
 public class DatabaseConfig {
 
     @Autowired

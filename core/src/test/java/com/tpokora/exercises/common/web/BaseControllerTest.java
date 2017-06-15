@@ -15,7 +15,7 @@ import org.springframework.web.context.WebApplicationContext;
  * Created by pokor on 15.06.2017.
  */
 @RunWith(SpringRunner.class)
-@TestPropertySource(locations = "classpath:properties/test.properties")
+@TestPropertySource(properties = {"env = test"})
 @SpringBootTest(classes = ExercisesApplication.class)
 @WebAppConfiguration
 public abstract class BaseControllerTest {

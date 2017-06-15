@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestPropertySource(locations = "classpath:properties/test.properties")
+@TestPropertySource(properties = {"env = test"})
 public class ExercisesApplicationTests  {
 
 	@Test
