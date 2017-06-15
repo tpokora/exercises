@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * Created by pokor on 08.06.2017.
  */
@@ -33,6 +35,17 @@ public class ExerciseController {
         }
 
         return new ResponseEntity<Exercise>(exercise, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, headers = "Accept=application/json")
+    public ResponseEntity<List<Exercise>> getAllExercises() {
+        List<Exercise> exercises = exerciseService.getExercises();
+
+        if (exercises == null || exercises.isEmpty()) {
+            return new ResponseEntity<List<Exercise>>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<List<Exercise>>(exercises, HttpStatus.OK);
     }
 
 }
