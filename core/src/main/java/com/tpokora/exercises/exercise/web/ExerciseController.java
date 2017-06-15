@@ -2,6 +2,8 @@ package com.tpokora.exercises.exercise.web;
 
 import com.tpokora.exercises.exercise.model.Exercise;
 import com.tpokora.exercises.exercise.service.ExerciseService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/exercise")
+@Api(value = "exercise", description = "Exercise API")
 public class ExerciseController {
 
     private final static Logger logger = LoggerFactory.getLogger(ExerciseController.class);
@@ -27,6 +30,7 @@ public class ExerciseController {
     private ExerciseService exerciseService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ApiOperation(value = "Get exercise", notes = "Return exercise by ID")
     public ResponseEntity<Exercise> getExercise(@PathVariable("id") int id) {
         Exercise exercise = exerciseService.getExercise(id);
 
@@ -38,6 +42,7 @@ public class ExerciseController {
     }
 
     @RequestMapping(method = RequestMethod.GET, headers = "Accept=application/json")
+    @ApiOperation(value = "Get exercises list", notes = "Get exercises list")
     public ResponseEntity<List<Exercise>> getAllExercises() {
         List<Exercise> exercises = exerciseService.getExercises();
 

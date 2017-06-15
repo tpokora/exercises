@@ -1,13 +1,19 @@
 package com.tpokora.exercises.exercise.model;
 
 import com.tpokora.exercises.common.AbstractEntity;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Created by pokor on 08.06.2017.
  */
+@ApiModel(value = "Exercise", description = "Exercise model")
 public class Exercise extends AbstractEntity {
 
+    @ApiModelProperty(value = "Exercise name", required = true)
     private String name;
+
+    @ApiModelProperty(value = "Exercise description")
     private String description;
 
     public Exercise() {
