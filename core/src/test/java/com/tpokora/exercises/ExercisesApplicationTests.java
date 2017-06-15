@@ -3,11 +3,13 @@ package com.tpokora.exercises;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ExercisesApplicationTests.class)
-public class ExercisesApplicationTests {
+@SpringBootTest
+@TestPropertySource(locations = "classpath:properties/test.properties")
+public class ExercisesApplicationTests  {
 
 	@Test
 	public void contextLoads() {

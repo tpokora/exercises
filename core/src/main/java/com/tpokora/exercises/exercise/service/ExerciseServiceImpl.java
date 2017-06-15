@@ -1,8 +1,11 @@
 package com.tpokora.exercises.exercise.service;
 
+import com.tpokora.exercises.exercise.domain.ExerciseRepository;
 import com.tpokora.exercises.exercise.model.Exercise;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,22 +15,33 @@ import java.util.List;
 @Service("exerciseService")
 public class ExerciseServiceImpl implements ExerciseService {
 
-    public ExerciseServiceImpl() {
-
-    }
+    @Resource
+    private ExerciseRepository exerciseRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public Exercise getExercise(Integer id) {
-        // mock exercise for now
-        return new Exercise(id, "Exercise name", "Exercise description");
+        return exerciseRepository.findOne(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Exercise> getExercises() {
-        List<Exercise> exercises = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            exercises.add(new Exercise(i, "Exercise name " + i, "Exercise description " + i));
+        return exerciseRepository.findAll();
+    }
+
+    @Override
+    @Transactional
+    public Exercise createOrUpdateExercise(Exercise exercise) {
+        if (exercise.getId() == null) {
+            Integer newExerciseId = exerciseRepository.saveAndFlush(exercise).getId();
+            return exerciseRepository.getOne(newExerciseId);
         }
-        return exercises;
+
+        Exercise updateExercise = exerciseRepository.findOne(exercise.getId());
+        updateExercise = exercise;
+        updateExercise = exerciseRepository.saveAndFlush(updateExercise);
+
+        return exerciseRepository.findOne(updateExercise.getId());
     }
 }

@@ -38,6 +38,11 @@ public class Exercise extends AbstractEntity {
         super(id);
     }
 
+    public Exercise(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public Exercise(Integer id, String name, String description) {
         this(id);
         this.name = name;

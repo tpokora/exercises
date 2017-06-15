@@ -9,19 +9,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 /**
  * Created by pokor on 08.06.2017.
  */
+@Api(value = "exercise", description = "Exercise API")
 @RestController
 @RequestMapping("/exercise")
-@Api(value = "exercise", description = "Exercise API")
 public class ExerciseController {
 
     private final static Logger logger = LoggerFactory.getLogger(ExerciseController.class);
@@ -29,8 +27,8 @@ public class ExerciseController {
     @Autowired
     private ExerciseService exerciseService;
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
     @ApiOperation(value = "Get exercise", notes = "Return exercise by ID")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
     public ResponseEntity<Exercise> getExercise(@PathVariable("id") int id) {
         Exercise exercise = exerciseService.getExercise(id);
 
@@ -41,8 +39,8 @@ public class ExerciseController {
         return new ResponseEntity<Exercise>(exercise, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, headers = "Accept=application/json")
     @ApiOperation(value = "Get exercises list", notes = "Get exercises list")
+    @RequestMapping(method = RequestMethod.GET, headers = "Accept=application/json")
     public ResponseEntity<List<Exercise>> getAllExercises() {
         List<Exercise> exercises = exerciseService.getExercises();
 
@@ -51,6 +49,20 @@ public class ExerciseController {
         }
 
         return new ResponseEntity<List<Exercise>>(exercises, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Create exercise", notes = "Create exercise")
+    @RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json")
+    public ResponseEntity<Exercise> createExercise(@RequestBody Exercise exercise) throws Exception {
+        Exercise newExercise = null;
+
+        try {
+            newExercise = exerciseService.createOrUpdateExercise(exercise);
+        } catch (ConstraintViolationException e) {
+            return new ResponseEntity<Exercise>(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+
+        return new ResponseEntity<Exercise>(newExercise, HttpStatus.CREATED);
     }
 
 }

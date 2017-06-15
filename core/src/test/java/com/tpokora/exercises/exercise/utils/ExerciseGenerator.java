@@ -1,6 +1,6 @@
 package com.tpokora.exercises.exercise.utils;
 
-import com.tpokora.exercises.common.Generator;
+import com.tpokora.exercises.common.utils.Generator;
 import com.tpokora.exercises.exercise.model.Exercise;
 
 import java.util.ArrayList;
@@ -12,8 +12,13 @@ import java.util.List;
 public class ExerciseGenerator implements Generator {
 
     @Override
+    public Object generate() {
+        return new Exercise("ExerciseName", "ExerciseDescription");
+    }
+
+    @Override
     public Object generate(int id) {
-        return new Exercise(id, "Exercise" + id, "Exercise" + id + " description");
+        return new Exercise("Exercise" + id, "Exercise" + id + " description");
     }
 
     public List<Exercise> generateExerciseList(int size) {

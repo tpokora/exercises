@@ -1,6 +1,7 @@
 package com.tpokora.exercises.exercise.web;
 
-import com.tpokora.exercises.common.Generator;
+import com.tpokora.exercises.common.utils.Generator;
+import com.tpokora.exercises.common.utils.TestUtils;
 import com.tpokora.exercises.common.web.BaseControllerTest;
 import com.tpokora.exercises.exercise.model.Exercise;
 import com.tpokora.exercises.exercise.service.ExerciseService;
@@ -13,7 +14,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -56,8 +60,11 @@ public class ExerciseControllerTest extends BaseControllerTest {
 
     @Test
     public void test_getExerciseById_1_success() throws Exception {
-        Exercise exercise = (Exercise) exerciseGenerator.generate(1);
+        int id = 1;
+        Exercise exercise = (Exercise) exerciseGenerator.generate(id);
+        exercise.setId(id);
         when(exerciseService.getExercise(exercise.getId())).thenReturn(exercise);
+
         mockMvc.perform(get("/exercise/" + exercise.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(exercise.getId())))
@@ -69,9 +76,22 @@ public class ExerciseControllerTest extends BaseControllerTest {
     public void test_getExercise_success() throws Exception {
         List<Exercise> exerciseList = ((ExerciseGenerator) exerciseGenerator).generateExerciseList(3);
         when(exerciseService.getExercises()).thenReturn(exerciseList);
+
         mockMvc.perform(get("/exercise/"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void createNewExercise_success() throws Exception {
+        Exercise exercise = new Exercise("ExerciseControllerTest", "ExerciseControllerTestDescription");
+
+        mockMvc.perform(post("/exercise")
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content(TestUtils.convertObjectToJsonBytes(exercise)))
+                .andExpect(status().isCreated());
     }
 
 }
