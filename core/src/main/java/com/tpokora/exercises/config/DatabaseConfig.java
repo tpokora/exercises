@@ -1,5 +1,6 @@
 package com.tpokora.exercises.config;
 
+import com.tpokora.exercises.exercise.model.Exercise;
 import org.hibernate.SessionFactory;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import java.util.Properties;
  * Created by pokor on 15.06.2017.
  */
 @Configuration
-@PropertySource("classpath:properties/app.properties")
+@PropertySource("classpath:properties/${env:dev}.properties")
 public class DatabaseConfig {
 
     @Autowired
@@ -66,7 +67,7 @@ public class DatabaseConfig {
 
         LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
         sessionBuilder.addProperties(getHibernateProperties());
-        //sessionBuilder.addAnnotatedClasses();
+        sessionBuilder.addAnnotatedClasses(Exercise.class);
 
         return sessionBuilder.buildSessionFactory();
     }
