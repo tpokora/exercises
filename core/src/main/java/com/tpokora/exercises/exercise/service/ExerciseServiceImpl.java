@@ -44,4 +44,10 @@ public class ExerciseServiceImpl implements ExerciseService {
 
         return exerciseRepository.findOne(updateExercise.getId());
     }
+
+    @Override
+    @Transactional
+    public void deleteExercise(Integer id) {
+        exerciseRepository.delete(id);
+    }
 }

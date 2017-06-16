@@ -1,5 +1,6 @@
 package com.tpokora.exercises.exercise.web;
 
+import com.tpokora.exercises.common.ConfigsString;
 import com.tpokora.exercises.exercise.model.Exercise;
 import com.tpokora.exercises.exercise.service.ExerciseService;
 import io.swagger.annotations.Api;
@@ -28,7 +29,7 @@ public class ExerciseController {
     private ExerciseService exerciseService;
 
     @ApiOperation(value = "Get exercise", notes = "Return exercise by ID")
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = ConfigsString.HEADERS_APPLICATION_JSON)
     public ResponseEntity<Exercise> getExercise(@PathVariable("id") int id) {
         Exercise exercise = exerciseService.getExercise(id);
 
@@ -40,7 +41,7 @@ public class ExerciseController {
     }
 
     @ApiOperation(value = "Get exercises list", notes = "Get exercises list")
-    @RequestMapping(method = RequestMethod.GET, headers = "Accept=application/json")
+    @RequestMapping(method = RequestMethod.GET, headers = ConfigsString.HEADERS_APPLICATION_JSON)
     public ResponseEntity<List<Exercise>> getAllExercises() {
         List<Exercise> exercises = exerciseService.getExercises();
 
@@ -52,7 +53,7 @@ public class ExerciseController {
     }
 
     @ApiOperation(value = "Create exercise", notes = "Create exercise")
-    @RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json")
+    @RequestMapping(method = RequestMethod.POST, headers = ConfigsString.HEADERS_APPLICATION_JSON)
     public ResponseEntity<Exercise> createExercise(@RequestBody Exercise exercise) throws Exception {
         Exercise newExercise = null;
 
@@ -63,6 +64,13 @@ public class ExerciseController {
         }
 
         return new ResponseEntity<Exercise>(newExercise, HttpStatus.CREATED);
+    }
+
+    @ApiOperation(value = "Delete exercise", notes = "Delete exercise by ID")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, headers = ConfigsString.HEADERS_APPLICATION_JSON)
+    public ResponseEntity<Exercise> deleteExercise(@PathVariable("id") int id) throws Exception {
+        exerciseService.deleteExercise(id);
+        return new ResponseEntity<Exercise>(HttpStatus.NO_CONTENT);
     }
 
 }

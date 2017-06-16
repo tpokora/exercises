@@ -12,4 +12,5 @@ public interface ExerciseService {
     public List<Exercise> getExercises();
     public Exercise getExercise(Integer id);
     public Exercise createOrUpdateExercise(Exercise exercise);
+    public void deleteExercise(Integer id);
 }

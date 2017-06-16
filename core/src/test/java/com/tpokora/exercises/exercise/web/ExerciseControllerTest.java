@@ -94,4 +94,26 @@ public class ExerciseControllerTest extends BaseControllerTest {
                 .andExpect(status().isCreated());
     }
 
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void removeExercise_success() throws Exception {
+        Exercise exercise = new Exercise("ExerciseControllerDeleteTest", "ExerciseControllerDeleteTestDescription");
+        exercise.setId(1);
+        when(exerciseService.getExercise(exercise.getId())).thenReturn(exercise);
+
+        mockMvc.perform(get("/exercise/" + exercise.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(exercise.getId())))
+                .andExpect(jsonPath("$.name", is(exercise.getName())))
+                .andExpect(jsonPath("$.description", is(exercise.getDescription())));
+
+        mockMvc.perform(delete("/exercise/" + exercise.getId()))
+                .andExpect(status().isNoContent());
+
+        when(exerciseService.getExercise(exercise.getId())).thenReturn(null);
+        mockMvc.perform(get("/exercise/" + exercise.getId()))
+                .andExpect(status().isNotFound());
+    }
+
 }

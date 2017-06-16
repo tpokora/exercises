@@ -56,12 +56,25 @@ public class ExerciseServiceTest extends BaseServiceTest {
     @Test
     @Transactional
     @Rollback(true)
-    public void createOrUpdateExercise_newExercise_success() throws SQLException {
+    public void createOrUpdateExercise_newExercise_success() {
         exercise = new Exercise("TestNewExerciseCreate", "TestNewExerciseDesc");
         Exercise newExercise = exerciseService.createOrUpdateExercise(exercise);
 
         Assert.assertTrue(newExercise.getName().equals(exercise.getName()));
         Assert.assertTrue(newExercise.getDescription().equals(exercise.getDescription()));
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void deleteExerciseById_success() {
+        exercise = new Exercise("TextExerciseToDelete", "TextExerciseToDeleteDesc");
+        exercise = exerciseService.createOrUpdateExercise(exercise);
+
+        Assert.assertTrue(exerciseService.getExercise(exercise.getId()).getName() == exercise.getName());
+
+        exerciseService.deleteExercise(exercise.getId());
+        Assert.assertTrue(exerciseService.getExercise(exercise.getId()) == null);
     }
 
 
