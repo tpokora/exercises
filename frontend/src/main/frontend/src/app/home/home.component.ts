@@ -9,12 +9,12 @@ import { Home } from './shared/home.model';
 })
 export class HomeComponent implements OnInit {
 
-  home: Home;
+  home: Home = new Home();
 
   constructor(private homeService: HomeService) { }
 
   ngOnInit() {
-    //this.getHome();
+    this.getHome();
   }
 
   getHome() {
