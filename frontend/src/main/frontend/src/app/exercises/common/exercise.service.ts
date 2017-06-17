@@ -6,7 +6,7 @@ import { Utils } from './../../common/utils';
 @Injectable()
 export class ExerciseService {
 
-    private url = Utils.getServerUrl('exercise');
+    private url = Utils.getRestApiUrl('exercise');
     private headers = Utils.headers_json();
 
     constructor(private http: Http) { }

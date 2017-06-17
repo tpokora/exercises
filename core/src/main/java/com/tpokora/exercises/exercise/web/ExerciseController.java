@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Api(value = "exercise", description = "Exercise API")
 @RestController
-@RequestMapping("/exercise")
+@RequestMapping("/rest/exercise")
 public class ExerciseController {
 
     private final static Logger logger = LoggerFactory.getLogger(ExerciseController.class);

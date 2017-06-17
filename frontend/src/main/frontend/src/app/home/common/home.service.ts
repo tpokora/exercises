@@ -8,7 +8,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class HomeService {
 
-    private url = Utils.getServerUrl('home');
+    private url = Utils.getRestApiUrl('home');
     private headers = Utils.headers_json();
 
     constructor(private http: Http) { }

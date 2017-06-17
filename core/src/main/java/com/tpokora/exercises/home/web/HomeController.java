@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by pokor on 21.05.2017.
  */
-@RestController
+@RestController("/rest/")
 public class HomeController {
 
     @CrossOrigin
