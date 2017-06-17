@@ -1,6 +1,6 @@
-import { HomeService } from './shared/home.service';
+import { HomeService } from './common/home.service';
 import { Component, OnInit } from '@angular/core';
-import { Home } from './shared/home.model';
+import { Home } from './common/home.model';
 
 @Component({
   selector: 'app-home',

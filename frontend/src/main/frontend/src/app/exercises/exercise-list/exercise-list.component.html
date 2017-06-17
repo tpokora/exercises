@@ -1,0 +1,22 @@
+<h2>Exercises list:</h2>
+<div class="alert alert-info" *ngIf="!hasExercises()">
+    No exercises!
+</div>
+<div *ngIf="hasExercises()">
+    <table class="table">
+        <thead class="thead-default">
+            <tr>
+                <th>
+                    Name
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let exercise of exercises; let i=index">
+                <td>
+                    <a href="/exercise/{{ exercise.id }}">{{ exercise.name }}</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

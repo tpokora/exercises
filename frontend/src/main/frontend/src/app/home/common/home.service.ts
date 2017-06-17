@@ -1,3 +1,4 @@
+import { Utils } from './../../common/utils';
 import { Home } from './home.model';
 import { Http } from '@angular/http/';
 import { Injectable } from '@angular/core';
@@ -7,8 +8,8 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class HomeService {
 
-    private url = environment.serverUrl + '/home';
-    private headers = new Headers({ 'Content-Type': 'application/json' });
+    private url = Utils.getServerUrl('home');
+    private headers = Utils.headers_json();
 
     constructor(private http: Http) { }
 

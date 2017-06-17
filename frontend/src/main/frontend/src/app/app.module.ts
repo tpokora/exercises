@@ -1,5 +1,6 @@
-import { appRoutes } from './app.routes';
-import { HomeService } from './home/shared/home.service';
+import { ExerciseService } from './exercises/common/exercise.service';
+import { RoutingModule } from './common/routes/app.routes';
+import { HomeService } from './home/common/home.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -8,27 +9,30 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { RouterModule, Routes } from '@angular/router';
-import { ExerciseComponent } from './exercise/exercise.component';
-import { NavComponent } from './nav/nav.component';
+import { ExerciseComponent } from './exercises/exercise/exercise.component';
+import { NavComponent } from './common/nav/nav.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ExerciseListComponent } from './exercises/exercise-list/exercise-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ExerciseComponent,
-    NavComponent
+    NavComponent,
+    ExerciseListComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes),
+    RoutingModule,
     NgbModule.forRoot()
   ],
   providers: [
-    HomeService
+    HomeService,
+    ExerciseService
   ],
   bootstrap: [AppComponent]
 })
