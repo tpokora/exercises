@@ -16,4 +16,9 @@ public class TestUtils {
         return mapper.writeValueAsBytes(object);
     }
 
+    public static String restApiLink(String module) {
+
+        return "/rest/" + module + "/";
+    }
+
 }

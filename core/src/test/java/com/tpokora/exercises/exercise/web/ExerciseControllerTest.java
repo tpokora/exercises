@@ -65,7 +65,7 @@ public class ExerciseControllerTest extends BaseControllerTest {
         exercise.setId(id);
         when(exerciseService.getExercise(exercise.getId())).thenReturn(exercise);
 
-        mockMvc.perform(get("/exercise/" + exercise.getId()))
+        mockMvc.perform(get(TestUtils.restApiLink("exercise") + exercise.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(exercise.getId())))
                 .andExpect(jsonPath("$.name", is(exercise.getName())))
@@ -77,7 +77,7 @@ public class ExerciseControllerTest extends BaseControllerTest {
         List<Exercise> exerciseList = ((ExerciseGenerator) exerciseGenerator).generateExerciseList(3);
         when(exerciseService.getExercises()).thenReturn(exerciseList);
 
-        mockMvc.perform(get("/exercise/"))
+        mockMvc.perform(get(TestUtils.restApiLink("exercise")))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray());
     }
@@ -88,7 +88,7 @@ public class ExerciseControllerTest extends BaseControllerTest {
     public void createNewExercise_success() throws Exception {
         Exercise exercise = new Exercise("ExerciseControllerTest", "ExerciseControllerTestDescription");
 
-        mockMvc.perform(post("/exercise")
+        mockMvc.perform(post(TestUtils.restApiLink("exercise"))
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(exercise)))
                 .andExpect(status().isCreated());
@@ -102,17 +102,17 @@ public class ExerciseControllerTest extends BaseControllerTest {
         exercise.setId(1);
         when(exerciseService.getExercise(exercise.getId())).thenReturn(exercise);
 
-        mockMvc.perform(get("/exercise/" + exercise.getId()))
+        mockMvc.perform(get(TestUtils.restApiLink("exercise") + exercise.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(exercise.getId())))
                 .andExpect(jsonPath("$.name", is(exercise.getName())))
                 .andExpect(jsonPath("$.description", is(exercise.getDescription())));
 
-        mockMvc.perform(delete("/exercise/" + exercise.getId()))
+        mockMvc.perform(delete(TestUtils.restApiLink("exercise") + exercise.getId()))
                 .andExpect(status().isNoContent());
 
         when(exerciseService.getExercise(exercise.getId())).thenReturn(null);
-        mockMvc.perform(get("/exercise/" + exercise.getId()))
+        mockMvc.perform(get(TestUtils.restApiLink("exercise") + exercise.getId()))
                 .andExpect(status().isNotFound());
     }
 
