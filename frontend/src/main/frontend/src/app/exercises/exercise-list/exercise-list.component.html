@@ -1,22 +1,15 @@
-<h2>Exercises list:</h2>
 <div class="alert alert-info" *ngIf="!hasExercises()">
     No exercises!
 </div>
 <div *ngIf="hasExercises()">
-    <table class="table">
-        <thead class="thead-default">
-            <tr>
-                <th>
-                    Name
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let exercise of exercises; let i=index">
-                <td>
-                    <a routerLink="/exercise/{{ exercise.id }}" routerLinkActive>{{ exercise.name }}</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <h1 class="uppercase">Exercises list:</h1>
+    <hr/>
+    <div *ngFor="let exercise of exercises; let i=index" class="exercise-element">
+        <strong class="exercise-name uppercase">
+            <a routerLink="/exercise/{{ exercise.id }}" routerLinkActive>{{ exercise.name }}</a>
+        </strong>
+        <div class="exercise-desc">
+            <span>{{ exercise.description }}</span>
+        </div>
+    </div>
 </div>
