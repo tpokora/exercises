@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Exercise } from './exercise.model';
 import { Http } from '@angular/http/';
 import { Utils } from './../../common/utils';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class ExerciseService {

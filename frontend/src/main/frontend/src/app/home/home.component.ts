@@ -1,4 +1,4 @@
-import { HomeService } from './common/home.service';
+//import { HomeService } from './common/home.service';
 import { Component, OnInit } from '@angular/core';
 import { Home } from './common/home.model';
 
@@ -11,15 +11,16 @@ export class HomeComponent implements OnInit {
 
   home: Home = new Home();
 
-  constructor(private homeService: HomeService) { }
+  //constructor(private homeService: HomeService) { }
+  constructor() { };
 
   ngOnInit() {
-    this.getHome();
+    //this.getHome();
   }
 
-  getHome() {
-    this.homeService.getHome()
-      .then(home => this.home = home);
-  }
+  // getHome() {
+  //   this.homeService.getHome()
+  //     .then(home => this.home = home);
+  // }
 
 }

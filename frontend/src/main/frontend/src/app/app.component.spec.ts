@@ -1,4 +1,13 @@
+import { ExerciseServiceTests } from './exercises/common/exercise.testing';
+import { ExerciseService } from './exercises/common/exercise.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ExerciseListComponent } from './exercises/exercise-list/exercise-list.component';
+import { ExerciseComponent } from './exercises/exercise/exercise.component';
+import { NavComponent } from './common/nav/nav.component';
 import { TestBed, async } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
+import { RouterOutlet } from '@angular/router';
 
 import { AppComponent } from './app.component';
 
@@ -6,8 +15,18 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        NavComponent,
+        ExerciseComponent,
+        ExerciseListComponent
       ],
+      imports: [
+        RouterTestingModule,
+        NgbModule.forRoot()
+      ],
+      providers: [
+        { provide: ExerciseService, useClass: ExerciseServiceTests }
+      ]
     }).compileComponents();
   }));
 
@@ -17,16 +36,15 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it(`should have as title 'app works!'`, async(() => {
+  it('should contain NavComponent', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('app works!');
+    const navbar = fixture.debugElement.query(By.directive(NavComponent));
+    expect(navbar).toBeTruthy();
   }));
 
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('app works!');
-  }));
+  it('should have router-outlet component', () => {
+    let fixture = TestBed.createComponent(AppComponent);
+    let routerOutlet = fixture.debugElement.query(By.directive(RouterOutlet));
+    expect(routerOutlet).toBeTruthy();
+  });
 });
