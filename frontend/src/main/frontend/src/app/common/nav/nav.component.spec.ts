@@ -25,7 +25,10 @@ describe('NavComponent', () => {
   });
 
   it('should have navbar title "Navigation"', () => {
-    expect(component.title).toEqual('Navigation');
+    const navTitle = 'Navigation';
+    expect(component.title).toEqual(navTitle);
+    let navbarTitle = fixture.debugElement.query(By.css('nav div.container div span.navbar-brand'));
+    expect(navbarTitle.nativeElement.innerText).toEqual(navTitle);
   });
 
   it('should have list of navigation', () => {
