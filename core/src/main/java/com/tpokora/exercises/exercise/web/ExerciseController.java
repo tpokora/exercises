@@ -3,7 +3,6 @@ package com.tpokora.exercises.exercise.web;
 import com.tpokora.exercises.common.ConfigsString;
 import com.tpokora.exercises.common.service.GenericService;
 import com.tpokora.exercises.exercise.model.Exercise;
-import com.tpokora.exercises.exercise.service.ExerciseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -21,7 +20,7 @@ import java.util.List;
  */
 @Api(value = "exercise", description = "Exercise API")
 @RestController
-@RequestMapping("/rest/exercise")
+@RequestMapping(ConfigsString.EXERCISES_API_URL)
 public class ExerciseController {
 
     private final static Logger logger = LoggerFactory.getLogger(ExerciseController.class);

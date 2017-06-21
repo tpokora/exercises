@@ -1,8 +1,6 @@
 package com.tpokora.exercises.config;
 
 import com.tpokora.exercises.common.service.GenericService;
-import com.tpokora.exercises.exercise.model.Exercise;
-import com.tpokora.exercises.exercise.service.ExerciseService;
 import com.tpokora.exercises.exercise.service.ExerciseServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

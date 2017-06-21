@@ -15,10 +15,4 @@ public class TestUtils {
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         return mapper.writeValueAsBytes(object);
     }
-
-    public static String restApiLink(String module) {
-
-        return "/rest/" + module + "/";
-    }
-
 }

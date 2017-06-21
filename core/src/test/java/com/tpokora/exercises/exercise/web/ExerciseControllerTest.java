@@ -1,11 +1,11 @@
 package com.tpokora.exercises.exercise.web;
 
+import com.tpokora.exercises.common.ConfigsString;
 import com.tpokora.exercises.common.service.GenericService;
 import com.tpokora.exercises.common.utils.Generator;
 import com.tpokora.exercises.common.utils.TestUtils;
 import com.tpokora.exercises.common.web.BaseControllerTest;
 import com.tpokora.exercises.exercise.model.Exercise;
-import com.tpokora.exercises.exercise.service.ExerciseService;
 import com.tpokora.exercises.exercise.utils.ExerciseGenerator;
 import org.junit.After;
 import org.junit.Before;
@@ -66,7 +66,7 @@ public class ExerciseControllerTest extends BaseControllerTest {
         exercise.setId(id);
         when(exerciseService.getById(exercise.getId())).thenReturn(exercise);
 
-        mockMvc.perform(get(TestUtils.restApiLink("exercise") + exercise.getId()))
+        mockMvc.perform(get(ConfigsString.EXERCISES_API_URL + "/" +exercise.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(exercise.getId())))
                 .andExpect(jsonPath("$.name", is(exercise.getName())))
@@ -78,7 +78,7 @@ public class ExerciseControllerTest extends BaseControllerTest {
         List<Exercise> exerciseList = ((ExerciseGenerator) exerciseGenerator).generateExerciseList(3);
         when(exerciseService.getAll()).thenReturn(exerciseList);
 
-        mockMvc.perform(get(TestUtils.restApiLink("exercise")))
+        mockMvc.perform(get(ConfigsString.EXERCISES_API_URL ))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray());
     }
@@ -89,7 +89,7 @@ public class ExerciseControllerTest extends BaseControllerTest {
     public void createNewExercise_success() throws Exception {
         Exercise exercise = new Exercise("ExerciseControllerTest", "ExerciseControllerTestDescription");
 
-        mockMvc.perform(post(TestUtils.restApiLink("exercise"))
+        mockMvc.perform(post(ConfigsString.EXERCISES_API_URL)
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(exercise)))
                 .andExpect(status().isCreated());
@@ -103,17 +103,17 @@ public class ExerciseControllerTest extends BaseControllerTest {
         exercise.setId(1);
         when(exerciseService.getById(exercise.getId())).thenReturn(exercise);
 
-        mockMvc.perform(get(TestUtils.restApiLink("exercise") + exercise.getId()))
+        mockMvc.perform(get(ConfigsString.EXERCISES_API_URL + "/" + exercise.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(exercise.getId())))
                 .andExpect(jsonPath("$.name", is(exercise.getName())))
                 .andExpect(jsonPath("$.description", is(exercise.getDescription())));
 
-        mockMvc.perform(delete(TestUtils.restApiLink("exercise") + exercise.getId()))
+        mockMvc.perform(delete(ConfigsString.EXERCISES_API_URL + "/" + exercise.getId()))
                 .andExpect(status().isNoContent());
 
         when(exerciseService.getById(exercise.getId())).thenReturn(null);
-        mockMvc.perform(get(TestUtils.restApiLink("exercise") + exercise.getId()))
+        mockMvc.perform(get(ConfigsString.EXERCISES_API_URL + "/" + exercise.getId()))
                 .andExpect(status().isNotFound());
     }
 
