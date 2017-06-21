@@ -1,6 +1,7 @@
 package com.tpokora.exercises.exercise.web;
 
 import com.tpokora.exercises.common.ConfigsString;
+import com.tpokora.exercises.common.service.GenericService;
 import com.tpokora.exercises.exercise.model.Exercise;
 import com.tpokora.exercises.exercise.service.ExerciseService;
 import io.swagger.annotations.Api;
@@ -26,13 +27,13 @@ public class ExerciseController {
     private final static Logger logger = LoggerFactory.getLogger(ExerciseController.class);
 
     @Autowired
-    private ExerciseService exerciseService;
+    private GenericService<Exercise> exerciseService;
 
     @ApiOperation(value = "Get exercise", notes = "Return exercise by ID")
     @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = ConfigsString.HEADERS_APPLICATION_JSON)
     public ResponseEntity<Exercise> getExercise(@PathVariable("id") int id) {
-        Exercise exercise = exerciseService.getExercise(id);
+        Exercise exercise = exerciseService.getById(id);
 
         if (exercise == null) {
             return new ResponseEntity<Exercise>(HttpStatus.NOT_FOUND);
@@ -45,7 +46,7 @@ public class ExerciseController {
     @CrossOrigin
     @RequestMapping(method = RequestMethod.GET, headers = ConfigsString.HEADERS_APPLICATION_JSON)
     public ResponseEntity<List<Exercise>> getAllExercises() {
-        List<Exercise> exercises = exerciseService.getExercises();
+        List<Exercise> exercises = exerciseService.getAll();
 
         if (exercises == null || exercises.isEmpty()) {
             return new ResponseEntity<List<Exercise>>(HttpStatus.NOT_FOUND);
@@ -61,7 +62,7 @@ public class ExerciseController {
         Exercise newExercise = null;
 
         try {
-            newExercise = exerciseService.createOrUpdateExercise(exercise);
+            newExercise = exerciseService.createOrUpdate(exercise);
         } catch (ConstraintViolationException e) {
             return new ResponseEntity<Exercise>(HttpStatus.UNPROCESSABLE_ENTITY);
         }
@@ -73,7 +74,7 @@ public class ExerciseController {
     @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, headers = ConfigsString.HEADERS_APPLICATION_JSON)
     public ResponseEntity<Exercise> deleteExercise(@PathVariable("id") int id) throws Exception {
-        exerciseService.deleteExercise(id);
+        exerciseService.delete(id);
         return new ResponseEntity<Exercise>(HttpStatus.NO_CONTENT);
     }
 

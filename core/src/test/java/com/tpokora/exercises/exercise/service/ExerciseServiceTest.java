@@ -1,5 +1,6 @@
 package com.tpokora.exercises.exercise.service;
 
+import com.tpokora.exercises.common.service.GenericService;
 import com.tpokora.exercises.common.utils.Generator;
 import com.tpokora.exercises.common.service.BaseServiceTest;
 import com.tpokora.exercises.exercise.model.Exercise;
@@ -22,7 +23,7 @@ public class ExerciseServiceTest extends BaseServiceTest {
     private Generator generator;
 
     @Autowired
-    private ExerciseService exerciseService;
+    private GenericService<Exercise> exerciseService;
 
     private Exercise exercise;
     private List<Exercise> exerciseList;
@@ -38,9 +39,9 @@ public class ExerciseServiceTest extends BaseServiceTest {
     @Transactional
     @Rollback(true)
     public void test_getExerciseById() {
-        exercise = exerciseService.createOrUpdateExercise(exercise);
+        exercise = exerciseService.createOrUpdate(exercise);
 
-        Assert.assertTrue("Exercise id should equal: " + exercise.getId(), exerciseService.getExercise(exercise.getId()).getId() == exercise.getId());
+        Assert.assertTrue("Exercise id should equal: " + exercise.getId(), exerciseService.getById(exercise.getId()).getId() == exercise.getId());
     }
 
     @Test
@@ -48,9 +49,9 @@ public class ExerciseServiceTest extends BaseServiceTest {
     @Rollback(true)
     public void test_getExercises_isEmpty_false() {
         for (int i = 0; i < exerciseList.size(); i++) {
-            exerciseList.set(i, exerciseService.createOrUpdateExercise(exerciseList.get(i)));
+            exerciseList.set(i, exerciseService.createOrUpdate(exerciseList.get(i)));
         }
-        Assert.assertTrue("Should not be empty", !exerciseService.getExercises().isEmpty());
+        Assert.assertTrue("Should not be empty", !exerciseService.getAll().isEmpty());
     }
 
     @Test
@@ -58,7 +59,7 @@ public class ExerciseServiceTest extends BaseServiceTest {
     @Rollback(true)
     public void createOrUpdateExercise_newExercise_success() {
         exercise = new Exercise("TestNewExerciseCreate", "TestNewExerciseDesc");
-        Exercise newExercise = exerciseService.createOrUpdateExercise(exercise);
+        Exercise newExercise = exerciseService.createOrUpdate(exercise);
 
         Assert.assertTrue(newExercise.getName().equals(exercise.getName()));
         Assert.assertTrue(newExercise.getDescription().equals(exercise.getDescription()));
@@ -69,12 +70,12 @@ public class ExerciseServiceTest extends BaseServiceTest {
     @Rollback(true)
     public void deleteExerciseById_success() {
         exercise = new Exercise("TextExerciseToDelete", "TextExerciseToDeleteDesc");
-        exercise = exerciseService.createOrUpdateExercise(exercise);
+        exercise = exerciseService.createOrUpdate(exercise);
 
-        Assert.assertTrue(exerciseService.getExercise(exercise.getId()).getName() == exercise.getName());
+        Assert.assertTrue(exerciseService.getById(exercise.getId()).getName() == exercise.getName());
 
-        exerciseService.deleteExercise(exercise.getId());
-        Assert.assertTrue(exerciseService.getExercise(exercise.getId()) == null);
+        exerciseService.delete(exercise.getId());
+        Assert.assertTrue(exerciseService.getById(exercise.getId()) == null);
     }
 
 

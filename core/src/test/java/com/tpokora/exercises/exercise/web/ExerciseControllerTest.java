@@ -1,5 +1,6 @@
 package com.tpokora.exercises.exercise.web;
 
+import com.tpokora.exercises.common.service.GenericService;
 import com.tpokora.exercises.common.utils.Generator;
 import com.tpokora.exercises.common.utils.TestUtils;
 import com.tpokora.exercises.common.web.BaseControllerTest;
@@ -36,7 +37,7 @@ public class ExerciseControllerTest extends BaseControllerTest {
     private static final Logger logger = LoggerFactory.getLogger(ExerciseControllerTest.class);
 
     @Mock
-    private ExerciseService exerciseService;
+    private GenericService<Exercise> exerciseService;
 
     @InjectMocks
     private ExerciseController exerciseController;
@@ -63,7 +64,7 @@ public class ExerciseControllerTest extends BaseControllerTest {
         int id = 1;
         Exercise exercise = (Exercise) exerciseGenerator.generate(id);
         exercise.setId(id);
-        when(exerciseService.getExercise(exercise.getId())).thenReturn(exercise);
+        when(exerciseService.getById(exercise.getId())).thenReturn(exercise);
 
         mockMvc.perform(get(TestUtils.restApiLink("exercise") + exercise.getId()))
                 .andExpect(status().isOk())
@@ -75,7 +76,7 @@ public class ExerciseControllerTest extends BaseControllerTest {
     @Test
     public void test_getExercise_success() throws Exception {
         List<Exercise> exerciseList = ((ExerciseGenerator) exerciseGenerator).generateExerciseList(3);
-        when(exerciseService.getExercises()).thenReturn(exerciseList);
+        when(exerciseService.getAll()).thenReturn(exerciseList);
 
         mockMvc.perform(get(TestUtils.restApiLink("exercise")))
                 .andExpect(status().isOk())
@@ -100,7 +101,7 @@ public class ExerciseControllerTest extends BaseControllerTest {
     public void removeExercise_success() throws Exception {
         Exercise exercise = new Exercise("ExerciseControllerDeleteTest", "ExerciseControllerDeleteTestDescription");
         exercise.setId(1);
-        when(exerciseService.getExercise(exercise.getId())).thenReturn(exercise);
+        when(exerciseService.getById(exercise.getId())).thenReturn(exercise);
 
         mockMvc.perform(get(TestUtils.restApiLink("exercise") + exercise.getId()))
                 .andExpect(status().isOk())
@@ -111,7 +112,7 @@ public class ExerciseControllerTest extends BaseControllerTest {
         mockMvc.perform(delete(TestUtils.restApiLink("exercise") + exercise.getId()))
                 .andExpect(status().isNoContent());
 
-        when(exerciseService.getExercise(exercise.getId())).thenReturn(null);
+        when(exerciseService.getById(exercise.getId())).thenReturn(null);
         mockMvc.perform(get(TestUtils.restApiLink("exercise") + exercise.getId()))
                 .andExpect(status().isNotFound());
     }
