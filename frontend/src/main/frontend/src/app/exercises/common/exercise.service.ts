@@ -7,7 +7,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class ExerciseService {
 
-    private url = Utils.getRestApiUrl('exercise');
+    private url = Utils.getRestApiUrl('exercises');
     private headers = Utils.headers_json();
 
     constructor(private http: Http) { }
