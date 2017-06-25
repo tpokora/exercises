@@ -2,11 +2,16 @@
     No exercises!
 </div>
 <div *ngIf="hasExercises()">
-    <h1 class="uppercase">Exercises list:</h1>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="uppercase">Exercises list:</h1>
+            <button class="btn btn-secondary float-right" [routerLink]="['/exercise-add']">Add Exercise</button>
+        </div>
+    </div>
     <hr/>
     <div *ngFor="let exercise of exercises; let i=index" class="exercise-element">
         <strong class="exercise-name uppercase">
-            <a routerLink="/exercise/{{ exercise.id }}" routerLinkActive>{{ exercise.name }}</a>
+            <a [routerLink]="['/exercise', exercise.id]">{{ exercise.name }}</a>
         </strong>
         <div class="exercise-desc">
             <span>{{ exercise.description }}</span>
