@@ -1,5 +1,5 @@
 <div class="alert alert-info" *ngIf="!hasExercises()">
-    No exercises!
+    No exercises! <a [routerLink]="['/exercise-add']">Add exercise</a>
 </div>
 <div *ngIf="hasExercises()">
     <div class="row">
