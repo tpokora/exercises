@@ -1,3 +1,6 @@
+import { HttpModule } from '@angular/http';
+import { Router } from '@angular/router';
+import { RouterStub, ActivateRouteStub, RouterLinkStub } from './../routes/routing.spec';
 import { By } from '@angular/platform-browser';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -6,10 +9,19 @@ import { NavComponent } from './nav.component';
 describe('NavComponent', () => {
   let component: NavComponent;
   let fixture: ComponentFixture<NavComponent>;
+  let routerStub: RouterStub;
+  let activatedRoute: ActivateRouteStub;
 
   beforeEach(async(() => {
+    activatedRoute = new ActivateRouteStub();
     TestBed.configureTestingModule({
-      declarations: [NavComponent]
+      declarations: [
+        NavComponent,
+        RouterLinkStub
+      ],
+      providers: [
+        { provide: Router, useClass: RouterStub }
+      ]
     })
       .compileComponents();
   }));
@@ -33,7 +45,7 @@ describe('NavComponent', () => {
 
   it('should have list of navigation', () => {
     const navbarList = fixture.debugElement.queryAll(By.css('nav ul li a'));
-    expect(navbarList[0].nativeElement.text).toEqual('Home');
-    expect(navbarList[1].nativeElement.text).toEqual('Exercises');
+    expect(navbarList[0].nativeElement.text).toEqual('>> Home');
+    expect(navbarList[1].nativeElement.text).toEqual('>> Exercises');
   });
 });
