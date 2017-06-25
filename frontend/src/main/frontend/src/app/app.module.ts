@@ -14,6 +14,7 @@ import { NavComponent } from './common/nav/nav.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ExerciseListComponent } from './exercises/exercise-list/exercise-list.component';
+import { ExerciseAddComponent } from './exercises/exercise-add/exercise-add.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ExerciseListComponent } from './exercises/exercise-list/exercise-list.c
     HomeComponent,
     ExerciseComponent,
     NavComponent,
-    ExerciseListComponent
+    ExerciseListComponent,
+    ExerciseAddComponent
   ],
   imports: [
     BrowserModule,
