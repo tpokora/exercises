@@ -28,7 +28,7 @@ export class ExerciseService {
 
     getExercise(exerciseId: number): Promise<Exercise> {
         let url = `${this.url}/${exerciseId}`;
-        return this.http.get(this.url)
+        return this.http.get(url)
             .toPromise()
             .then(response => response.json() as Exercise)
             .catch(this.handleError);
