@@ -10,23 +10,20 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class ExerciseComponent implements OnInit {
 
-  private exerciseId;
-  private exercise: Exercise;
+  exercise: Exercise;
 
   constructor(private exerciseService: ExerciseService, private route: ActivatedRoute) {
     this.exercise = new Exercise();
   }
 
   ngOnInit() {
-    this.getExerciseId();
     this.getExercise();
   }
 
-  getExerciseId() {
-    this.route.params.subscribe(param => this.exerciseId = param['exercise_id']);
-  }
-
   getExercise() {
+    this.route.params.subscribe(param => {
+      this.exerciseService.getExercise(param['exercise_id']).then(exercise => this.exercise = exercise);
+    });
   }
 
 }

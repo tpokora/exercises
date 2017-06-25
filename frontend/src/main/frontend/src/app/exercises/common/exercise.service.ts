@@ -26,6 +26,14 @@ export class ExerciseService {
             .catch(this.handleError);
     }
 
+    getExercise(exerciseId: number): Promise<Exercise> {
+        let url = `${this.url}/${exerciseId}`;
+        return this.http.get(this.url)
+            .toPromise()
+            .then(response => response.json() as Exercise)
+            .catch(this.handleError);
+    }
+
     private handleError(error: any): Promise<any> {
         console.error('An error occured', error);
         return Promise.reject(error.message || error);

@@ -14,5 +14,9 @@ export class ExerciseServiceTests {
         return Promise.resolve(EXERCISES);
     }
 
+    getExercise(id: number): Promise<Exercise> {
+        return Promise.resolve(EXERCISES.find(exercise => exercise.id === id));
+    }
+
 }
 
