@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ExerciseServiceTests } from './../common/exercise.testing';
 import { ExerciseService } from './../common/exercise.service';
@@ -12,7 +13,9 @@ describe('ExerciseAddComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ExerciseAddComponent],
-      imports: [RouterTestingModule],
+      imports: [
+        RouterTestingModule,
+        FormsModule],
       providers: [
         {
           provide: ExerciseService, useClass: ExerciseServiceTests
