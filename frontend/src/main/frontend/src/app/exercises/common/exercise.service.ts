@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Exercise } from './exercise.model';
-import { Http } from '@angular/http/';
+import { Http, Headers } from '@angular/http/';
 import { Utils } from './../../common/utils';
 import 'rxjs/add/operator/toPromise';
 
@@ -16,6 +16,13 @@ export class ExerciseService {
         return this.http.get(this.url)
             .toPromise()
             .then(response => response.json() as Exercise[])
+            .catch(this.handleError);
+    }
+
+    createExercise(exercise: Exercise): Promise<Exercise> {
+        return this.http.post(this.url, JSON.stringify(exercise), { headers: this.headers })
+            .toPromise()
+            .then(response => response.json() as Exercise)
             .catch(this.handleError);
     }
 
