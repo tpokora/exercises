@@ -1,0 +1,1 @@
+web java -Dserver.port=$PORT -Denv=app -jar core/target/exercises.jar
