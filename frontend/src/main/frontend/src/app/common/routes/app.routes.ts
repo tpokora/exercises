@@ -1,3 +1,4 @@
+import { WorkoutCreateComponent } from './../../workout/workout-create/workout-create.component';
 import { WorkoutListComponent } from './../../workout/workout-list/workout-list.component';
 import { ExerciseAddComponent } from './../../exercises/exercise-add/exercise-add.component';
 import { NgModule } from '@angular/core';
@@ -12,7 +13,8 @@ export const appRoutes: Routes = [
     { path: 'exercise-list', component: ExerciseListComponent },
     { path: 'exercise/:exercise_id', component: ExerciseComponent },
     { path: 'exercise-add', component: ExerciseAddComponent },
-    { path: 'workout-list', component: WorkoutListComponent }
+    { path: 'workout-list', component: WorkoutListComponent },
+    { path: 'workout-create', component: WorkoutCreateComponent }
 ];
 
 @NgModule({

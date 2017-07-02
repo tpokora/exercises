@@ -16,6 +16,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ExerciseListComponent } from './exercises/exercise-list/exercise-list.component';
 import { ExerciseAddComponent } from './exercises/exercise-add/exercise-add.component';
 import { WorkoutListComponent } from './workout/workout-list/workout-list.component';
+import { WorkoutCreateComponent } from './workout/workout-create/workout-create.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { WorkoutListComponent } from './workout/workout-list/workout-list.compon
     NavComponent,
     ExerciseListComponent,
     ExerciseAddComponent,
-    WorkoutListComponent
+    WorkoutListComponent,
+    WorkoutCreateComponent
   ],
   imports: [
     BrowserModule,
