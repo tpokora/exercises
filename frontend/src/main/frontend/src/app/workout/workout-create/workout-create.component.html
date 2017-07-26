@@ -12,9 +12,13 @@
                 <textarea name="description" [(ngModel)]="workout.description" #description="ngModel" class="form-control" id="workoutDescription" rows="3"></textarea>
             </div>
             <div *ngFor="let day of workout.days; let i = index" class="form-group">
-                <h5>Day {{ i }}</h5>
+                <h5>Day {{ i + 1 }}</h5>
+                <input type="text" name="day{{i}}" [(ngModel)]="workout.days[i].name" #day{{i}}="ngModel" class="form-control" />
             </div>
             <button id="addWorkoutBtn" type="button" class="btn btn-link" (click)="addDay()">Add day</button>
         </form>
     </div>
+</div>
+<div>
+    Workout: {{ workout | json }}
 </div>
