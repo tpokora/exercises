@@ -15,7 +15,8 @@ describe('ExerciseAddComponent', () => {
       declarations: [ExerciseAddComponent],
       imports: [
         RouterTestingModule,
-        FormsModule],
+        FormsModule
+      ],
       providers: [
         {
           provide: ExerciseService, useClass: ExerciseServiceTests
