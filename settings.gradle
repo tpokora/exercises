@@ -1,0 +1,6 @@
+rootProject.name = 'exercises-parent'
+include ':exercises-core'
+include ':exercises-frontend'
+
+project(':exercises-core').projectDir = "$rootDir/core" as File
+project(':exercises-frontend').projectDir = "$rootDir/frontend" as File

@@ -1,0 +1,24 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.5.RELEASE")
+    }
+}
+
+apply plugin: 'org.springframework.boot'
+
+description = 'exercises'
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.5.3.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:'1.5.3.RELEASE'
+    compile group: 'mysql', name: 'mysql-connector-java', version:'5.1.41'
+    compile group: 'org.postgresql', name: 'postgresql', version:'9.4-1203-jdbc42'
+  compile project(':exercises-frontend')
+    compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.6.1'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.6.1'
+    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.5.3.RELEASE') {
+exclude(module: 'commons-logging')
+    }
+}
