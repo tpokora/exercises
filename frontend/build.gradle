@@ -1,2 +1,54 @@
+plugins {
+  id "com.moowork.node" version "1.2.0"
+}
+
+def generatedWebResources = "${rootDir}/frontend/target/frontend"
+
+sourceSets {
+	main {
+		output.dir(generatedWebResources, builtBy: 'npm_run_build')
+	}
+}
+
+node {
+  version = '6.10.1'
+  npmVersion = '4.4.1'
+  download = true
+  workDir = file("${project.projectDir}/node")
+  nodeModulesDir = file("${project.projectDir}/node_modules")
+
+}
+
+// clean node/node_modules/dist
+task npmClean(type: Delete) {
+  final def webDir = "${rootDir}/frontend"
+  println 'project.projectDir: ' + project.projectDir
+  delete "${webDir}/node"
+  delete "${webDir}/node_modules"
+  delete "${webDir}/dist"
+  delete "${webDir}/coverage"
+  delete "${webDir}/.gradle/npm"
+}
+
+// clean task for npm
+//task clean {}
+clean.dependsOn(npmClean)
+
+// build task for npm
+//task build {}
+build.dependsOn(npm_install)
+build.dependsOn(npm_run_build)
+
+// assemble task for npm
+//task assemble {}
+//assemble.dependsOn(build)
+
+// check task for npm
+//task check {}
+//check.dependsOn(npm_run_test)
+
+// run all task
+task runAll{}
+runAll.dependsOn(npm_run_start)
 
 description = 'frontend'

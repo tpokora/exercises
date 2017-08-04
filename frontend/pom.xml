@@ -30,7 +30,7 @@
 				<configuration>
 					<nodeVersion>v6.10.1</nodeVersion>
 					<npmVersion>4.4.1</npmVersion>
-					<workingDirectory>src/main/frontend</workingDirectory>
+					<workingDirectory>${project.basedir}</workingDirectory>
 				</configuration>
 
 				<executions>
@@ -66,7 +66,6 @@
 		<resources>
 			<resource>
 				<directory>target/frontend</directory>
-				<targetPath>static</targetPath>
 			</resource>
 		</resources>
 	</build>
