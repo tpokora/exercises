@@ -1,6 +1,13 @@
+import { Observable } from 'rxjs/Observable';
+import { ExerciseSet } from './../common/exerciseSet.model';
+import { ExerciseService } from './../../exercises/common/exercise.service';
+import { Exercise } from './../../exercises/common/exercise.model';
 import { Day } from './../common/day.model';
 import { Workout } from './../common/workout.model';
 import { Component, OnInit } from '@angular/core';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-workout-create',
@@ -10,9 +17,16 @@ import { Component, OnInit } from '@angular/core';
 export class WorkoutCreateComponent implements OnInit {
 
   workout: Workout;
+  exercises: Exercise[];
+  exercise: Exercise;
 
-  constructor() {
+  sets: number;
+  reps: number;
+
+  constructor(private exerciseService: ExerciseService) {
     this.initializeWorkout();
+    this.exerciseService.getExercises()
+      .then(exercises => this.exercises = exercises);
   }
 
   ngOnInit() {
@@ -23,6 +37,23 @@ export class WorkoutCreateComponent implements OnInit {
       let newDay = new Day();
       this.workout.days.push(newDay);
     }
+  }
+
+  searchExercise = (text$: Observable<string>) =>
+    text$
+      .debounceTime(100)
+      .distinctUntilChanged()
+      .switchMap(term => term.length > 3 ? this.exerciseService.getExercisesByName(term) : []);
+
+  addExerciseSet(dayIndex: number) {
+    this.workout.days[dayIndex].addExerciseSet(this.exercise, this.sets, this.reps);
+    this.exercise = new Exercise();
+    this.sets = 0;
+    this.reps = 0;
+  }
+
+  exerciseFormatter(exercise: Exercise): string {
+    return exercise.name ? exercise.name : '';
   }
 
   initializeWorkout() {
