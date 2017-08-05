@@ -49,6 +49,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>springloaded</artifactId>
+			<version>1.2.7.RELEASE</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.tpokora</groupId>
 			<artifactId>exercises-frontend</artifactId>
 			<version>${project.version}</version>
