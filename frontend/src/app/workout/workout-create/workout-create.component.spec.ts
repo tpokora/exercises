@@ -1,4 +1,6 @@
-import { ExerciseServiceTests } from './../../exercises/common/exercise.testing';
+import { Exercise } from './../../exercises/common/exercise.model';
+import { Workout } from './../common/workout.model';
+import { ExerciseServiceTests, EXERCISES } from './../../exercises/common/exercise.testing';
 import { ExerciseService } from './../../exercises/common/exercise.service';
 import { WORKOUT } from './../common/workout.testing';
 import { FormsModule } from '@angular/forms';
@@ -49,8 +51,20 @@ describe('WorkoutCreateComponent', () => {
     component.workout = WORKOUT;
     fixture.nativeElement.querySelector('#addWorkoutBtn').click();
     expect(component.workout.days[0].exerciseSets.length).toEqual(0);
+    fixture.detectChanges();
+
+    const exercise = EXERCISES[0];
+    const sets = 4;
+    const reps = 10;
+    component.exercise = exercise;
+    component.sets = sets;
+    component.reps = reps;
     fixture.nativeElement.querySelector('#addExerciseSetBtn').click();
-    //expect(component.workout.days[0].exerciseSets.length).toEqual(1);
+    const workout = component.workout;
+    expect(workout.days[0].exerciseSets.length).toEqual(1);
+    expect(workout.days[0].exerciseSets[0].exercise.name).toEqual(exercise.name);
+    expect(workout.days[0].exerciseSets[0].sets).toEqual(sets);
+    expect(workout.days[0].exerciseSets[0].reps).toEqual(reps);
   });
 
 });
