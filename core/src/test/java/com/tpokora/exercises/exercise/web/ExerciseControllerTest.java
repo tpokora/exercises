@@ -42,7 +42,7 @@ public class ExerciseControllerTest extends BaseControllerTest {
     @InjectMocks
     private ExerciseController exerciseController;
 
-    private Generator exerciseGenerator;
+    private Generator<Exercise> exerciseGenerator;
 
     @Before
     public void setup() throws Exception {
@@ -62,7 +62,7 @@ public class ExerciseControllerTest extends BaseControllerTest {
     @Test
     public void test_getExerciseById_1_success() throws Exception {
         int id = 1;
-        Exercise exercise = (Exercise) exerciseGenerator.generate(id);
+        Exercise exercise = exerciseGenerator.generate(id);
         exercise.setId(id);
         when(exerciseService.getById(exercise.getId())).thenReturn(exercise);
 
@@ -75,7 +75,7 @@ public class ExerciseControllerTest extends BaseControllerTest {
 
     @Test
     public void test_getExercise_success() throws Exception {
-        List<Exercise> exerciseList = ((ExerciseGenerator) exerciseGenerator).generateExerciseList(3);
+        List<Exercise> exerciseList = exerciseGenerator.generateList(3);
         when(exerciseService.getAll()).thenReturn(exerciseList);
 
         mockMvc.perform(get(ConfigsString.EXERCISES_API_URL ))
