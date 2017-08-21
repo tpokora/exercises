@@ -33,6 +33,11 @@ public class Workout extends AbstractEntity{
 
     public Workout() {}
 
+    public Workout(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public String getName() {
         return name;
     }
