@@ -1,15 +1,14 @@
 package com.tpokora.exercises.workout.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tpokora.exercises.common.AbstractEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @ApiModel(value = "Workout", description = "Workout Model")
 @Entity
@@ -23,9 +22,14 @@ public class Workout extends AbstractEntity{
     @ApiModelProperty(name = "Workout description")
     @Column(name = "DESCRIPTION")
     @Lob
-    @Size(min = 0, max = 9000)
+    @Size(max = 9000)
     @Type(type = "org.hibernate.type.TextType")
     private String description;
+
+    @ApiModelProperty(name = "Sets of exercises")
+    @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<ExerciseSet> exerciseSets;
 
     public Workout() {}
 
@@ -43,5 +47,13 @@ public class Workout extends AbstractEntity{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<ExerciseSet> getExerciseSets() {
+        return exerciseSets;
+    }
+
+    public void setExerciseSets(List<ExerciseSet> exerciseSets) {
+        this.exerciseSets = exerciseSets;
     }
 }
