@@ -9,23 +9,23 @@ import java.util.List;
 /**
  * Created by pokor on 13.06.2017.
  */
-public class ExerciseGenerator implements Generator {
+public class ExerciseGenerator implements Generator<Exercise> {
 
     @Override
-    public Object generate() {
+    public Exercise generate() {
         return new Exercise("ExerciseName", "ExerciseDescription");
     }
 
     @Override
-    public Object generate(int id) {
+    public Exercise generate(int id) {
         return new Exercise("Exercise" + id, "Exercise" + id + " description");
     }
 
-    public List<Exercise> generateExerciseList(int size) {
+    public List<Exercise> generateList(int size) {
         List<Exercise> exerciseList = new ArrayList<>();
 
         for (int i = 0; i < size; i++) {
-            exerciseList.add((Exercise) generate(i));
+            exerciseList.add(generate(i));
         }
 
         return exerciseList;
