@@ -25,8 +25,6 @@ export class WorkoutCreateComponent implements OnInit {
 
   constructor(private exerciseService: ExerciseService) {
     this.initializeWorkout();
-    this.exerciseService.getExercises()
-      .then(exercises => this.exercises = exercises);
   }
 
   ngOnInit() {

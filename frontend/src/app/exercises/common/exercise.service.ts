@@ -36,7 +36,7 @@ export class ExerciseService {
 
     getExercisesByName(name: string): Promise<Exercise[]> {
         let url = `${this.url}/find-by-name?name=${name}`;
-        return this.http.get(this.url)
+        return this.http.get(url)
             .toPromise()
             .then(response => response.json() as Exercise[])
             .catch(this.handleError);
