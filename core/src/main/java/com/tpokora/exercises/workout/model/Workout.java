@@ -26,10 +26,10 @@ public class Workout extends AbstractEntity{
     @Type(type = "org.hibernate.type.TextType")
     private String description;
 
-    @ApiModelProperty(name = "Sets of exercises")
+    @ApiModelProperty(name = "Days of workout")
     @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL)
     @JsonBackReference
-    private List<ExerciseSet> exerciseSets;
+    private List<Day> days;
 
     public Workout() {}
 
@@ -54,11 +54,11 @@ public class Workout extends AbstractEntity{
         this.description = description;
     }
 
-    public List<ExerciseSet> getExerciseSets() {
-        return exerciseSets;
+    public List<Day> getDays() {
+        return days;
     }
 
-    public void setExerciseSets(List<ExerciseSet> exerciseSets) {
-        this.exerciseSets = exerciseSets;
+    public void setDays(List<Day> days) {
+        this.days = days;
     }
 }

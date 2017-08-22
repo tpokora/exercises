@@ -25,10 +25,15 @@ public class ExerciseSet extends AbstractEntity {
     @Column(name = "REPS")
     private Integer reps;
 
-    @ApiModelProperty(name = "Workout reference")
-    @JoinColumn(name = "WORKOUT_ID", referencedColumnName = "ID")
+    @ApiModelProperty(name = "Workout day reference", required = true)
+    @JoinColumn(name = "DAY_ID", referencedColumnName = "ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Workout workout;
+    private Day day;
+
+//    @ApiModelProperty(name = "Workout reference")
+//    @JoinColumn(name = "WORKOUT_ID", referencedColumnName = "ID")
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private Workout workout;
 
     public ExerciseSet() {}
 
@@ -56,11 +61,11 @@ public class ExerciseSet extends AbstractEntity {
         this.reps = reps;
     }
 
-    public Workout getWorkout() {
-        return workout;
-    }
-
-    public void setWorkout(Workout workout) {
-        this.workout = workout;
-    }
+//    public Workout getWorkout() {
+//        return workout;
+//    }
+//
+//    public void setWorkout(Workout workout) {
+//        this.workout = workout;
+//    }
 }
