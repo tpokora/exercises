@@ -10,12 +10,23 @@ import java.util.List;
 
 @ApiModel(value = "Day of workout")
 @Entity
-@Table(name = "DAY")
+@Table(
+        name = "DAY",
+        uniqueConstraints = {
+            @UniqueConstraint(
+                    columnNames = { "INDEX", "WORKOUT_ID" },
+                    name = "uk_index_workoutid")
+        }
+)
 public class Day extends AbstractEntity {
 
-    @ApiModelProperty(name = "Workout day")
+    @ApiModelProperty(name = "Workout day name")
     @Column(name = "NAME")
     private String name;
+
+    @ApiModelProperty(name = "Day index")
+    @Column(name = "INDEX")
+    private Integer index;
 
     @ApiModelProperty(name = "Workout reference")
     @JoinColumn(name = "WORKOUT_ID", referencedColumnName = "ID")
@@ -43,6 +54,14 @@ public class Day extends AbstractEntity {
 
     public void setWorkout(Workout workout) {
         this.workout = workout;
+    }
+
+    public Integer getIndex() {
+        return index;
+    }
+
+    public void setIndex(Integer index) {
+        this.index = index;
     }
 
     public List<ExerciseSet> getExerciseSets() {

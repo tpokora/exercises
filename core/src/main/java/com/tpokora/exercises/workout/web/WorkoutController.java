@@ -52,4 +52,17 @@ public class WorkoutController {
 
         return new ResponseEntity<Workout>(newWorkout, HttpStatus.CREATED);
     }
+
+    @ApiOperation(value = "Get workout by ID", notes = "Get workout by ID")
+    @CrossOrigin
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = ConfigsString.HEADERS_APPLICATION_JSON)
+    public ResponseEntity<Workout> getWorkoutById(@PathVariable("id") Integer id) {
+        Workout workout = workoutService.getById(id);
+
+        if (workout == null) {
+            return new ResponseEntity<Workout>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<Workout>(workout, HttpStatus.OK);
+    }
 }
