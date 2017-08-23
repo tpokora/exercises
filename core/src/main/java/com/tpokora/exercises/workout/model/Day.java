@@ -40,6 +40,13 @@ public class Day extends AbstractEntity {
 
     public Day() {}
 
+    public Day(String name, Integer index, Workout workout, List<ExerciseSet> exerciseSets) {
+        this.name = name;
+        this.index = index;
+        this.workout = workout;
+        this.exerciseSets = exerciseSets;
+    }
+
     public String getName() {
         return name;
     }
