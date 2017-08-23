@@ -28,7 +28,6 @@ public class Workout extends AbstractEntity{
 
     @ApiModelProperty(name = "Days of workout")
     @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL)
-    @JsonBackReference
     private List<Day> days;
 
     public Workout() {}

@@ -31,6 +31,7 @@ public class Day extends AbstractEntity {
     @ApiModelProperty(name = "Workout reference")
     @JoinColumn(name = "WORKOUT_ID", referencedColumnName = "ID")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private Workout workout;
 
     @ApiModelProperty(name = "Sets of exercises")
