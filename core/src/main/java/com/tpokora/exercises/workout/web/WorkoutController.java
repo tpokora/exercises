@@ -65,4 +65,10 @@ public class WorkoutController {
 
         return new ResponseEntity<Workout>(workout, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, headers = ConfigsString.HEADERS_APPLICATION_JSON)
+    public ResponseEntity<Workout> deleteWorkout(@PathVariable("id") Integer id) throws Exception {
+        workoutService.delete(id);
+        return new ResponseEntity<Workout>(HttpStatus.NO_CONTENT);
+    }
 }
