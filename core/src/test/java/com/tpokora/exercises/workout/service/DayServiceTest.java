@@ -4,24 +4,26 @@ import com.tpokora.exercises.common.service.BaseServiceTest;
 import com.tpokora.exercises.common.service.GenericService;
 import com.tpokora.exercises.common.utils.Generator;
 import com.tpokora.exercises.workout.model.Day;
+import com.tpokora.exercises.workout.model.ExerciseSet;
 import com.tpokora.exercises.workout.model.Workout;
 import com.tpokora.exercises.workout.utils.DayGenerator;
+import com.tpokora.exercises.workout.utils.ExerciseSetGenerator;
 import com.tpokora.exercises.workout.utils.WorkoutGenerator;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.*;
 
 
 public class DayServiceTest extends BaseServiceTest {
 
     private Generator<Workout> workoutGenerator;
     private Generator<Day> dayGenerator;
+    private Generator<ExerciseSet> exerciseSetGenerator;
 
     @Autowired
     private GenericService<Workout> workoutGenericService;
@@ -33,6 +35,7 @@ public class DayServiceTest extends BaseServiceTest {
     public  void setup() {
         workoutGenerator = new WorkoutGenerator();
         dayGenerator = new DayGenerator();
+        exerciseSetGenerator = new ExerciseSetGenerator();
     }
 
     private Workout createWorkout(int workoutId) {
@@ -87,6 +90,31 @@ public class DayServiceTest extends BaseServiceTest {
         dayGenericService.delete(day.getId());
 
         Assert.assertTrue(dayGenericService.getById(day.getId()) == null);
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void test_getDaysByWorkoutIdWithExerciseSets_success() {
+        Workout workout1 = createWorkout(0);
+
+        List<Day> firstDayList = ((DayGenerator)dayGenerator).generateList(2, workout1);
+
+        List<List<ExerciseSet>> list = new ArrayList<>();
+        list.add(exerciseSetGenerator.generateList(2));
+        list.add(exerciseSetGenerator.generateList(3));
+
+        for (int i = 0; i < firstDayList.size(); i++) {
+            Day currentDay = firstDayList.get(i);
+            currentDay.setExerciseSets(list.get(i));
+            firstDayList.set(i, dayGenericService.createOrUpdate(currentDay));
+        }
+
+        List<Day> dayList = ((DayService)dayGenericService).getDaysByWorkoutId(workout1.getId());
+        Assert.assertTrue(dayList.size() == firstDayList.size());
+        for (int i = 0; i < dayList.size(); i++) {
+            Assert.assertTrue(dayList.get(i).getExerciseSets().size() == firstDayList.get(i).getExerciseSets().size());
+        }
     }
 
 }
