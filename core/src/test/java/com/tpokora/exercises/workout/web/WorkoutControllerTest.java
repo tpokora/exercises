@@ -6,8 +6,10 @@ import com.tpokora.exercises.common.utils.Generator;
 import com.tpokora.exercises.common.utils.TestUtils;
 import com.tpokora.exercises.common.web.BaseControllerTest;
 import com.tpokora.exercises.workout.model.Day;
+import com.tpokora.exercises.workout.model.ExerciseSet;
 import com.tpokora.exercises.workout.model.Workout;
 import com.tpokora.exercises.workout.utils.DayGenerator;
+import com.tpokora.exercises.workout.utils.ExerciseSetGenerator;
 import com.tpokora.exercises.workout.utils.WorkoutGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,6 +48,7 @@ public class WorkoutControllerTest extends BaseControllerTest {
 
     private Generator<Workout> workoutGenerator;
     private Generator<Day> dayGenerator;
+    private Generator<ExerciseSet> exerciseSetGenerator;
 
     @Before
     public void setup() throws Exception {
@@ -56,6 +59,7 @@ public class WorkoutControllerTest extends BaseControllerTest {
 
         workoutGenerator = new WorkoutGenerator();
         dayGenerator = new DayGenerator();
+        exerciseSetGenerator = new ExerciseSetGenerator();
     }
 
     @Test
@@ -153,5 +157,47 @@ public class WorkoutControllerTest extends BaseControllerTest {
                 .andExpect(jsonPath("$.days[1].id", is(dayList.get(1).getId())))
                 .andExpect(jsonPath("$.days[1].index", is(dayList.get(1).getIndex())))
                 .andExpect(jsonPath("$.days[1].name", is(dayList.get(1).getName())));
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void test_getWorkoutByIdWithDaysAndExerciseSets_success() throws Exception {
+        int id = 1;
+        Workout workout = workoutGenerator.generate();
+        workout.setId(id);
+
+        List<Day> dayList = new ArrayList<>();
+        Day day = dayGenerator.generate(0);
+        day.setId(id);
+
+        List<ExerciseSet> exerciseSetList = exerciseSetGenerator.generateList(1);
+        exerciseSetList.get(0).setId(id);
+        exerciseSetList.get(0).getExercise().setId(id);
+
+        day.setExerciseSets(exerciseSetList);
+        dayList.add(day);
+        workout.setDays(dayList);
+
+        when(workoutGenericService.getById(id)).thenReturn(workout);
+
+        mockMvc.perform(get(ConfigsString.WORKOUT_API_URL + "/" + id))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(workout.getId())))
+                .andExpect(jsonPath("$.name", is(workout.getName())))
+                .andExpect(jsonPath("$.description", is(workout.getDescription())))
+                .andExpect(jsonPath("$.days").isArray())
+                .andExpect(jsonPath("$.days").isNotEmpty())
+                .andExpect(jsonPath("$.days", hasSize(dayList.size())))
+                .andExpect(jsonPath("$.days[0].id", is(dayList.get(0).getId())))
+                .andExpect(jsonPath("$.days[0].index", is(dayList.get(0).getIndex())))
+                .andExpect(jsonPath("$.days[0].name", is(dayList.get(0).getName())))
+                .andExpect(jsonPath("$.days[0].exerciseSets[0].id", is(day.getExerciseSets().get(0).getId())))
+                .andExpect(jsonPath("$.days[0].exerciseSets[0].sets", is(day.getExerciseSets().get(0).getSets())))
+                .andExpect(jsonPath("$.days[0].exerciseSets[0].reps", is(day.getExerciseSets().get(0).getReps())))
+                .andExpect(jsonPath("$.days[0].exerciseSets[0].exercise.id", is(day.getExerciseSets().get(0).getExercise().getId())))
+                .andExpect(jsonPath("$.days[0].exerciseSets[0].exercise.name", is(day.getExerciseSets().get(0).getExercise().getName())))
+                .andExpect(jsonPath("$.days[0].exerciseSets[0].exercise.description", is(day.getExerciseSets().get(0).getExercise().getDescription())));
+
     }
 }

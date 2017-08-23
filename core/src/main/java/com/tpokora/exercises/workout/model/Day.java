@@ -36,7 +36,6 @@ public class Day extends AbstractEntity {
 
     @ApiModelProperty(name = "Sets of exercises")
     @OneToMany(mappedBy = "day", cascade = CascadeType.ALL)
-    @JsonBackReference
     private List<ExerciseSet> exerciseSets;
 
     public Day() {}
