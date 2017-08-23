@@ -3,6 +3,7 @@ package com.tpokora.exercises.workout.web;
 import com.tpokora.exercises.common.ConfigsString;
 import com.tpokora.exercises.common.service.GenericService;
 import com.tpokora.exercises.workout.model.Day;
+import com.tpokora.exercises.workout.service.DayService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
+import java.util.List;
 
 @Api(value = "days", description = "Day API")
 @RestController
@@ -39,7 +41,17 @@ public class DayController {
         return new ResponseEntity<Day>(newDay, HttpStatus.OK);
     }
 
-//    public ResponseEntity<List<Day>> getDayByWorkoutId(@PathVariable("workoutId") Integer workoutId) {
-//
-//    }
+
+    @ApiOperation(value = "Get list of days by workout ID")
+    @CrossOrigin
+    @RequestMapping(value = "/workout/{workoutId}", method = RequestMethod.GET, headers = ConfigsString.HEADERS_APPLICATION_JSON)
+    public ResponseEntity<List<Day>> getDayByWorkoutId(@PathVariable("workoutId") Integer workoutId) {
+        List<Day> dayList = ((DayService) dayGenericService).getDaysByWorkoutId(workoutId);
+
+        if (dayList == null || dayList.isEmpty()) {
+            return new ResponseEntity<List<Day>>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<List<Day>>(dayList, HttpStatus.OK);
+    }
 }
