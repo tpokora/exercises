@@ -3,6 +3,7 @@ package com.tpokora.exercises.workout.service;
 import com.tpokora.exercises.common.service.BaseServiceTest;
 import com.tpokora.exercises.common.service.GenericService;
 import com.tpokora.exercises.common.utils.Generator;
+import com.tpokora.exercises.exercise.model.Exercise;
 import com.tpokora.exercises.workout.model.Day;
 import com.tpokora.exercises.workout.model.ExerciseSet;
 import com.tpokora.exercises.workout.model.Workout;
@@ -28,6 +29,9 @@ public class WorkoutServiceTest extends BaseServiceTest {
     @Autowired
     private GenericService<Workout> workoutGenericService;
 
+    @Autowired
+    private GenericService<Exercise> exerciseGenericService;
+
     private Workout workout;
     private List<Workout> workoutList;
 
@@ -47,6 +51,11 @@ public class WorkoutServiceTest extends BaseServiceTest {
 
             if (exerciseSets) {
                 List<ExerciseSet> exerciseSetList = exerciseSetGenerator.generateList(2);
+                for (int i = 0; i <exerciseSetList.size(); i++) {
+                    Exercise exercise = exerciseGenericService.createOrUpdate(exerciseSetList.get(i).getExercise());
+                    exerciseSetList.get(i).setExercise(exercise);
+
+                }
                 newDay.setExerciseSets(exerciseSetList);
             }
             dayList.add(newDay);

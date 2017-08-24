@@ -105,8 +105,18 @@ public class DayServiceTest extends BaseServiceTest {
         List<Day> firstDayList = ((DayGenerator)dayGenerator).generateList(2, workout1);
 
         List<List<ExerciseSet>> list = new ArrayList<>();
+
         list.add(exerciseSetGenerator.generateList(2));
         list.add(exerciseSetGenerator.generateList(3));
+        for (int i = 0; i < list.size(); i++) {
+            List<ExerciseSet> exerciseSetList = list.get(i);
+            for (int j = 0; j < exerciseSetList.size(); j++) {
+                Exercise exercise = exerciseSetList.get(j).getExercise();
+                exercise = exerciseGenericService.createOrUpdate(exercise);
+                exerciseSetList.get(j).setExercise(exercise);
+                list.set(i, exerciseSetList);
+            }
+        }
 
         for (int i = 0; i < firstDayList.size(); i++) {
             Day currentDay = firstDayList.get(i);
@@ -136,7 +146,7 @@ public class DayServiceTest extends BaseServiceTest {
 
         Assert.assertTrue(exerciseGenericService.getById(exercise.getId()) != null);
 
-        ExerciseSet exerciseSet = new ExerciseSet(exercise, 4, 10, firstDayList.get(0), workout);
+        ExerciseSet exerciseSet = new ExerciseSet(exercise, 4, 10, firstDayList.get(0));
         exerciseSetList.add(exerciseSet);
 
         Day day = firstDayList.get(0);

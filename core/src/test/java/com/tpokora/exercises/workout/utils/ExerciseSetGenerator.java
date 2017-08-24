@@ -5,7 +5,6 @@ import com.tpokora.exercises.exercise.model.Exercise;
 import com.tpokora.exercises.exercise.utils.ExerciseGenerator;
 import com.tpokora.exercises.workout.model.Day;
 import com.tpokora.exercises.workout.model.ExerciseSet;
-import com.tpokora.exercises.workout.model.Workout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +18,8 @@ public class ExerciseSetGenerator implements Generator<ExerciseSet> {
         return new ExerciseSet();
     }
 
-    public ExerciseSet generate(Exercise exercise, Integer sets, Integer reps, Day day, Workout workout){
-        return new ExerciseSet(exercise, sets, reps, day, workout);
+    public ExerciseSet generate(Exercise exercise, Integer sets, Integer reps, Day day){
+        return new ExerciseSet(exercise, sets, reps, day);
     }
 
     @Override
@@ -35,19 +34,18 @@ public class ExerciseSetGenerator implements Generator<ExerciseSet> {
         List<Exercise> exerciseList = exerciseGenerator.generateList(size);
 
         for(int i = 0; i < size; i++) {
-            ExerciseSet exerciseSet = new ExerciseSet(exerciseList.get(i), 4, 10, null, null);
+            ExerciseSet exerciseSet = new ExerciseSet(exerciseList.get(i), 4, 10, null);
             exerciseSetList.add(exerciseSet);
         }
 
         return exerciseSetList;
     }
 
-    public List<ExerciseSet> generateList(int size, Day day, Workout workout) {
+    public List<ExerciseSet> generateList(int size, Day day) {
         List<ExerciseSet> exerciseSetList = new ArrayList<>();
 
         for (ExerciseSet exerciseSet : exerciseSetList) {
             exerciseSet.setDay(day);
-            exerciseSet.setWorkout(workout);
         }
 
         return exerciseSetList;

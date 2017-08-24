@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Table(name = "EXERCISESET")
 public class ExerciseSet extends AbstractEntity {
 
-    @ApiModelProperty(name = "Exercise reference")
+    @ApiModelProperty(name = "Exercise reference", required = true)
     @JoinColumn(name = "EXERCISE_ID", referencedColumnName = "ID", foreignKey = @ForeignKey(name = "fk_exerciseid"))
     @OneToOne
     private Exercise exercise;
@@ -32,20 +32,13 @@ public class ExerciseSet extends AbstractEntity {
     @JsonBackReference(value = "day-in-exercise-set")
     private Day day;
 
-    @ApiModelProperty(name = "Workout reference")
-    @JoinColumn(name = "WORKOUT_ID", referencedColumnName = "ID", foreignKey = @ForeignKey(name = "fk_workoutid"))
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference(value = "workout-in-exerciseset")
-    private Workout workout;
-
     public ExerciseSet() {}
 
-    public ExerciseSet(Exercise exercise, Integer sets, Integer reps, Day day, Workout workout) {
+    public ExerciseSet(Exercise exercise, Integer sets, Integer reps, Day day) {
         this.exercise = exercise;
         this.sets = sets;
         this.reps = reps;
         this.day = day;
-        this.workout = workout;
     }
 
     public Exercise getExercise() {
@@ -78,13 +71,5 @@ public class ExerciseSet extends AbstractEntity {
 
     public void setDay(Day day) {
         this.day = day;
-    }
-
-    public Workout getWorkout() {
-        return workout;
-    }
-
-    public void setWorkout(Workout workout) {
-        this.workout = workout;
     }
 }
