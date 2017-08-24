@@ -54,4 +54,12 @@ public class DayController {
 
         return new ResponseEntity<List<Day>>(dayList, HttpStatus.OK);
     }
+
+    @ApiOperation(value = "Remove Day by ID")
+    @CrossOrigin
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, headers = ConfigsString.HEADERS_APPLICATION_JSON)
+    public ResponseEntity<Day> removeDayById(@PathVariable("id") Integer id) {
+        dayGenericService.delete(id);
+        return new ResponseEntity<Day>(HttpStatus.NO_CONTENT);
+    }
 }

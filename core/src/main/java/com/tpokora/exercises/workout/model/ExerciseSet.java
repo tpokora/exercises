@@ -1,5 +1,6 @@
 package com.tpokora.exercises.workout.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tpokora.exercises.common.AbstractEntity;
 import com.tpokora.exercises.exercise.model.Exercise;
 import io.swagger.annotations.ApiModel;
@@ -13,8 +14,8 @@ import javax.persistence.*;
 public class ExerciseSet extends AbstractEntity {
 
     @ApiModelProperty(name = "Exercise reference")
-    @JoinColumn(name = "EXERCISE_ID", referencedColumnName = "ID")
-    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "EXERCISE_ID", referencedColumnName = "ID", foreignKey = @ForeignKey(name = "fk_exerciseid"))
+    @OneToOne
     private Exercise exercise;
 
     @ApiModelProperty(name = "Number of sets", required = true)
@@ -26,13 +27,15 @@ public class ExerciseSet extends AbstractEntity {
     private Integer reps;
 
     @ApiModelProperty(name = "Workout day reference", required = true)
-    @JoinColumn(name = "DAY_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "DAY_ID", referencedColumnName = "ID", foreignKey = @ForeignKey(name = "fk_dayid"))
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference(value = "day-in-exercise-set")
     private Day day;
 
     @ApiModelProperty(name = "Workout reference")
-    @JoinColumn(name = "WORKOUT_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "WORKOUT_ID", referencedColumnName = "ID", foreignKey = @ForeignKey(name = "fk_workoutid"))
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference(value = "workout-in-exerciseset")
     private Workout workout;
 
     public ExerciseSet() {}

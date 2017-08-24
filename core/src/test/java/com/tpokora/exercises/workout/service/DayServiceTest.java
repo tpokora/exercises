@@ -3,6 +3,7 @@ package com.tpokora.exercises.workout.service;
 import com.tpokora.exercises.common.service.BaseServiceTest;
 import com.tpokora.exercises.common.service.GenericService;
 import com.tpokora.exercises.common.utils.Generator;
+import com.tpokora.exercises.exercise.model.Exercise;
 import com.tpokora.exercises.workout.model.Day;
 import com.tpokora.exercises.workout.model.ExerciseSet;
 import com.tpokora.exercises.workout.model.Workout;
@@ -30,6 +31,9 @@ public class DayServiceTest extends BaseServiceTest {
 
     @Autowired
     private GenericService<Day> dayGenericService;
+
+    @Autowired
+    private GenericService<Exercise> exerciseGenericService;
 
     @Before
     public  void setup() {
@@ -117,4 +121,34 @@ public class DayServiceTest extends BaseServiceTest {
         }
     }
 
+    @Test
+    @Transactional
+    @Rollback
+    public void test_removeDaywithoutExercises_success() {
+        Workout workout = createWorkout(0);
+        List<Day> firstDayList = ((DayGenerator)dayGenerator).generateList(1, workout);
+        workout.setDays(firstDayList);
+
+        List<ExerciseSet> exerciseSetList = new ArrayList<>();
+
+        Exercise exercise = new Exercise("ABC", "DEF");
+        exercise = exerciseGenericService.createOrUpdate(exercise);
+
+        Assert.assertTrue(exerciseGenericService.getById(exercise.getId()) != null);
+
+        ExerciseSet exerciseSet = new ExerciseSet(exercise, 4, 10, firstDayList.get(0), workout);
+        exerciseSetList.add(exerciseSet);
+
+        Day day = firstDayList.get(0);
+        day.setExerciseSets(exerciseSetList);
+
+        day = dayGenericService.createOrUpdate(day);
+
+        Assert.assertTrue(dayGenericService.getById(day.getId()) != null);
+
+        dayGenericService.delete(day.getId());
+
+        Assert.assertTrue(dayGenericService.getById(day.getId()) == null);
+        Assert.assertTrue(exerciseGenericService.getById(exercise.getId()) != null);
+    }
 }
