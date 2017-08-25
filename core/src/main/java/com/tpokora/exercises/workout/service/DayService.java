@@ -36,10 +36,15 @@ public class DayService implements GenericService<Day> {
     @Transactional
     public Day createOrUpdate(Day day) {
         Day newDay = day;
-        day.setWorkout(workoutRepository.findOne(day.getWorkout().getId()));
-        for (ExerciseSet exerciseSet : day.getExerciseSets()) {
-            exerciseSet.setDay(day);
+        if (day.getWorkout() != null) {
+            day.setWorkout(workoutRepository.findOne(day.getWorkout().getId()));
         }
+        if (day.getExerciseSets() != null) {
+            for (ExerciseSet exerciseSet : day.getExerciseSets()) {
+                exerciseSet.setDay(day);
+            }
+        }
+
         return dayRepository.saveAndFlush(day);
     }
 
