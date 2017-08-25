@@ -2,7 +2,7 @@ import { Exercise } from './../../exercises/common/exercise.model';
 import { Workout } from './../common/workout.model';
 import { ExerciseServiceTests, EXERCISES } from './../../exercises/common/exercise.testing';
 import { ExerciseService } from './../../exercises/common/exercise.service';
-import { WORKOUT } from './../common/workout.testing';
+import { WORKOUTS } from './../common/workout.testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -41,14 +41,14 @@ describe('WorkoutCreateComponent', () => {
   });
 
   it('should add new day to workout', () => {
-    component.workout = WORKOUT;
+    component.workout = WORKOUTS[0];
     expect(component.workout.days.length).toEqual(0);
     fixture.nativeElement.querySelector('#addWorkoutBtn').click();
     expect(component.workout.days.length).toEqual(1);
   });
 
   it('should add new exercise set to workout day', () => {
-    component.workout = WORKOUT;
+    component.workout = WORKOUTS[0];
     fixture.nativeElement.querySelector('#addWorkoutBtn').click();
     expect(component.workout.days[0].exerciseSets.length).toEqual(0);
     fixture.detectChanges();

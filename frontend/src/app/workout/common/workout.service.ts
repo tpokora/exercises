@@ -1,26 +1,23 @@
 import { BaseService } from './../../common/baseService';
-import { Utils } from './../../common/utils';
-import { Home } from './home.model';
+import { Workout } from './workout.model';
 import { Http } from '@angular/http/';
+import { Utils } from './../../common/utils';
 import { Injectable } from '@angular/core';
-import { environment } from './../../../environments/environment';
-import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class HomeService extends BaseService {
+export class WorkoutService extends BaseService {
 
-    private url = Utils.getRestApiUrl('home');
+    private url = Utils.getRestApiUrl('workouts');
     private headers = Utils.headers_json();
 
     constructor(private http: Http) {
         super();
     }
 
-    getHome(): Promise<Home> {
+    getAllWorkouts(): Promise<Workout[]> {
         return this.http.get(this.url)
             .toPromise()
-            .then(response => response.json() as Home)
+            .then(response => response.json() as Workout[])
             .catch(this.handleError);
     }
-
 }

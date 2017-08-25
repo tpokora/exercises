@@ -1,3 +1,4 @@
+import { WorkoutService } from './workout/common/workout.service';
 import { ExerciseService } from './exercises/common/exercise.service';
 import { RoutingModule } from './common/routes/app.routes';
 import { HomeService } from './home/common/home.service';
@@ -38,7 +39,8 @@ import { WorkoutCreateComponent } from './workout/workout-create/workout-create.
   ],
   providers: [
     HomeService,
-    ExerciseService
+    ExerciseService,
+    WorkoutService
   ],
   bootstrap: [AppComponent]
 })

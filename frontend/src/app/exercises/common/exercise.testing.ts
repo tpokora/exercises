@@ -5,7 +5,7 @@ export const EXERCISES: Exercise[] = [
     { id: 1, name: 'testExercise1', description: 'testExerciseDesc1' },
     { id: 2, name: 'testExercise2', description: 'testExerciseDesc2' },
     { id: 3, name: 'testExercise3', description: 'testExerciseDesc3' }
-]
+];
 
 @Injectable()
 export class ExerciseServiceTests {
