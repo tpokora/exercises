@@ -1,3 +1,41 @@
-<p>
-  workout-detail works!
-</p>
+<div class="container">
+    <button type="submit" class="btn btn-link" (click)="navigateList()">>> List</button>
+    <h1>{{ workout.name }}</h1>
+    <hr />
+    <div class="exercise-desc">
+        {{ workout.description }}
+    </div>
+    <hr />
+    <div *ngIf="!hasDays()">
+        No days defined for {{ workout. name }}
+    </div>
+    <div *ngFor="let day of workout.days; let i = index">
+        <div class="uppercase">
+            <h3>{{ day.name }}</h3>
+        </div>
+        <div *ngIf="!hasExerciseSet(i)">
+            No exercise specified for {{ day.name }}
+        </div>
+        <div *ngIf="hasExerciseSet(i)">
+            <table class="table">
+                <thead class="thead-default">
+                    <tr>
+                        <th>Name</th>
+                        <th>Sets</th>
+                        <th>Reps</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let exerciseSet of day.exerciseSets">
+                        <td>{{ exerciseSet.exercise.name }}</td>
+                        <td>{{ exerciseSet.sets }}</td>
+                        <td>{{ exerciseSet.reps }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div>
+    <hr /> {{ workout | json }}
+</div>

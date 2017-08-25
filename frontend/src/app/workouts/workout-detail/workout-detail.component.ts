@@ -27,6 +27,16 @@ export class WorkoutDetailComponent implements OnInit {
     });
   }
 
+  hasDays(): boolean {
+    return this.workout.days !== undefined && this.workout.days.length > 0;
+  }
 
+  hasExerciseSet(id: number): boolean {
+    return this.workout.days[id].exerciseSets !== undefined && this.workout.days[id].exerciseSets.length > 0;
+  }
+
+  navigateList() {
+    this.router.navigate(['/workout-list']);
+  }
 
 }

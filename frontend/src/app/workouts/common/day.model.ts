@@ -14,6 +14,6 @@ export class Day {
     }
 
     hasExerciseSet(): boolean {
-        return this.exerciseSets.length > 0 ? true : false;
+        return this.exerciseSets !== undefined && this.exerciseSets.length > 0;
     }
 }

@@ -1,3 +1,4 @@
+import { By } from '@angular/platform-browser';
 import { WORKOUTS } from './../../workouts/common/workout.testing';
 import { Workout } from './../../workouts/common/workout.model';
 import { ActivatedRoute } from '@angular/router';
@@ -47,5 +48,9 @@ describe('WorkoutDetailComponent', () => {
     expect(component.workout.id).toEqual(id);
     expect(component.workout.name).toEqual(workout.name);
     expect(component.workout.description).toEqual(workout.description);
+    let workoutName = fixture.debugElement.query(By.css('div.container h2'));
+    expect(workoutName.nativeElement.innerText).toEqual(component.workout.name);
+    let workoutDesc = fixture.debugElement.query(By.css('div.container div.exercise-desc'));
+    expect(workoutDesc.nativeElement.innerText).toEqual(component.workout.description);
   }));
 });
