@@ -20,4 +20,12 @@ export class WorkoutService extends BaseService {
             .then(response => response.json() as Workout[])
             .catch(this.handleError);
     }
+
+    getWorkout(id: number): Promise<Workout> {
+        const url = `${this.url}/${id}`;
+        return this.http.get(url)
+            .toPromise()
+            .then(response => response.json() as Workout)
+            .catch(this.handleError);
+    }
 }

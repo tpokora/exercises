@@ -30,7 +30,7 @@ export class ExerciseService extends BaseService {
     }
 
     getExercise(exerciseId: number): Promise<Exercise> {
-        let url = `${this.url}/${exerciseId}`;
+        const url = `${this.url}/${exerciseId}`;
         return this.http.get(url)
             .toPromise()
             .then(response => response.json() as Exercise)
@@ -38,7 +38,7 @@ export class ExerciseService extends BaseService {
     }
 
     getExercisesByName(name: string): Promise<Exercise[]> {
-        let url = `${this.url}/find-by-name?name=${name}`;
+        const url = `${this.url}/find-by-name?name=${name}`;
         return this.http.get(url)
             .toPromise()
             .then(response => response.json() as Exercise[])

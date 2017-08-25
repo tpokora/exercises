@@ -13,4 +13,8 @@ export class WorkoutServiceTest {
     getAllWorkouts(): Promise<Workout[]> {
         return Promise.resolve(WORKOUTS);
     }
+
+    getWorkout(id: number): Promise<Workout> {
+        return Promise.resolve(WORKOUTS.find(workout => workout.id === id));
+    }
 }

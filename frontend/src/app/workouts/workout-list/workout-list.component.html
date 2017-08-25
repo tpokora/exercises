@@ -11,7 +11,7 @@
     <hr/>
     <div *ngFor="let workout of workoutsList; let i=index" class="list-element">
         <strong class="list-name uppercase">
-            <a>{{ workout.name }}</a>
+            <a [routerLink]="['/workout', workout.id]">{{ workout.name }}</a>
         </strong>
         <div class="list-desc">
             <span>{{ workout.description }}</span>

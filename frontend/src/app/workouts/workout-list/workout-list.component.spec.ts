@@ -1,3 +1,4 @@
+import { RouterTestingModule } from '@angular/router/testing';
 import { WorkoutService } from './../common/workout.service';
 import { WorkoutServiceTest } from './../common/workout.testing';
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
@@ -11,7 +12,9 @@ describe('WorkoutListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [WorkoutListComponent],
-      imports: [],
+      imports: [
+        RouterTestingModule
+      ],
       providers: [
         { provide: WorkoutService, useClass: WorkoutServiceTest }
       ]
