@@ -26,7 +26,7 @@ public class DayController {
     @Autowired
     private GenericService<Day> dayGenericService;
 
-    @ApiOperation(value = "Create day", notes = "Create day")
+    @ApiOperation(value = "Create day", notes = "Create day for workout, using workout id.")
     @CrossOrigin
     @RequestMapping(method = RequestMethod.POST, headers = ConfigsString.HEADERS_APPLICATION_JSON)
     public ResponseEntity<Day> createDay(@RequestBody Day day) throws Exception {

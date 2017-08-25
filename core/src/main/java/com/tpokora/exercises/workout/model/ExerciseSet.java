@@ -27,8 +27,8 @@ public class ExerciseSet extends AbstractEntity {
     private Integer reps;
 
     @ApiModelProperty(name = "Workout day reference", required = true)
-    @JoinColumn(name = "DAY_ID", referencedColumnName = "ID", foreignKey = @ForeignKey(name = "fk_dayid"))
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "DAY_ID", referencedColumnName = "ID", foreignKey = @ForeignKey(name = "fk_dayid"), nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonBackReference(value = "day-in-exercise-set")
     private Day day;
 

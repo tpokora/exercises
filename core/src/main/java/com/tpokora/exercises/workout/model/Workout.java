@@ -1,7 +1,5 @@
 package com.tpokora.exercises.workout.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tpokora.exercises.common.AbstractEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,11 +11,16 @@ import java.util.List;
 
 @ApiModel(value = "Workout", description = "Workout Model")
 @Entity
-@Table(name = "WORKOUT")
+@Table(
+        name = "WORKOUT",
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = { "NAME" },
+                name = "uk_name"
+        ))
 public class Workout extends AbstractEntity{
 
     @ApiModelProperty(name = "Workout name", required = true)
-    @Column(name = "NAME")
+    @Column(name = "NAME", unique = true)
     private String name;
 
     @ApiModelProperty(name = "Workout description")
