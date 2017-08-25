@@ -9,11 +9,11 @@
         </div>
     </div>
     <hr/>
-    <div *ngFor="let exercise of exercises; let i=index" class="exercise-element">
-        <strong class="exercise-name uppercase">
+    <div *ngFor="let exercise of exercises; let i=index" class="list-element">
+        <strong class="list-name uppercase">
             <a [routerLink]="['/exercise', exercise.id]">{{ exercise.name }}</a>
         </strong>
-        <div class="exercise-desc">
+        <div class="list-desc">
             <span>{{ exercise.description }}</span>
         </div>
     </div>

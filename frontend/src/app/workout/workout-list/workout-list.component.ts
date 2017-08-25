@@ -5,11 +5,11 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-workout-list',
   templateUrl: './workout-list.component.html',
-  styleUrls: ['./workout-list.component.css']
+  styleUrls: ['./workout-list.component.css', './../../app.component.css']
 })
 export class WorkoutListComponent implements OnInit {
 
-  workoutList: Workout[];
+  workoutsList: Workout[];
 
   constructor(private workoutService: WorkoutService) { }
 
@@ -18,7 +18,11 @@ export class WorkoutListComponent implements OnInit {
   }
 
   getWorkouts() {
-    this.workoutService.getAllWorkouts().then(workouts => this.workoutList = workouts);
+    this.workoutService.getAllWorkouts().then(workouts => this.workoutsList = workouts);
+  }
+
+  hasWorkouts(): boolean {
+    return this.workoutsList !== undefined && this.workoutsList.length > 0;
   }
 
 }

@@ -1,0 +1,18 @@
+.list-element {
+    border-bottom: 1px solid #e5e5e5;
+    padding: 20px 0 20px;
+}
+
+.list-name {
+    font-size: 24px;
+}
+
+.list-name a {
+    color: #000000;
+}
+
+.list-name a:hover {
+    color: #565656;
+}
+
+.list-disc {}

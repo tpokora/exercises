@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-exercise-list',
   templateUrl: './exercise-list.component.html',
-  styleUrls: ['./exercise-list.component.css']
+  styleUrls: ['./exercise-list.component.css', './../../app.component.css']
 })
 export class ExerciseListComponent implements OnInit {
 

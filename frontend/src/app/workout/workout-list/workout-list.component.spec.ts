@@ -38,7 +38,7 @@ describe('WorkoutListComponent', () => {
 
   it('should have workouts', fakeAsync(() => {
     createComponentAsync();
-    const workoutsCount = component.workoutList.length;
+    const workoutsCount = component.workoutsList.length;
     expect(workoutsCount).toBeGreaterThan(0);
   }));
 });

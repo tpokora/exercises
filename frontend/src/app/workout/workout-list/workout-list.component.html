@@ -1,3 +1,20 @@
-<p>
-  workout-list works!
-</p>
+<div class="alert alert-info" *ngIf="!hasWorkouts()">
+    No workouts!
+</div>
+<div *ngIf="hasWorkouts()">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="uppercase">Workouts list:</h1>
+            <!-- <button class="btn btn-secondary float-right" [routerLink]="['/exercise-add']">Add Exercise</button> -->
+        </div>
+    </div>
+    <hr/>
+    <div *ngFor="let workout of workoutsList; let i=index" class="list-element">
+        <strong class="list-name uppercase">
+            <a>{{ workout.name }}</a>
+        </strong>
+        <div class="list-desc">
+            <span>{{ workout.description }}</span>
+        </div>
+    </div>
+</div>
