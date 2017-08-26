@@ -68,12 +68,11 @@ export class WorkoutCreateComponent implements OnInit {
     return day.exerciseSets !== undefined && day.exerciseSets.length > 0;
   }
 
-  removeDay(index: number) {
-    this.workout.days.splice(index, 1);
-    for (let day of this.workout.days) {
-      if (day.index > index) {
-        day.index = day.index - 1;
-        console.log();
+  removeDay(dayIndex: number) {
+    this.workout.days.splice(dayIndex, 1);
+    for (let i = 0; i < this.workout.days.length; i++) {
+      if (this.workout.days[i].index !== i) {
+        this.workout.days[i].index = i;
       }
     }
   }

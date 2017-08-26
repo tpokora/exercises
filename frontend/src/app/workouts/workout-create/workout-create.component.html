@@ -13,7 +13,7 @@
             </div>
             <div *ngFor="let day of workout.days; let i = index">
                 <div class="form-group day-border rounded">
-                    <h5>Day {{ i + 1 }}</h5>
+                    <button class="btn btn-link" (click)="removeDay(day)">>> Delete</button>
                     <input type="text" name="day{{i}}" [(ngModel)]="workout.days[i].name" #day{{i}}="ngModel" class="form-control" placeholder="Name" />
                     <hr />
                     <div class="row">
