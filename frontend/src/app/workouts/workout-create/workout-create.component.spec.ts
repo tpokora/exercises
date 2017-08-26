@@ -9,7 +9,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgbTypeahead, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { WorkoutCreateComponent } from './workout-create.component';
 
-describe('WorkoutCreateComponent', () => {
+fdescribe('WorkoutCreateComponent', () => {
   let component: WorkoutCreateComponent;
   let fixture: ComponentFixture<WorkoutCreateComponent>;
 
@@ -43,14 +43,14 @@ describe('WorkoutCreateComponent', () => {
   it('should add new day to workout', () => {
     component.workout = WORKOUTS[0];
     expect(component.workout.days.length).toEqual(0);
-    fixture.nativeElement.querySelector('#addWorkoutBtn').click();
+    fixture.nativeElement.querySelector('#addDayBtn').click();
     expect(component.workout.days.length).toEqual(1);
   });
 
   it('should add new exercise set to workout day', () => {
     component.workout = WORKOUTS[0];
-    fixture.nativeElement.querySelector('#addWorkoutBtn').click();
-    expect(component.workout.days[0].exerciseSets.length).toEqual(0);
+    fixture.nativeElement.querySelector('#addDayBtn').click();
+    expect(component.workout.days.length).toBeGreaterThan(0);
     fixture.detectChanges();
 
     const exercise = EXERCISES[0];
@@ -65,6 +65,22 @@ describe('WorkoutCreateComponent', () => {
     expect(workout.days[0].exerciseSets[0].exercise.name).toEqual(exercise.name);
     expect(workout.days[0].exerciseSets[0].sets).toEqual(sets);
     expect(workout.days[0].exerciseSets[0].reps).toEqual(reps);
+  });
+
+  it('should remove day from workout', () => {
+    component.workout = WORKOUTS[0];
+    const daysAmount = component.workout.days.length;
+    fixture.nativeElement.querySelector('#addDayBtn').click();
+    expect(component.workout.days.length).toEqual(daysAmount + 1);
+    fixture.detectChanges();
+
+    fixture.nativeElement.querySelector('button.removeDayBtn').click();
+    expect(component.workout.days.length).toEqual(daysAmount);
+    let index = 0;
+    for (let day of component.workout.days) {
+      expect(day.index).toEqual(index);
+      index++;
+    }
   });
 
 });
