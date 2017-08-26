@@ -33,6 +33,7 @@ export class WorkoutCreateComponent implements OnInit {
   addDay() {
     if (this.workout.days.length < 7) {
       let newDay = new Day();
+      newDay.index = this.workout.days.length;
       this.workout.days.push(newDay);
     }
   }
@@ -44,7 +45,11 @@ export class WorkoutCreateComponent implements OnInit {
       .switchMap(term => term.length > 3 ? this.exerciseService.getExercisesByName(term) : []);
 
   addExerciseSet(dayIndex: number) {
-    this.workout.days[dayIndex].addExerciseSet(this.exercise, this.sets, this.reps);
+    let exercieSet = new ExerciseSet();
+    exercieSet.exercise = this.exercise;
+    exercieSet.sets = this.sets;
+    exercieSet.reps = this.reps;
+    this.workout.days[dayIndex].exerciseSets.push(exercieSet);
     this.exercise = new Exercise();
     this.sets = 0;
     this.reps = 0;
@@ -57,6 +62,20 @@ export class WorkoutCreateComponent implements OnInit {
   initializeWorkout() {
     this.workout = new Workout();
     this.workout.days = new Array<Day>();
+  }
+
+  dayHasExerciseSets(day: Day): boolean {
+    return day.exerciseSets !== undefined && day.exerciseSets.length > 0;
+  }
+
+  removeDay(index: number) {
+    this.workout.days.splice(index, 1);
+    for (let day of this.workout.days) {
+      if (day.index > index) {
+        day.index = day.index - 1;
+        console.log();
+      }
+    }
   }
 
 }

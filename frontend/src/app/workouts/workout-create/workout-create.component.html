@@ -31,7 +31,7 @@
                         </div>
                     </div>
 
-                    <table class="table" *ngIf="day.hasExerciseSet()">
+                    <table class="table" *ngIf="dayHasExerciseSets(day)">
                         <thead class="thead-default">
                             <tr>
                                 <th>Exercise</th>
@@ -55,8 +55,6 @@
 </div>
 <div>
     Exercise: {{ exercise | json }}
-    <hr />
-    Exercises: {{ exercises | json }}
-    <hr />
-    Workout: {{ workout | json }}
+    <hr /> Exercises: {{ exercises | json }}
+    <hr /> Workout: {{ workout | json }}
 </div>
