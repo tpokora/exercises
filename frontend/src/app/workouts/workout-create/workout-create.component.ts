@@ -1,3 +1,4 @@
+
 import { Observable } from 'rxjs/Observable';
 import { ExerciseSet } from './../common/exerciseSet.model';
 import { ExerciseService } from './../../exercises/common/exercise.service';
@@ -23,6 +24,8 @@ export class WorkoutCreateComponent implements OnInit {
   sets: number;
   reps: number;
 
+  DAYS_LIMIT = 7;
+
   constructor(private exerciseService: ExerciseService) {
     this.initializeWorkout();
   }
@@ -31,7 +34,7 @@ export class WorkoutCreateComponent implements OnInit {
   }
 
   addDay() {
-    if (this.workout.days.length < 7) {
+    if (this.workout.days.length < this.DAYS_LIMIT) {
       let newDay = new Day();
       newDay.index = this.workout.days.length;
       this.workout.days.push(newDay);
@@ -75,6 +78,10 @@ export class WorkoutCreateComponent implements OnInit {
         this.workout.days[i].index = i;
       }
     }
+  }
+
+  hasDaysLimit(): boolean {
+    return this.workout.days.length >= this.DAYS_LIMIT;
   }
 
 }
