@@ -56,9 +56,9 @@ describe('WorkoutCreateComponent', () => {
     const exercise = EXERCISES[0];
     const sets = 4;
     const reps = 10;
-    component.exercise = exercise;
-    component.sets = sets;
-    component.reps = reps;
+    component.exercises[0] = exercise;
+    component.sets[0] = sets;
+    component.reps[0] = reps;
     fixture.nativeElement.querySelector('#addExerciseSetBtn').click();
     const workout = component.workout;
     expect(workout.days[0].exerciseSets.length).toEqual(1);

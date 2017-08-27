@@ -10,8 +10,10 @@
                 <label for="workoutDescription">Workout description</label>
                 <textarea name="description" [(ngModel)]="workout.description" #description="ngModel" class="form-control" id="workoutDescription" rows="3"></textarea>
             </div>
-            <hr class="top-buffer" />
-            <div *ngFor="let day of workout.days; let i = index">
+        </form>
+        <hr class="top-buffer" />
+        <div *ngFor="let day of workout.days; let i = index">
+            <form #dayCreate{{i}}="ngForm">
                 <div id="day{{i}}" class="form-group day-margin-top day-border rounded">
                     <h4>#{{ day.index }}</h4>
                     <div class="row top-buffer">
@@ -25,13 +27,13 @@
                     <hr />
                     <div class="row">
                         <div class="col-lg-3">
-                            <input type="text" class="form-control" name="exercise" [(ngModel)]="exercise" [ngbTypeahead]="searchExercise" [inputFormatter]="exerciseFormatter" [resultFormatter]="exerciseFormatter" placeholder="Exercise" />
+                            <input type="text" class="form-control" name="exercise" [(ngModel)]="exercises[i]" [ngbTypeahead]="searchExercise" [inputFormatter]="exerciseFormatter" [resultFormatter]="exerciseFormatter" placeholder="Exercise" />
                         </div>
                         <div class="col-lg-3">
-                            <input type="text" class="form-control" name="sets" [(ngModel)]="sets" placeholder="Number of sets" />
+                            <input type="text" class="form-control" name="sets" [(ngModel)]="sets[i]" placeholder="Number of sets" />
                         </div>
                         <div class="col-lg-3">
-                            <input type="text" class="form-control" name="reps" [(ngModel)]="reps" placeholder="Number of reps" />
+                            <input type="text" class="form-control" name="reps" [(ngModel)]="reps[i]" placeholder="Number of reps" />
                         </div>
                         <div class="col-lg-3">
                             <button id="addExerciseSetBtn" type="button" class="btn btn-link" (click)="addExerciseSet(i)">Add Exercise set</button>
@@ -55,13 +57,14 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <button #addDayBtn id="addDayBtn" type="button" class="btn btn-link" (click)="addDay()" [disabled]="hasDaysLimit()">Add day</button>
-        </form>
+            </form>
+        </div>
+        <button #addDayBtn id="addDayBtn" type="button" class="btn btn-link" (click)="addDay()" [disabled]="hasDaysLimit()">Add day</button>
+        <!-- </form> -->
     </div>
 </div>
 <div>
     Exercise: {{ exercise | json }}
-    <hr /> Exercises: {{ exercises | json }}
+    <hr /> Exercises: {{ exercises | json }} <br /> Sets: {{ sets | json }} <br /> Reps: {{ reps | json }}
     <hr /> Workout: {{ workout | json }}
 </div>
