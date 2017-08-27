@@ -13,7 +13,7 @@ import 'rxjs/add/operator/switchMap';
 @Component({
   selector: 'app-workout-create',
   templateUrl: './workout-create.component.html',
-  styleUrls: ['./workout-create.component.css']
+  styleUrls: ['./workout-create.component.css', './../../app.component.css']
 })
 export class WorkoutCreateComponent implements OnInit {
 

@@ -16,7 +16,7 @@
         <div *ngIf="!hasExerciseSet(i)">
             No exercise specified for {{ day.name }}
         </div>
-        <div *ngIf="hasExerciseSet(i)">
+        <div class="top-buffer" *ngIf="hasExerciseSet(i)">
             <table class="table">
                 <thead class="thead-default">
                     <tr>
@@ -33,6 +33,7 @@
                     </tr>
                 </tbody>
             </table>
+            <hr />
         </div>
     </div>
 </div>

@@ -1,7 +1,6 @@
 <div #content class="jumbotron">
     <h1 class="display-4">Create workout!</h1>
-    <hr/>
-    <div class="container">
+    <div class="container top-buffer">
         <form #workoutCreate="ngForm">
             <div class="form-group">
                 <label for="workoutNameInput">Workout name</label>
@@ -11,12 +10,12 @@
                 <label for="workoutDescription">Workout description</label>
                 <textarea name="description" [(ngModel)]="workout.description" #description="ngModel" class="form-control" id="workoutDescription" rows="3"></textarea>
             </div>
-            <hr class="day-margin-top" />
+            <hr class="top-buffer" />
             <div *ngFor="let day of workout.days; let i = index">
                 <div id="day{{i}}" class="form-group day-margin-top day-border rounded">
                     <h4>#{{ day.index }}</h4>
-                    <div class="row">
-                        <div class="col-lg-8">
+                    <div class="row top-buffer">
+                        <div class="col-lg-9">
                             <input type="text" name="day{{i}}" [(ngModel)]="workout.days[i].name" #day{{i}}="ngModel" class="form-control" placeholder="Name" />
                         </div>
                         <div class="col-lg-3">

@@ -6,7 +6,7 @@ import { Router } from "@angular/router";
 @Component({
   selector: 'app-exercise-add',
   templateUrl: './exercise-add.component.html',
-  styleUrls: ['./exercise-add.component.css']
+  styleUrls: ['./exercise-add.component.css', './../../app.component.css']
 })
 export class ExerciseAddComponent implements OnInit {
 
