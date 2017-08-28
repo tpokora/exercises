@@ -39,4 +39,9 @@ export class WorkoutDetailComponent implements OnInit {
     this.router.navigate(['/workout-list']);
   }
 
+  deleteWorkout() {
+    this.workoutService.deleteWorkout(this.workout.id);
+    this.navigateList();
+  }
+
 }

@@ -35,4 +35,12 @@ export class WorkoutService extends BaseService {
             .then(response => response.json() as Workout)
             .catch(this.handleError);
     }
+
+    deleteWorkout(id: number) {
+        const url = `${this.url}/${id}`;
+        return this.http.delete(url)
+            .toPromise()
+            .then(response => response.ok)
+            .catch(this.handleError);
+    }
 }
