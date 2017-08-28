@@ -85,10 +85,7 @@ export class WorkoutCreateComponent implements OnInit {
   }
 
   addExerciseSetValidation(dayIndex: number): boolean {
-    if (this.workout.days.length == 0) {
-      return false;
-    }
-    return this.exercises[dayIndex].name !== '' && this.sets[dayIndex] > 0 && this.reps[dayIndex] > 0;
+    return this.exercises[0].name !== undefined && this.sets[dayIndex] > 0 && this.reps[dayIndex] > 0;
   }
 
   exerciseFormatter(exercise: Exercise): string {

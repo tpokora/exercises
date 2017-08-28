@@ -48,17 +48,18 @@ describe('WorkoutCreateComponent', () => {
   });
 
   it('should add new exercise set to workout day', () => {
-    component.workout = WORKOUTS[0];
-    fixture.nativeElement.querySelector('#addDayBtn').click();
-    expect(component.workout.days.length).toBeGreaterThan(0);
-    fixture.detectChanges();
-
     const exercise = EXERCISES[0];
     const sets = 4;
     const reps = 10;
     component.exercises[0] = exercise;
     component.sets[0] = sets;
     component.reps[0] = reps;
+    component.workout = WORKOUTS[0];
+
+    fixture.nativeElement.querySelector('#addDayBtn').click();
+    expect(component.workout.days.length).toBeGreaterThan(0);
+    fixture.detectChanges();
+
     fixture.nativeElement.querySelector('#addExerciseSetBtn').click();
     const workout = component.workout;
     expect(workout.days[0].exerciseSets.length).toEqual(1);

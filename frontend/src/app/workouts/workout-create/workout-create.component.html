@@ -36,7 +36,7 @@
                             <input type="text" class="form-control" name="reps" [(ngModel)]="reps[i]" placeholder="Number of reps" />
                         </div>
                         <div class="col-lg-3">
-                            <button id="addExerciseSetBtn" type="button" class="btn btn-link" (click)="addExerciseSet(i)">Add Exercise set</button>
+                            <button id="addExerciseSetBtn" type="button" class="btn btn-link" (click)="addExerciseSet(i)" [disabled]="!addExerciseSetValidation(i)">Add Exercise set</button>
                         </div>
                     </div>
 
