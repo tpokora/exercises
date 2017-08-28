@@ -34,7 +34,7 @@ export class ExerciseAddComponent implements OnInit {
 
   private initializeExercise() {
     this.exercise = new Exercise();
-    this.exercise.name = "";
-    this.exercise.description = "";
+    this.exercise.name = '';
+    this.exercise.description = '';
   }
 }

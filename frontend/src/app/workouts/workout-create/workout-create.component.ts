@@ -1,3 +1,5 @@
+import { WorkoutService } from './../common/workout.service';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { ExerciseSet } from './../common/exerciseSet.model';
 import { ExerciseService } from './../../exercises/common/exercise.service';
@@ -24,7 +26,7 @@ export class WorkoutCreateComponent implements OnInit {
 
   DAYS_LIMIT = 7;
 
-  constructor(private exerciseService: ExerciseService) {
+  constructor(private workoutService: WorkoutService, private exerciseService: ExerciseService, private router: Router) {
     this.initializeWorkout();
     this.initializeExercises();
     this.initializeSets();
@@ -110,6 +112,19 @@ export class WorkoutCreateComponent implements OnInit {
 
   hasDaysLimit(): boolean {
     return this.workout.days.length >= this.DAYS_LIMIT;
+  }
+
+  createWorkout() {
+    this.workoutService.createWorkout(this.workout);
+    this.navigateList();
+  }
+
+  createWorkoutValidation(): boolean {
+    return this.workout.name !== undefined && this.workout.name !== '' && this.workout.days.length > 0 && this.workout.days[0].exerciseSets.length > 0;
+  }
+
+  navigateList() {
+    this.router.navigate(['/workout-list']);
   }
 
 }

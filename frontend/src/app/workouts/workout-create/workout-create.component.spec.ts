@@ -1,8 +1,9 @@
+import { WorkoutService } from './../common/workout.service';
 import { Exercise } from './../../exercises/common/exercise.model';
 import { Workout } from './../common/workout.model';
 import { ExerciseServiceTests, EXERCISES } from './../../exercises/common/exercise.testing';
 import { ExerciseService } from './../../exercises/common/exercise.service';
-import { WORKOUTS } from './../common/workout.testing';
+import { WORKOUTS, WorkoutServiceTest } from './../common/workout.testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -22,6 +23,7 @@ describe('WorkoutCreateComponent', () => {
         NgbModule.forRoot()
       ],
       providers: [
+        { provide: WorkoutService, useClass: WorkoutServiceTest },
         { provide: ExerciseService, useClass: ExerciseServiceTests },
         { provide: NgbTypeahead }
       ]

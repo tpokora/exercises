@@ -28,4 +28,11 @@ export class WorkoutService extends BaseService {
             .then(response => response.json() as Workout)
             .catch(this.handleError);
     }
+
+    createWorkout(workout: Workout): Promise<Workout> {
+        return this.http.post(this.url, JSON.stringify(workout), { headers: this.headers })
+            .toPromise()
+            .then(response => response.json() as Workout)
+            .catch(this.handleError);
+    }
 }
