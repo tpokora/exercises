@@ -43,7 +43,7 @@ public class WorkoutController {
     @CrossOrigin
     @RequestMapping(method = RequestMethod.POST, headers = ConfigsString.HEADERS_APPLICATION_JSON)
     public ResponseEntity<Workout> createWorkout(@RequestBody Workout workout) throws Exception {
-        Workout newWorkout;
+        Workout newWorkout = null;
 
         try {
             newWorkout = workoutService.createOrUpdate(workout);
@@ -67,6 +67,8 @@ public class WorkoutController {
         return new ResponseEntity<Workout>(workout, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Delete workout by ID")
+    @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, headers = ConfigsString.HEADERS_APPLICATION_JSON)
     public ResponseEntity<Workout> deleteWorkout(@PathVariable("id") Integer id) throws Exception {
         workoutService.delete(id);
