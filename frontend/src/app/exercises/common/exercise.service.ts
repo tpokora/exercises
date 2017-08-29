@@ -44,4 +44,12 @@ export class ExerciseService extends BaseService {
             .then(response => response.json() as Exercise[])
             .catch(this.handleError);
     }
+
+    deleteExerciseById(exerciseId: number) {
+        const url = `${this.url}/${exerciseId}`;
+        return this.http.delete(url)
+            .toPromise()
+            .then(response => response.ok)
+            .catch(this.handleError);
+    }
 }

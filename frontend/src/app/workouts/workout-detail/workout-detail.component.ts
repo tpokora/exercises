@@ -40,8 +40,7 @@ export class WorkoutDetailComponent implements OnInit {
   }
 
   deleteWorkout() {
-    this.workoutService.deleteWorkout(this.workout.id);
-    this.navigateList();
+    this.workoutService.deleteWorkout(this.workout.id).then(response => this.navigateList());
   }
 
 }

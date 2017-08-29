@@ -115,8 +115,7 @@ export class WorkoutCreateComponent implements OnInit {
   }
 
   createWorkout() {
-    this.workoutService.createWorkout(this.workout);
-    this.navigateList();
+    this.workoutService.createWorkout(this.workout).then(response => this.navigateList());
   }
 
   createWorkoutValidation(): boolean {

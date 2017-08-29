@@ -26,6 +26,10 @@ export class ExerciseComponent implements OnInit {
     });
   }
 
+  deleteExercise() {
+    this.exerciseService.deleteExerciseById(this.exercise.id).then(response => this.navigateList());
+  }
+
   navigateList() {
     this.router.navigate(['/exercise-list']);
   }

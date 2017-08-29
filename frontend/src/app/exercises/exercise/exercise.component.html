@@ -1,6 +1,10 @@
 <div class="container">
     <button type="submit" class="btn btn-link" (click)="navigateList()">>> List</button>
-    <h2>{{ exercise.name }}</h2>
+    <div class="row">
+        <h2 class="col">{{ exercise.name }}</h2>
+        <button class="btn btn-danger" type="submit" (click)="deleteExercise()">Delete</button>
+    </div>
+
     <hr />
     <div class="exercise-desc">
         {{ exercise.description }}

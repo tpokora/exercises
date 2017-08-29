@@ -20,8 +20,7 @@ export class ExerciseAddComponent implements OnInit {
   }
 
   create() {
-    this.exerciseService.createExercise(this.exercise);
-    this.navigateList();
+    this.exerciseService.createExercise(this.exercise).then(response => this.navigateList());
   }
 
   formValid(): boolean {
