@@ -1,3 +1,4 @@
+import { Day } from './../common/day.model';
 import { WorkoutService } from './../common/workout.service';
 import { Exercise } from './../../exercises/common/exercise.model';
 import { Workout } from './../common/workout.model';
@@ -38,25 +39,31 @@ describe('WorkoutCreateComponent', () => {
     fixture.detectChanges();
   });
 
+  function setComponent() {
+    let workout = WORKOUTS[0];
+    workout.days = new Array<Day>();
+    component.workout = workout;
+  }
+
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
 
   it('should add new day to workout', () => {
-    component.workout = WORKOUTS[0];
+    setComponent();
     expect(component.workout.days.length).toEqual(0);
     fixture.nativeElement.querySelector('#addDayBtn').click();
     expect(component.workout.days.length).toEqual(1);
   });
 
   it('should add new exercise set to workout day', () => {
+    setComponent();
     const exercise = EXERCISES[0];
     const sets = 4;
     const reps = 10;
     component.exercises[0] = exercise;
     component.sets[0] = sets;
     component.reps[0] = reps;
-    component.workout = WORKOUTS[0];
 
     fixture.nativeElement.querySelector('#addDayBtn').click();
     expect(component.workout.days.length).toBeGreaterThan(0);
@@ -71,7 +78,8 @@ describe('WorkoutCreateComponent', () => {
   });
 
   it('should remove day from workout', () => {
-    component.workout = WORKOUTS[0];
+    setComponent();
+
     const daysAmount = component.workout.days.length;
     fixture.nativeElement.querySelector('#addDayBtn').click();
     expect(component.workout.days.length).toEqual(daysAmount + 1);
@@ -80,7 +88,7 @@ describe('WorkoutCreateComponent', () => {
     fixture.nativeElement.querySelector('button.removeDayBtn').click();
     expect(component.workout.days.length).toEqual(daysAmount);
     let index = 0;
-    for (let day of component.workout.days) {
+    for (const day of component.workout.days) {
       expect(day.index).toEqual(index);
       index++;
     }
