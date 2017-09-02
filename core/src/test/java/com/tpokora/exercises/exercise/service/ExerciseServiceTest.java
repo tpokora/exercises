@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -20,7 +19,7 @@ import java.util.List;
  */
 public class ExerciseServiceTest extends BaseServiceTest {
 
-    private Generator generator;
+    private Generator<Exercise> generator;
 
     @Autowired
     private GenericService<Exercise> exerciseService;
@@ -31,8 +30,8 @@ public class ExerciseServiceTest extends BaseServiceTest {
     @Before
     public void setup() {
         generator = new ExerciseGenerator();
-        exercise = (Exercise) generator.generate();
-        exerciseList = ((ExerciseGenerator) generator).generateExerciseList(3);
+        exercise = generator.generate();
+        exerciseList = generator.generateList(3);
     }
 
     @Test
@@ -41,7 +40,7 @@ public class ExerciseServiceTest extends BaseServiceTest {
     public void test_getExerciseById() {
         exercise = exerciseService.createOrUpdate(exercise);
 
-        Assert.assertTrue("Exercise id should equal: " + exercise.getId(), exerciseService.getById(exercise.getId()).getId() == exercise.getId());
+        Assert.assertTrue("Exercise id should equal: " + exercise.getId(), exerciseService.getById(exercise.getId()).getId().equals(exercise.getId()));
     }
 
     @Test
@@ -57,7 +56,7 @@ public class ExerciseServiceTest extends BaseServiceTest {
     @Test
     @Transactional
     @Rollback(true)
-    public void createOrUpdateExercise_newExercise_success() {
+    public void test_createOrUpdateExercise_newExercise_success() {
         exercise = new Exercise("TestNewExerciseCreate", "TestNewExerciseDesc");
         Exercise newExercise = exerciseService.createOrUpdate(exercise);
 
@@ -68,14 +67,29 @@ public class ExerciseServiceTest extends BaseServiceTest {
     @Test
     @Transactional
     @Rollback(true)
-    public void deleteExerciseById_success() {
+    public void test_deleteExerciseById_success() {
         exercise = new Exercise("TextExerciseToDelete", "TextExerciseToDeleteDesc");
         exercise = exerciseService.createOrUpdate(exercise);
 
-        Assert.assertTrue(exerciseService.getById(exercise.getId()).getName() == exercise.getName());
+        Assert.assertTrue(exerciseService.getById(exercise.getId()).getName().equals(exercise.getName()));
 
         exerciseService.delete(exercise.getId());
         Assert.assertTrue(exerciseService.getById(exercise.getId()) == null);
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void test_getExercisesByName_success() {
+        String keyword = "test";
+
+        Exercise exerciseWithKeyWord = new Exercise("Exercise" + keyword, "TestNewExerciseDesc");
+        exerciseWithKeyWord = exerciseService.createOrUpdate(exerciseWithKeyWord);
+
+        Exercise exerciseWithoutKeyWord = new Exercise("Exercise", "TestNewExerciseDesc");
+        exerciseWithoutKeyWord = exerciseService.createOrUpdate(exerciseWithoutKeyWord);
+
+        Assert.assertTrue(((ExerciseServiceImpl) exerciseService).getByName(keyword).size() == 1);
     }
 
 

@@ -3,6 +3,7 @@ package com.tpokora.exercises.exercise.web;
 import com.tpokora.exercises.common.ConfigsString;
 import com.tpokora.exercises.common.service.GenericService;
 import com.tpokora.exercises.exercise.model.Exercise;
+import com.tpokora.exercises.exercise.service.ExerciseServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -39,6 +40,19 @@ public class ExerciseController {
         }
 
         return new ResponseEntity<Exercise>(exercise, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Get exercises with name like value param", notes = "Return exercises by name")
+    @CrossOrigin
+    @RequestMapping(value = "/find-by-name", method = RequestMethod.GET)
+    public ResponseEntity<List<Exercise>> findByName(@RequestParam String name) {
+        List<Exercise> exerciseList = ((ExerciseServiceImpl) exerciseService).getByName(name);
+
+        if (exerciseList == null || exerciseList.isEmpty()) {
+            return new ResponseEntity<List<Exercise>>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<List<Exercise>>(exerciseList, HttpStatus.OK);
     }
 
     @ApiOperation(value = "Get exercises list", notes = "Get exercises list")

@@ -31,6 +31,11 @@ public class ExerciseServiceImpl implements GenericService<Exercise> {
         return exerciseRepository.findOne(id);
     }
 
+    @Transactional(readOnly = true)
+    public List<Exercise> getByName(String name) {
+        return exerciseRepository.findByNameContainingIgnoreCase(name);
+    }
+
     @Override
     @Transactional
     public Exercise createOrUpdate(Exercise exercise) {

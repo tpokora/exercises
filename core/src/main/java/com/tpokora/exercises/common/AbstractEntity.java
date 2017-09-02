@@ -10,7 +10,7 @@ import javax.persistence.*;
 @MappedSuperclass
 public abstract class AbstractEntity {
 
-    @ApiModelProperty(value = "Item ID", required = true)
+    @ApiModelProperty(value = "Item ID")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")

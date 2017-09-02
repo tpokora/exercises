@@ -11,7 +11,6 @@ import org.springframework.context.annotation.ComponentScan;
 public class ExercisesApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ExercisesApplication.class, args);
 		String webPort = System.getenv("PORT");
 		if (webPort == null || webPort.isEmpty()) {
 			webPort = "7080";

@@ -1,0 +1,72 @@
+<div #content class="jumbotron">
+    <h1 class="display-4">Create workout!</h1>
+    <div class="container top-buffer">
+        <form #workoutCreate="ngForm">
+            <div class="form-group">
+                <label for="workoutNameInput">Workout name</label>
+                <input type="text" name="name" [(ngModel)]="workout.name" #name="ngModel" class="form-control" id="workoutNameInput" aria-describedby="workoutName" placeholder="Enter workout name" required>
+            </div>
+            <div class="form-group">
+                <label for="workoutDescription">Workout description</label>
+                <textarea name="description" [(ngModel)]="workout.description" #description="ngModel" class="form-control" id="workoutDescription" rows="3"></textarea>
+            </div>
+        </form>
+        <hr class="top-buffer" />
+        <div *ngFor="let day of workout.days; let i = index">
+            <form #dayCreate{{i}}="ngForm">
+                <div id="day{{i}}" class="form-group day-margin-top day-border rounded">
+                    <h4>#{{ day.index }}</h4>
+                    <div class="row top-buffer">
+                        <div class="col-lg-9">
+                            <input type="text" name="day{{i}}" [(ngModel)]="workout.days[i].name" #day{{i}}="ngModel" class="form-control" placeholder="Name" />
+                        </div>
+                        <div class="col-lg-3">
+                            <button class="btn btn-link removeDayBtn" (click)="removeDay(i)">Delete</button>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <input type="text" class="form-control" name="exercise" [(ngModel)]="exercises[i]" [ngbTypeahead]="searchExercise" [inputFormatter]="exerciseFormatter" [resultFormatter]="exerciseFormatter" placeholder="Exercise" />
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" class="form-control" name="sets" [(ngModel)]="sets[i]" placeholder="Number of sets" />
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" class="form-control" name="reps" [(ngModel)]="reps[i]" placeholder="Number of reps" />
+                        </div>
+                        <div class="col-lg-3">
+                            <button id="addExerciseSetBtn" type="button" class="btn btn-link" (click)="addExerciseSet(i)" [disabled]="!addExerciseSetValidation(i)">Add Exercise set</button>
+                        </div>
+                    </div>
+
+                    <table class="table" *ngIf="dayHasExerciseSets(day)">
+                        <thead class="thead-default">
+                            <tr>
+                                <th>Exercise</th>
+                                <th>Sets</th>
+                                <th>Reps</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let exerciseSet of day.exerciseSets; let j = index">
+                                <td>{{ exerciseSet.exercise.name }}</td>
+                                <td>{{ exerciseSet.sets }}</td>
+                                <td>{{ exerciseSet.reps }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+        <button #addDayBtn id="addDayBtn" type="button" class="btn btn-link" (click)="addDay()" [disabled]="hasDaysLimit()">Add day</button>
+        <!-- </form> -->
+        <hr />
+        <button id="createWorkoutBtn" type="submit" class="btn btn-primary" (click)="createWorkout()" [disabled]="!createWorkoutValidation()">Create</button>
+    </div>
+</div>
+<div>
+    Exercise: {{ exercise | json }}
+    <hr /> Exercises: {{ exercises | json }} <br /> Sets: {{ sets | json }} <br /> Reps: {{ reps | json }}
+    <hr /> Workout: {{ workout | json }}
+</div>
