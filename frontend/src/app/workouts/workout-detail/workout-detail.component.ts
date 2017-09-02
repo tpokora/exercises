@@ -1,8 +1,9 @@
+import { ModalComponent } from './../../common/modal/modal.component';
 import { Workout } from './../common/workout.model';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { WorkoutService } from './../../workouts/common/workout.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-workout-detail',
@@ -11,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkoutDetailComponent implements OnInit {
 
+  @ViewChild('deleteWorkoutModal') deleteWorkoutModal: ModalComponent;
   workout: Workout;
 
   constructor(private workoutService: WorkoutService, private route: ActivatedRoute, private router: Router) {
@@ -40,6 +42,7 @@ export class WorkoutDetailComponent implements OnInit {
   }
 
   deleteWorkout() {
+    this.deleteWorkoutModal.hide();
     this.workoutService.deleteWorkout(this.workout.id).then(response => this.navigateList());
   }
 
