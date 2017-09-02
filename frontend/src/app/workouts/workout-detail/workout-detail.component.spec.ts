@@ -1,3 +1,4 @@
+import { ModalComponent } from './../../common/modal/modal.component';
 import { By } from '@angular/platform-browser';
 import { WORKOUTS } from './../../workouts/common/workout.testing';
 import { Workout } from './../../workouts/common/workout.model';
@@ -18,7 +19,7 @@ describe('WorkoutDetailComponent', () => {
   beforeEach(async(() => {
     activatedRoute = new ActivateRouteStub();
     TestBed.configureTestingModule({
-      declarations: [WorkoutDetailComponent],
+      declarations: [WorkoutDetailComponent, ModalComponent],
       imports: [
         RouterTestingModule
       ],

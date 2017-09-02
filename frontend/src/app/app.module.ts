@@ -19,6 +19,7 @@ import { ExerciseAddComponent } from './exercises/exercise-add/exercise-add.comp
 import { WorkoutListComponent } from './workouts/workout-list/workout-list.component';
 import { WorkoutCreateComponent } from './workouts/workout-create/workout-create.component';
 import { WorkoutDetailComponent } from './workouts/workout-detail/workout-detail.component';
+import { ModalComponent } from './common/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { WorkoutDetailComponent } from './workouts/workout-detail/workout-detail
     ExerciseAddComponent,
     WorkoutListComponent,
     WorkoutCreateComponent,
-    WorkoutDetailComponent
+    WorkoutDetailComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

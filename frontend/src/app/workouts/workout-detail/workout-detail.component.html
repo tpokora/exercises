@@ -2,7 +2,16 @@
     <button type="submit" class="btn btn-link" (click)="navigateList()">>> List</button>
     <div class="row">
         <h1 class="col">{{ workout.name }}</h1>
-        <button class="btn btn-danger" type="submit" (click)="deleteWorkout()">Delete</button>
+        <button class="btn btn-danger" type="submit" (click)="deleteWorkoutModal.show()">Delete</button>
+        <app-modal #deleteWorkoutModal>
+            <div class="app-modal-body">
+                Are you sure you want to remove this workout?
+            </div>
+            <div class="app-modal-footer">
+                <button type="button" class="btn btn-default" (click)="deleteWorkoutModal.hide()">Close</button>
+                <button type="button" class="btn btn-primary">Delete</button>
+            </div>
+        </app-modal>
     </div>
     <hr />
     <div class="list-desc">
