@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  serverUrl: 'http://localhost:7080'
+  serverUrl: 'http://localhost:7080',
+  googleClientId: '356969504268-1q2tfe73dm2nvb3toqaq1p7okcbog586.apps.googleusercontent.com'
 };

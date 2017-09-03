@@ -1,3 +1,4 @@
+import { GoogleAuthComponent } from './common/google-auth/google-auth.component';
 import { ExerciseServiceTests } from './exercises/common/exercise.testing';
 import { ExerciseService } from './exercises/common/exercise.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -18,7 +19,8 @@ describe('AppComponent', () => {
         AppComponent,
         NavComponent,
         ExerciseComponent,
-        ExerciseListComponent
+        ExerciseListComponent,
+        GoogleAuthComponent
       ],
       imports: [
         RouterTestingModule,

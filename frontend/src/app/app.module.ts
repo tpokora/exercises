@@ -20,6 +20,7 @@ import { WorkoutListComponent } from './workouts/workout-list/workout-list.compo
 import { WorkoutCreateComponent } from './workouts/workout-create/workout-create.component';
 import { WorkoutDetailComponent } from './workouts/workout-detail/workout-detail.component';
 import { ModalComponent } from './common/modal/modal.component';
+import { GoogleAuthComponent } from './common/google-auth/google-auth.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ModalComponent } from './common/modal/modal.component';
     WorkoutListComponent,
     WorkoutCreateComponent,
     WorkoutDetailComponent,
-    ModalComponent
+    ModalComponent,
+    GoogleAuthComponent
   ],
   imports: [
     BrowserModule,

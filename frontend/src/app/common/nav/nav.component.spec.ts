@@ -1,3 +1,4 @@
+import { GoogleAuthComponent } from './../google-auth/google-auth.component';
 import { HttpModule } from '@angular/http';
 import { Router } from '@angular/router';
 import { RouterStub, ActivateRouteStub, RouterLinkStub } from './../routes/routing.spec';
@@ -17,7 +18,8 @@ describe('NavComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         NavComponent,
-        RouterLinkStub
+        RouterLinkStub,
+        GoogleAuthComponent
       ],
       providers: [
         { provide: Router, useClass: RouterStub }
