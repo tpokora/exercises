@@ -1,3 +1,5 @@
+import { ProfileServiceTests } from './common/profile.testing';
+import { ProfileService } from './common/profile.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GoogleAuthComponent } from './google-auth.component';
@@ -8,9 +10,12 @@ describe('GoogleAuthComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GoogleAuthComponent ]
+      declarations: [GoogleAuthComponent],
+      providers: [
+        { provide: ProfileService, useClass: ProfileServiceTests },
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

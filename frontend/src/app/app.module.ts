@@ -1,3 +1,4 @@
+import { ProfileService } from './common/google-auth/common/profile.service';
 import { WorkoutService } from './workouts/common/workout.service';
 import { ExerciseService } from './exercises/common/exercise.service';
 import { RoutingModule } from './common/routes/app.routes';
@@ -46,7 +47,8 @@ import { GoogleAuthComponent } from './common/google-auth/google-auth.component'
   providers: [
     HomeService,
     ExerciseService,
-    WorkoutService
+    WorkoutService,
+    ProfileService
   ],
   bootstrap: [AppComponent]
 })

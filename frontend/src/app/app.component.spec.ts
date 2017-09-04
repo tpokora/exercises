@@ -1,3 +1,4 @@
+import { ProfileService } from './common/google-auth/common/profile.service';
 import { GoogleAuthComponent } from './common/google-auth/google-auth.component';
 import { ExerciseServiceTests } from './exercises/common/exercise.testing';
 import { ExerciseService } from './exercises/common/exercise.service';
@@ -27,6 +28,7 @@ describe('AppComponent', () => {
         NgbModule.forRoot()
       ],
       providers: [
+        { provide: ProfileService },
         { provide: ExerciseService, useClass: ExerciseServiceTests }
       ]
     }).compileComponents();
@@ -45,8 +47,8 @@ describe('AppComponent', () => {
   }));
 
   it('should have router-outlet component', () => {
-    let fixture = TestBed.createComponent(AppComponent);
-    let routerOutlet = fixture.debugElement.query(By.directive(RouterOutlet));
+    const fixture = TestBed.createComponent(AppComponent);
+    const routerOutlet = fixture.debugElement.query(By.directive(RouterOutlet));
     expect(routerOutlet).toBeTruthy();
   });
 });

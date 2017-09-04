@@ -1,3 +1,5 @@
+import { ProfileServiceTests } from './../google-auth/common/profile.testing';
+import { ProfileService } from './../google-auth/common/profile.service';
 import { GoogleAuthComponent } from './../google-auth/google-auth.component';
 import { HttpModule } from '@angular/http';
 import { Router } from '@angular/router';
@@ -22,6 +24,7 @@ describe('NavComponent', () => {
         GoogleAuthComponent
       ],
       providers: [
+        { provide: ProfileService, useClass: ProfileServiceTests },
         { provide: Router, useClass: RouterStub }
       ]
     })
@@ -41,7 +44,7 @@ describe('NavComponent', () => {
   it('should have navbar title "Navigation"', () => {
     const navTitle = 'Navigation';
     expect(component.title).toEqual(navTitle);
-    let navbarTitle = fixture.debugElement.query(By.css('nav div.container div span.navbar-brand'));
+    const navbarTitle = fixture.debugElement.query(By.css('nav div.container div span.navbar-brand'));
     expect(navbarTitle.nativeElement.innerText).toEqual(navTitle);
   });
 

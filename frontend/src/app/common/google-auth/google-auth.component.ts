@@ -1,3 +1,5 @@
+import { ProfileService } from './common/profile.service';
+import { Profile } from './common/profile.model';
 import { environment } from './../../../environments/environment.prod';
 import { Component, AfterViewInit, NgZone } from '@angular/core';
 declare var gapi: any;
@@ -16,9 +18,11 @@ export class GoogleAuthComponent implements AfterViewInit {
   private name: string;
   private email: string;
 
+  private profile = new Profile();
+
   private showProfile = false;
 
-  constructor(private ngzone: NgZone) { }
+  constructor(private profileService: ProfileService, private ngzone: NgZone) { }
 
   ngAfterViewInit() {
     this.googleInit();
@@ -35,18 +39,12 @@ export class GoogleAuthComponent implements AfterViewInit {
   }
 
   onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-
-    console.log('Full Name: ' + profile.getName());
-    console.log('Given Name: ' + profile.getGivenName());
-    console.log('Family Name: ' + profile.getFamilyName());
-    console.log("Image URL: " + profile.getImageUrl());
-    console.log("Email: " + profile.getEmail());
+    const profile = googleUser.getBasicProfile();
 
     this.ngzone.run(() => {
-      this.name = profile.getName();
-      this.email = profile.getEmail();
-      this.showProfile = true;
+      this.profile.name = profile.getName();
+      this.profile.email = profile.getEmail();
+      this.profileService.signIn(this.profile);
     });
   }
 
@@ -62,6 +60,10 @@ export class GoogleAuthComponent implements AfterViewInit {
   signOut() {
     this.auth2 = gapi.auth2.getAuthInstance();
     this.auth2.signOut();
-    this.showProfile = false;
+    this.profileService.signOut();
+  }
+
+  isSignedIn(): boolean {
+    return this.profileService.isSignedIn();
   }
 }
