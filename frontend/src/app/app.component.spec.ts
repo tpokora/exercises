@@ -1,3 +1,4 @@
+import { ProfileServiceTests } from './common/google-auth/common/profile.testing';
 import { ProfileService } from './common/google-auth/common/profile.service';
 import { GoogleAuthComponent } from './common/google-auth/google-auth.component';
 import { ExerciseServiceTests } from './exercises/common/exercise.testing';
@@ -28,7 +29,7 @@ describe('AppComponent', () => {
         NgbModule.forRoot()
       ],
       providers: [
-        { provide: ProfileService },
+        { provide: ProfileService, useClass: ProfileServiceTests },
         { provide: ExerciseService, useClass: ExerciseServiceTests }
       ]
     }).compileComponents();

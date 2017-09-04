@@ -15,9 +15,6 @@ export class GoogleAuthComponent implements AfterViewInit {
 
   private auth2: any;
 
-  private name: string;
-  private email: string;
-
   private profile = new Profile();
 
   private showProfile = false;
@@ -61,6 +58,7 @@ export class GoogleAuthComponent implements AfterViewInit {
     this.auth2 = gapi.auth2.getAuthInstance();
     this.auth2.signOut();
     this.profileService.signOut();
+    this.profile = new Profile();
   }
 
   isSignedIn(): boolean {
