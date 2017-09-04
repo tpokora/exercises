@@ -8,8 +8,8 @@ export const profile = { name: 'profile name', email: 'profile@email.com' }
 @Injectable()
 export class ProfileServiceTests {
 
-    isSignedIn(): boolean {
-        return true;
+    isSignedIn(): Observable<boolean> {
+        return Observable.of(true);
     }
 
     getProfile(): Observable<Profile> {

@@ -16,8 +16,7 @@ export class GoogleAuthComponent implements AfterViewInit {
   private auth2: any;
 
   private profile = new Profile();
-
-  private showProfile = false;
+  private signedIn = false;
 
   constructor(private profileService: ProfileService, private ngzone: NgZone) { }
 
@@ -41,6 +40,7 @@ export class GoogleAuthComponent implements AfterViewInit {
     this.ngzone.run(() => {
       this.profile.name = profile.getName();
       this.profile.email = profile.getEmail();
+      this.signedIn = true;
       this.profileService.signIn(this.profile);
     });
   }
@@ -59,9 +59,10 @@ export class GoogleAuthComponent implements AfterViewInit {
     this.auth2.signOut();
     this.profileService.signOut();
     this.profile = new Profile();
+    this.signedIn = false;
   }
 
   isSignedIn(): boolean {
-    return this.profileService.isSignedIn();
+    return this.signedIn;
   }
 }

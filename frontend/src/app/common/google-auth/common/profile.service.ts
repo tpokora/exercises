@@ -10,26 +10,32 @@ export class ProfileService extends BaseService {
     private profile: Profile;
     private signedIn = false;
 
-    private subject = new Subject<Profile>();
+    private subjectProfile = new Subject<Profile>();
+    private subjectSignedIn = new Subject<boolean>();
 
     signIn(profile: Profile) {
         this.profile = profile;
         this.signedIn = true;
-        this.subject.next(this.profile);
+        this.setSubjects(this.profile, this.signedIn);
     }
 
     signOut() {
         this.profile = new Profile();
         this.signedIn = false;
-        this.subject.next(new Profile());
+        this.setSubjects(this.profile, this.signedIn);
     }
 
-    isSignedIn(): boolean {
-        return this.signedIn;
+    isSignedIn(): Observable<boolean> {
+        return this.subjectSignedIn.asObservable();
     }
 
     getProfile(): Observable<Profile> {
-        return this.subject.asObservable();
+        return this.subjectProfile.asObservable();
+    }
+
+    private setSubjects(profile: Profile, signedIn: boolean) {
+        this.subjectProfile.next(profile);
+        this.subjectSignedIn.next(signedIn);
     }
 
 }
