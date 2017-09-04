@@ -1,1 +1,4 @@
-<button #googleBtn class="g-signin2">Sign In</button>
+<div class="row">
+    <div id="googleAuthBtn" (data-onsuccess)="onSignIn"></div>
+    <button class="btn btn-link" (click)="signOut()" *ngIf="showProfile">Sign out</button>
+</div>

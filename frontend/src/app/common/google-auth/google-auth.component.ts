@@ -1,6 +1,5 @@
-import { element } from 'protractor';
 import { environment } from './../../../environments/environment.prod';
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, NgZone } from '@angular/core';
 declare var gapi: any;
 
 @Component({
@@ -14,12 +13,16 @@ export class GoogleAuthComponent implements AfterViewInit {
 
   private auth2: any;
 
-  @ViewChild('googleBtn') googleBtn: ElementRef;
+  private name: string;
+  private email: string;
 
-  constructor(private element: ElementRef) { }
+  private showProfile = false;
 
-  ngAfterViewInit(): void {
+  constructor(private ngzone: NgZone) { }
+
+  ngAfterViewInit() {
     this.googleInit();
+    this.renderBtn();
   }
 
   googleInit() {
@@ -28,19 +31,37 @@ export class GoogleAuthComponent implements AfterViewInit {
       component.auth2 = gapi.auth2.init({
         client_id: component.clientId,
       });
-      component.signIn(this.element.nativeElement.firstChild);
     });
   }
 
-  signIn(element) {
-    this.auth2.attachClickHandler(element, {},
-      function (googleUser) {
-        const profile = googleUser.getBasicProfile();
-        console.log('Email: ' + profile.getEmail());
-      }
-      , function (error) {
-        console.log(JSON.stringify(error, undefined, 2));
-      });
+  onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+
+    console.log('Full Name: ' + profile.getName());
+    console.log('Given Name: ' + profile.getGivenName());
+    console.log('Family Name: ' + profile.getFamilyName());
+    console.log("Image URL: " + profile.getImageUrl());
+    console.log("Email: " + profile.getEmail());
+
+    this.ngzone.run(() => {
+      this.name = profile.getName();
+      this.email = profile.getEmail();
+      this.showProfile = true;
+    });
   }
 
+  renderBtn() {
+    gapi.signin2.render('googleAuthBtn', {
+      'onsuccess': param => this.onSignIn(param),
+      'scope': 'profile email',
+      'longtitle': true,
+      'theme': 'light'
+    });
+  }
+
+  signOut() {
+    this.auth2 = gapi.auth2.getAuthInstance();
+    this.auth2.signOut();
+    this.showProfile = false;
+  }
 }
