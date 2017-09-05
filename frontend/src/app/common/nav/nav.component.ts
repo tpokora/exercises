@@ -1,7 +1,7 @@
 import { Profile } from './../google-auth/common/profile.model';
 import { ProfileService } from './../google-auth/common/profile.service';
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-nav',

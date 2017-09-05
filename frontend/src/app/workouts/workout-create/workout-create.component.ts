@@ -1,3 +1,5 @@
+import { ProfileService } from './../../common/google-auth/common/profile.service';
+import { Subscription } from 'rxjs/Subscription';
 import { WorkoutService } from './../common/workout.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -26,7 +28,17 @@ export class WorkoutCreateComponent implements OnInit {
 
   DAYS_LIMIT = 7;
 
-  constructor(private workoutService: WorkoutService, private exerciseService: ExerciseService, private router: Router) {
+  private isSignedIn;
+  private subscription: Subscription;
+
+  constructor(private profileService: ProfileService, private workoutService: WorkoutService, private exerciseService: ExerciseService,
+    private router: Router) {
+    this.isSignedIn = this.profileService.getSignedIn();
+    this.subscription = this.profileService.isSignedIn().subscribe(isSignedIn => {
+      this.isSignedIn = isSignedIn;
+      this.authenticationCheck();
+    });
+    this.authenticationCheck();
     this.initializeWorkout();
     this.initializeExercises();
     this.initializeSets();
@@ -119,7 +131,18 @@ export class WorkoutCreateComponent implements OnInit {
   }
 
   createWorkoutValidation(): boolean {
-    return this.workout.name !== undefined && this.workout.name !== '' && this.workout.days.length > 0 && this.workout.days[0].exerciseSets.length > 0;
+    return this.workout.name !== undefined && this.workout.name !== ''
+      && this.workout.days.length > 0 && this.workout.days[0].exerciseSets.length > 0;
+  }
+
+  authenticationCheck() {
+    if (!this.isSignedIn) {
+      this.navigateHome();
+    }
+  }
+
+  navigateHome() {
+    this.router.navigate(['/']);
   }
 
   navigateList() {

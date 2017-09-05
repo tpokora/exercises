@@ -1,11 +1,11 @@
 <div class="alert alert-info" *ngIf="!hasExercises()">
-    No exercises! <a [routerLink]="['/exercise-add']">Add exercise</a>
+    No exercises! <a [routerLink]="['/exercise-create']">Add exercise</a>
 </div>
 <div *ngIf="hasExercises()">
     <div class="row">
         <div class="col-lg-12">
             <h1 class="uppercase">Exercises list:</h1>
-            <button class="btn btn-secondary float-right" [routerLink]="['/exercise-add']">Add Exercise</button>
+            <button class="btn btn-secondary float-right" [routerLink]="['/exercise-create']">Add Exercise</button>
         </div>
     </div>
     <hr/>

@@ -16,4 +16,8 @@ export class ProfileServiceTests {
         return Observable.of(profile);
     }
 
+    getSignedIn(): boolean {
+        return true;
+    }
+
 }

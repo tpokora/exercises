@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs/Subscription';
+import { ProfileService } from './../../common/google-auth/common/profile.service';
 import { Exercise } from './../common/exercise.model';
 import { ExerciseService } from './../common/exercise.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,7 +14,17 @@ export class ExerciseCreateComponent implements OnInit {
 
   private exercise: Exercise;
 
-  constructor(private exerciseService: ExerciseService, private router: Router) {
+  private isSignedIn;
+  private subscription: Subscription;
+
+  constructor(private profileService: ProfileService, private exerciseService: ExerciseService, private router: Router) {
+    this.isSignedIn = this.profileService.getSignedIn();
+    this.subscription = this.profileService.isSignedIn().subscribe(isSignedIn => {
+      this.isSignedIn = isSignedIn;
+      this.authenticationCheck();
+    }
+    );
+    this.authenticationCheck();
     this.initializeExercise();
   }
 
@@ -25,6 +37,16 @@ export class ExerciseCreateComponent implements OnInit {
 
   formValid(): boolean {
     return this.exercise.name.length > 3;
+  }
+
+  authenticationCheck() {
+    if (!this.isSignedIn) {
+      this.navigateHome();
+    }
+  }
+
+  navigateHome() {
+    this.router.navigate(['/']);
   }
 
   navigateList() {

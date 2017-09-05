@@ -33,6 +33,10 @@ export class ProfileService extends BaseService {
         return this.subjectProfile.asObservable();
     }
 
+    getSignedIn(): boolean {
+        return this.signedIn;
+    }
+
     private setSubjects(profile: Profile, signedIn: boolean) {
         this.subjectProfile.next(profile);
         this.subjectSignedIn.next(signedIn);

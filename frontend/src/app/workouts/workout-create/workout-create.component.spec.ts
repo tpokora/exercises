@@ -1,3 +1,5 @@
+import { ProfileServiceTests } from './../../common/google-auth/common/profile.testing';
+import { ProfileService } from './../../common/google-auth/common/profile.service';
 import { Day } from './../common/day.model';
 import { WorkoutService } from './../common/workout.service';
 import { Exercise } from './../../exercises/common/exercise.model';
@@ -24,6 +26,7 @@ describe('WorkoutCreateComponent', () => {
         NgbModule.forRoot()
       ],
       providers: [
+        { provide: ProfileService, useClass: ProfileServiceTests },
         { provide: WorkoutService, useClass: WorkoutServiceTest },
         { provide: ExerciseService, useClass: ExerciseServiceTests },
         { provide: NgbTypeahead }

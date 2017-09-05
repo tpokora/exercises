@@ -1,3 +1,5 @@
+import { ProfileServiceTests } from './../../common/google-auth/common/profile.testing';
+import { ProfileService } from './../../common/google-auth/common/profile.service';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ExerciseServiceTests } from './../common/exercise.testing';
@@ -18,9 +20,8 @@ describe('ExerciseAddComponent', () => {
         FormsModule
       ],
       providers: [
-        {
-          provide: ExerciseService, useClass: ExerciseServiceTests
-        }
+        { provide: ProfileService, useClass: ProfileServiceTests },
+        { provide: ExerciseService, useClass: ExerciseServiceTests }
       ]
     })
       .compileComponents();
