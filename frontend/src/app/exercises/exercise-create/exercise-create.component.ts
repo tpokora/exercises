@@ -1,14 +1,14 @@
 import { Exercise } from './../common/exercise.model';
 import { ExerciseService } from './../common/exercise.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-exercise-add',
-  templateUrl: './exercise-add.component.html',
-  styleUrls: ['./exercise-add.component.css', './../../app.component.css']
+  selector: 'app-exercise-create',
+  templateUrl: './exercise-create.component.html',
+  styleUrls: ['./exercise-create.component.css', './../../app.component.css']
 })
-export class ExerciseAddComponent implements OnInit {
+export class ExerciseCreateComponent implements OnInit {
 
   private exercise: Exercise;
 

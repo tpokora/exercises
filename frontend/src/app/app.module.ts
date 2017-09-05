@@ -16,7 +16,7 @@ import { NavComponent } from './common/nav/nav.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ExerciseListComponent } from './exercises/exercise-list/exercise-list.component';
-import { ExerciseAddComponent } from './exercises/exercise-add/exercise-add.component';
+import { ExerciseCreateComponent } from './exercises/exercise-create/exercise-create.component';
 import { WorkoutListComponent } from './workouts/workout-list/workout-list.component';
 import { WorkoutCreateComponent } from './workouts/workout-create/workout-create.component';
 import { WorkoutDetailComponent } from './workouts/workout-detail/workout-detail.component';
@@ -30,7 +30,7 @@ import { GoogleAuthComponent } from './common/google-auth/google-auth.component'
     ExerciseComponent,
     NavComponent,
     ExerciseListComponent,
-    ExerciseAddComponent,
+    ExerciseCreateComponent,
     WorkoutListComponent,
     WorkoutCreateComponent,
     WorkoutDetailComponent,

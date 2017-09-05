@@ -4,15 +4,15 @@ import { ExerciseServiceTests } from './../common/exercise.testing';
 import { ExerciseService } from './../common/exercise.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExerciseAddComponent } from './exercise-add.component';
+import { ExerciseCreateComponent } from './exercise-create.component';
 
 describe('ExerciseAddComponent', () => {
-  let component: ExerciseAddComponent;
-  let fixture: ComponentFixture<ExerciseAddComponent>;
+  let component: ExerciseCreateComponent;
+  let fixture: ComponentFixture<ExerciseCreateComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ExerciseAddComponent],
+      declarations: [ExerciseCreateComponent],
       imports: [
         RouterTestingModule,
         FormsModule
@@ -27,7 +27,7 @@ describe('ExerciseAddComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExerciseAddComponent);
+    fixture = TestBed.createComponent(ExerciseCreateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
