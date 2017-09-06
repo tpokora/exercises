@@ -2,7 +2,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ProfileService } from './../../common/google-auth/common/profile.service';
 import { Exercise } from './../common/exercise.model';
 import { ExerciseService } from './../common/exercise.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './exercise-create.component.html',
   styleUrls: ['./exercise-create.component.css', './../../app.component.css']
 })
-export class ExerciseCreateComponent implements OnInit {
+export class ExerciseCreateComponent implements OnInit, AfterViewChecked {
 
   private exercise: Exercise;
 
@@ -18,17 +18,23 @@ export class ExerciseCreateComponent implements OnInit {
   private subscription: Subscription;
 
   constructor(private profileService: ProfileService, private exerciseService: ExerciseService, private router: Router) {
-    this.isSignedIn = this.profileService.getSignedIn();
-    this.subscription = this.profileService.isSignedIn().subscribe(isSignedIn => {
-      this.isSignedIn = isSignedIn;
-      this.authenticationCheck();
-    }
-    );
-    this.authenticationCheck();
+    this.initializeComponent();
     this.initializeExercise();
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewChecked() {
+    this.authenticationCheck();
+  }
+
+
+  initializeComponent() {
+    this.isSignedIn = this.profileService.getSignedIn();
+    this.subscription = this.profileService.isSignedIn().subscribe(isSignedIn => {
+      this.isSignedIn = isSignedIn;
+    });
   }
 
   create() {

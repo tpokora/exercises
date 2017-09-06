@@ -8,7 +8,7 @@ import { ExerciseService } from './../../exercises/common/exercise.service';
 import { Exercise } from './../../exercises/common/exercise.model';
 import { Day } from './../common/day.model';
 import { Workout } from './../common/workout.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
@@ -18,7 +18,7 @@ import 'rxjs/add/operator/switchMap';
   templateUrl: './workout-create.component.html',
   styleUrls: ['./workout-create.component.css', './../../app.component.css']
 })
-export class WorkoutCreateComponent implements OnInit {
+export class WorkoutCreateComponent implements OnInit, AfterViewChecked {
 
   workout: Workout;
   exercises: Exercise[];
@@ -33,37 +33,43 @@ export class WorkoutCreateComponent implements OnInit {
 
   constructor(private profileService: ProfileService, private workoutService: WorkoutService, private exerciseService: ExerciseService,
     private router: Router) {
+    this.initializeComponent();
+  }
+
+  ngOnInit() {
+  }
+
+  ngAfterViewChecked() {
+    this.authenticationCheck();
+  }
+
+  initializeComponent() {
     this.isSignedIn = this.profileService.getSignedIn();
     this.subscription = this.profileService.isSignedIn().subscribe(isSignedIn => {
       this.isSignedIn = isSignedIn;
-      this.authenticationCheck();
     });
-    this.authenticationCheck();
     this.initializeWorkout();
     this.initializeExercises();
     this.initializeSets();
     this.initializeReps();
   }
 
-  ngOnInit() {
-  }
-
-  initializeWorkout() {
+  private initializeWorkout() {
     this.workout = new Workout();
     this.workout.days = new Array<Day>();
   }
 
-  initializeExercises() {
+  private initializeExercises() {
     this.exercises = new Array<Exercise>();
     this.exercises.push(new Exercise());
   }
 
-  initializeSets() {
+  private initializeSets() {
     this.sets = new Array<number>();
     this.sets.push(0);
   }
 
-  initializeReps() {
+  private initializeReps() {
     this.reps = new Array<number>();
     this.reps.push(0);
   }
