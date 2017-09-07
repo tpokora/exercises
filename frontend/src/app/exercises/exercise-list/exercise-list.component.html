@@ -1,12 +1,12 @@
 <div class="alert alert-info" *ngIf="!hasExercises()">
-    No exercises! <a [routerLink]="['/exercise-create']">Add exercise</a>
+    No exercises! <a [routerLink]="['/exercise-create']" *ngIf="isSignedIn">Add exercise</a>
 </div>
 <div *ngIf="hasExercises()" class="top-buffer">
     <div class="row">
         <div class="col-lg-10">
             <h1 class="uppercase">Exercises list:</h1>
         </div>
-        <div class="col-lg-2">
+        <div class="col-lg-2" *ngIf="isSignedIn">
             <button class="btn btn-secondary float-right" [routerLink]="['/exercise-create']">Add Exercise</button>
         </div>
     </div>

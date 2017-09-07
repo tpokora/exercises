@@ -6,7 +6,7 @@
         <div class="col-lg-10">
             <h1 class="uppercase">Workouts list:</h1>
         </div>
-        <div class="col-lg-2">
+        <div class="col-lg-2" *ngIf="isSignedIn">
             <button class="btn btn-secondary float-right" [routerLink]="['/workout-create']">Add Workout</button>
         </div>
     </div>

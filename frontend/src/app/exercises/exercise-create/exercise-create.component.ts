@@ -3,7 +3,7 @@ import { ProfileService } from './../../common/google-auth/common/profile.servic
 import { Exercise } from './../common/exercise.model';
 import { ExerciseService } from './../common/exercise.service';
 import { Component, OnInit, AfterViewChecked } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-exercise-create',
@@ -17,16 +17,24 @@ export class ExerciseCreateComponent implements OnInit, AfterViewChecked {
   private isSignedIn;
   private subscription: Subscription;
 
-  constructor(private profileService: ProfileService, private exerciseService: ExerciseService, private router: Router) {
+  constructor(private profileService: ProfileService, private exerciseService: ExerciseService,
+    private route: ActivatedRoute, private router: Router) {
     this.initializeComponent();
     this.initializeExercise();
   }
 
   ngOnInit() {
+    this.getExercise();
   }
 
   ngAfterViewChecked() {
     this.authenticationCheck();
+  }
+
+  getExercise() {
+    this.route.params.subscribe(param => {
+      this.exerciseService.getExercise(param['exercise_id']).then(exercise => this.exercise = exercise);
+    });
   }
 
 

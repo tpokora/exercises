@@ -14,6 +14,7 @@ export const appRoutes: Routes = [
     { path: 'exercise-list', component: ExerciseListComponent },
     { path: 'exercise/:exercise_id', component: ExerciseComponent },
     { path: 'exercise-create', component: ExerciseCreateComponent },
+    { path: 'exercise-create/:exercise_id', component: ExerciseCreateComponent },
     { path: 'workout-list', component: WorkoutListComponent },
     { path: 'workout-create', component: WorkoutCreateComponent },
     { path: 'workout/:workout_id', component: WorkoutDetailComponent }
