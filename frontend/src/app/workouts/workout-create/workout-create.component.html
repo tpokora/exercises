@@ -15,8 +15,7 @@
         <div *ngFor="let day of workout.days; let i = index">
             <form #dayCreate{{i}}="ngForm">
                 <div id="day{{i}}" class="form-group day-margin-top day-border rounded">
-                    <h4>#{{ day.index }}</h4>
-                    <div class="row top-buffer">
+                    <div class="row">
                         <div class="col-lg-9">
                             <input type="text" name="day{{i}}" [(ngModel)]="workout.days[i].name" #day{{i}}="ngModel" class="form-control" placeholder="Name" />
                         </div>
@@ -40,19 +39,19 @@
                         </div>
                     </div>
 
-                    <table class="table" *ngIf="dayHasExerciseSets(day)">
+                    <table class="table top-buffer" *ngIf="dayHasExerciseSets(day)">
                         <thead class="thead-default">
                             <tr>
                                 <th>Exercise</th>
-                                <th>Sets</th>
-                                <th>Reps</th>
+                                <th class="text-center">Sets</th>
+                                <th class="text-center">Reps</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let exerciseSet of day.exerciseSets; let j = index">
                                 <td>{{ exerciseSet.exercise.name }}</td>
-                                <td>{{ exerciseSet.sets }}</td>
-                                <td>{{ exerciseSet.reps }}</td>
+                                <td class="text-center">{{ exerciseSet.sets }}</td>
+                                <td class="text-center">{{ exerciseSet.reps }}</td>
                             </tr>
                         </tbody>
                     </table>

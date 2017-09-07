@@ -1,19 +1,21 @@
-<div class="alert alert-info" *ngIf="!hasExercises()">
-    No exercises! <a [routerLink]="['/exercise-create']" *ngIf="isSignedIn">Add exercise</a>
-</div>
-<div *ngIf="hasExercises()" class="top-buffer">
-    <div class="row">
-        <div class="col-lg-10">
-            <h1 class="uppercase">Exercises list:</h1>
-        </div>
-        <div class="col-lg-2" *ngIf="isSignedIn">
-            <button class="btn btn-secondary float-right" [routerLink]="['/exercise-create']">Add Exercise</button>
-        </div>
+<div class="jumbotron">
+    <div class="alert alert-info" *ngIf="!hasExercises()">
+        No exercises! <a [routerLink]="['/exercise-create']" *ngIf="isSignedIn">Add exercise</a>
     </div>
-    <hr/>
-    <div class="list-group">
-        <a *ngFor="let exercise of exercises; let i=index" class="list-group-item list-group-item-action" [routerLink]="['/exercise', exercise.id]">
+    <div *ngIf="hasExercises()" class="top-buffer">
+        <div class="row">
+            <div class="col-lg-10">
+                <h1 class="uppercase">Exercises list:</h1>
+            </div>
+            <div class="col-lg-2" *ngIf="isSignedIn">
+                <button class="btn btn-secondary float-right" [routerLink]="['/exercise-create']">Add Exercise</button>
+            </div>
+        </div>
+        <hr/>
+        <div class="list-group">
+            <a *ngFor="let exercise of exercises; let i=index" class="list-group-item list-group-item-action" [routerLink]="['/exercise', exercise.id]">
             {{ exercise.name }}
         </a>
+        </div>
     </div>
 </div>

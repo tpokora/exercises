@@ -1,4 +1,4 @@
-<div class="container">
+<div class="jumbotron">
     <button type="submit" class="btn btn-link" (click)="navigateList()">>> List</button>
     <div class="row">
         <h1 class="col">{{ workout.name }}</h1>
@@ -22,9 +22,6 @@
         No days defined for {{ workout. name }}
     </div>
     <div *ngFor="let day of workout.days; let i = index">
-        <div class="uppercase">
-            <h3>{{ day.name }}</h3>
-        </div>
         <div *ngIf="!hasExerciseSet(i)">
             No exercise specified for {{ day.name }}
         </div>
@@ -32,16 +29,19 @@
             <table class="table">
                 <thead class="thead-default">
                     <tr>
+                        <th class="text-center" colspan="3">{{ day.name }}</th>
+                    </tr>
+                    <tr>
                         <th>Name</th>
-                        <th>Sets</th>
-                        <th>Reps</th>
+                        <th class="text-center">Sets</th>
+                        <th class="text-center">Reps</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let exerciseSet of day.exerciseSets">
                         <td>{{ exerciseSet.exercise.name }}</td>
-                        <td>{{ exerciseSet.sets }}</td>
-                        <td>{{ exerciseSet.reps }}</td>
+                        <td class="text-center">{{ exerciseSet.sets }}</td>
+                        <td class="text-center">{{ exerciseSet.reps }}</td>
                     </tr>
                 </tbody>
             </table>
