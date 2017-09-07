@@ -48,9 +48,9 @@ describe('ExerciseComponent', () => {
     expect(component.exercise.id).toEqual(id);
     expect(component.exercise.name).toEqual(exercise.name);
     expect(component.exercise.description).toEqual(exercise.description);
-    let exerciseName = fixture.debugElement.query(By.css('div.container h2'));
+    let exerciseName = fixture.debugElement.query(By.css('div.jumbotron h2'));
     expect(exerciseName.nativeElement.innerText).toEqual(component.exercise.name);
-    let exerciseDesc = fixture.debugElement.query(By.css('div.container div.exercise-desc'));
+    let exerciseDesc = fixture.debugElement.query(By.css('div.jumbotron div.exercise-desc'));
     expect(exerciseDesc.nativeElement.innerText).toEqual(component.exercise.description);
   }));
 

@@ -1,3 +1,5 @@
+import { ProfileServiceTests } from './../../common/google-auth/common/profile.testing';
+import { ProfileService } from './../../common/google-auth/common/profile.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { WorkoutService } from './../common/workout.service';
 import { WorkoutServiceTest } from './../common/workout.testing';
@@ -16,6 +18,7 @@ describe('WorkoutListComponent', () => {
         RouterTestingModule
       ],
       providers: [
+        { provide: ProfileService, useClass: ProfileServiceTests },
         { provide: WorkoutService, useClass: WorkoutServiceTest }
       ]
     })

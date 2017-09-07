@@ -49,9 +49,9 @@ describe('WorkoutDetailComponent', () => {
     expect(component.workout.id).toEqual(id);
     expect(component.workout.name).toEqual(workout.name);
     expect(component.workout.description).toEqual(workout.description);
-    let workoutName = fixture.debugElement.query(By.css('div.container h1'));
+    let workoutName = fixture.debugElement.query(By.css('div.jumbotron h1'));
     expect(workoutName.nativeElement.innerText).toEqual(component.workout.name);
-    let workoutDesc = fixture.debugElement.query(By.css('div.container div.list-desc'));
+    let workoutDesc = fixture.debugElement.query(By.css('div.jumbotron div.list-desc'));
     expect(workoutDesc.nativeElement.innerText).toEqual(component.workout.description);
   }));
 });
