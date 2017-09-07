@@ -37,7 +37,6 @@ export class ExerciseCreateComponent implements OnInit, AfterViewChecked {
     });
   }
 
-
   initializeComponent() {
     this.isSignedIn = this.profileService.getSignedIn();
     this.subscription = this.profileService.isSignedIn().subscribe(isSignedIn => {

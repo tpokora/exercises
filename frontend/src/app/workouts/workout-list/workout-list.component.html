@@ -2,13 +2,13 @@
     <div class="alert alert-info" *ngIf="!hasWorkouts()">
         No workouts!
     </div>
-    <div *ngIf="hasWorkouts()" class="top-buffer">
+    <div *ngIf="hasWorkouts()">
         <div class="row">
             <div class="col-lg-10">
                 <h1 class="uppercase">Workouts list:</h1>
             </div>
             <div class="col-lg-2" *ngIf="isSignedIn">
-                <button class="btn btn-secondary float-right" [routerLink]="['/workout-create']">Add Workout</button>
+                <button class="btn btn-primary float-right" [routerLink]="['/workout-create']">Add Workout</button>
             </div>
         </div>
         <hr/>

@@ -61,7 +61,10 @@
         <button #addDayBtn id="addDayBtn" type="button" class="btn btn-link" (click)="addDay()" [disabled]="hasDaysLimit()">Add day</button>
         <!-- </form> -->
         <hr />
-        <button id="createWorkoutBtn" type="submit" class="btn btn-primary" (click)="createWorkout()" [disabled]="!createWorkoutValidation()">Create</button>
+        <div class="float-right">
+            <button class="btn btn-primary" (click)="navigateList()">Back</button>
+            <button id="createWorkoutBtn" type="submit" class="btn btn-success" (click)="createWorkout()" [disabled]="!createWorkoutValidation()">Create</button>
+        </div>
     </div>
 </div>
 <div>

@@ -1,19 +1,19 @@
 <div class="jumbotron">
-    <button type="submit" class="btn btn-link" (click)="navigateList()">>> List</button>
-    <h2 class="top-buffer">Exercise:</h2>
-    <form #createExercise="ngForm">
-        <div class="form-group row">
-            <label for="name" class="col-2 col-form-label">Name</label>
-            <div class="col-4">
-                <input type="text" name="name" [(ngModel)]="exercise.name" #name="ngModel" class="form-control" required/>
+    <h1 class="display-4">Create exercise!</h1>
+    <div class="container top-buffer">
+        <form #createExercise="ngForm">
+            <div class="form-group">
+                <label for="name">Exercise name</label>
+                <input type="text" name="name" placeholder="Exercise name" [(ngModel)]="exercise.name" #name="ngModel" class="form-control" required/>
             </div>
-        </div>
-        <div class="form-group row">
-            <label for="description" class="col-2 col-form-label">Description</label>
-            <div class="col-4">
+            <div class="form-group">
+                <label for="description">Exercise description</label>
                 <textarea id="textareaDescription" name="description" [(ngModel)]="exercise.description" #description="ngModel" class="form-control" rows="3" required></textarea>
             </div>
-        </div>
-        <button type="submit" class="btn btn-success float-right" [disabled]="!formValid()" (click)="create()">Create</button>
-    </form>
+            <div class="float-right">
+                <button class="btn btn-primary" (click)="navigateList()">Back</button>
+                <button type="submit" class="btn btn-success" [disabled]="!formValid()" (click)="create()">Create</button>
+            </div>
+        </form>
+    </div>
 </div>
