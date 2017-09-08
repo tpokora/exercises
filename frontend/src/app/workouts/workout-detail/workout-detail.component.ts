@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs/Subscription';
+import { ProfileService } from './../../common/google-auth/common/profile.service';
 import { ModalComponent } from './../../common/modal/modal.component';
 import { Workout } from './../common/workout.model';
 import { Router } from '@angular/router';
@@ -12,15 +14,29 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 })
 export class WorkoutDetailComponent implements OnInit {
 
-  @ViewChild('deleteWorkoutModal') deleteWorkoutModal: ModalComponent;
+  @ViewChild('deleteWorkoutModal')
+  deleteWorkoutModal: ModalComponent;
+
   workout: Workout;
 
-  constructor(private workoutService: WorkoutService, private route: ActivatedRoute, private router: Router) {
+  private isSignedIn: boolean;
+  private subscription: Subscription;
+
+  constructor(private workoutService: WorkoutService, private profileService: ProfileService,
+    private route: ActivatedRoute, private router: Router) {
     this.workout = new Workout();
   }
 
   ngOnInit() {
+    this.initializeComponent();
     this.getWorkout();
+  }
+
+  initializeComponent() {
+    this.isSignedIn = this.profileService.getSignedIn();
+    this.subscription = this.profileService.isSignedIn().subscribe(isSignedIn => {
+      this.isSignedIn = isSignedIn;
+    });
   }
 
   getWorkout() {

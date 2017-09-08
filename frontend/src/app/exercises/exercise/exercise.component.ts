@@ -1,3 +1,5 @@
+import { ProfileService } from './../../common/google-auth/common/profile.service';
+import { Subscription } from 'rxjs/Subscription';
 import { ExerciseService } from './../common/exercise.service';
 import { Exercise } from './../common/exercise.model';
 import { Component, OnInit } from '@angular/core';
@@ -12,12 +14,24 @@ export class ExerciseComponent implements OnInit {
 
   exercise: Exercise;
 
-  constructor(private exerciseService: ExerciseService, private route: ActivatedRoute, private router: Router) {
+  private isSignedIn;
+  private subscription: Subscription;
+
+  constructor(private exerciseService: ExerciseService, private profileService: ProfileService,
+    private route: ActivatedRoute, private router: Router) {
     this.exercise = new Exercise();
   }
 
   ngOnInit() {
+    this.initializeComponent();
     this.getExercise();
+  }
+
+  initializeComponent() {
+    this.isSignedIn = this.profileService.getSignedIn();
+    this.subscription = this.profileService.isSignedIn().subscribe(isSignedIn => {
+      this.isSignedIn = isSignedIn;
+    });
   }
 
   getExercise() {

@@ -1,3 +1,5 @@
+import { ProfileServiceTests } from './../../common/google-auth/common/profile.testing';
+import { ProfileService } from './../../common/google-auth/common/profile.service';
 import { ModalComponent } from './../../common/modal/modal.component';
 import { By } from '@angular/platform-browser';
 import { WORKOUTS } from './../../workouts/common/workout.testing';
@@ -24,6 +26,7 @@ describe('WorkoutDetailComponent', () => {
         RouterTestingModule
       ],
       providers: [
+        { provide: ProfileService, useClass: ProfileServiceTests },
         { provide: WorkoutService, useClass: WorkoutServiceTest },
         { provide: ActivatedRoute, useValue: activatedRoute }
       ]
@@ -49,9 +52,9 @@ describe('WorkoutDetailComponent', () => {
     expect(component.workout.id).toEqual(id);
     expect(component.workout.name).toEqual(workout.name);
     expect(component.workout.description).toEqual(workout.description);
-    let workoutName = fixture.debugElement.query(By.css('div.jumbotron h1'));
+    const workoutName = fixture.debugElement.query(By.css('div.jumbotron h1'));
     expect(workoutName.nativeElement.innerText).toEqual(component.workout.name);
-    let workoutDesc = fixture.debugElement.query(By.css('div.jumbotron div.list-desc'));
+    const workoutDesc = fixture.debugElement.query(By.css('div.jumbotron div.list-desc'));
     expect(workoutDesc.nativeElement.innerText).toEqual(component.workout.description);
   }));
 });

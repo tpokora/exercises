@@ -2,7 +2,7 @@
     <button type="submit" class="btn btn-link" (click)="navigateList()">>> List</button>
     <div class="row">
         <h1 class="col">{{ workout.name }}</h1>
-        <div class="col-lg-2 btn-group">
+        <div class="col-lg-2 btn-group" *ngIf="isSignedIn">
             <button class="btn btn-warning" type="submit" [routerLink]="['/workout-create', workout.id]">Edit</button>
             <button class="btn btn-danger" type="submit" (click)="deleteWorkoutModal.show()">Delete</button>
         </div>

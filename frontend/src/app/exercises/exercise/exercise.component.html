@@ -2,12 +2,11 @@
     <button type="submit" class="btn btn-link" (click)="navigateList()">>> List</button>
     <div class="row">
         <h2 class="col-lg-10">{{ exercise.name }}</h2>
-        <div class="col-lg-2 btn-group">
+        <div class="col-lg-2 btn-group" *ngIf="isSignedIn">
             <button class="btn btn-warning" type="submit" [routerLink]="['/exercise-create', exercise.id]">Edit</button>
             <button class="btn btn-danger" type="submit" (click)="deleteExercise()">Delete</button>
         </div>
     </div>
-
     <hr />
     <div class="exercise-desc">
         {{ exercise.description }}
