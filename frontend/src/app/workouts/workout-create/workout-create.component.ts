@@ -1,7 +1,7 @@
 import { ProfileService } from './../../common/google-auth/common/profile.service';
 import { Subscription } from 'rxjs/Subscription';
 import { WorkoutService } from './../common/workout.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { ExerciseSet } from './../common/exerciseSet.model';
 import { ExerciseService } from './../../exercises/common/exercise.service';
@@ -31,16 +31,26 @@ export class WorkoutCreateComponent implements OnInit, AfterViewChecked {
   private isSignedIn;
   private subscription: Subscription;
 
-  constructor(private profileService: ProfileService, private workoutService: WorkoutService, private exerciseService: ExerciseService,
+  constructor(private profileService: ProfileService, private workoutService: WorkoutService,
+    private exerciseService: ExerciseService, private route: ActivatedRoute,
     private router: Router) {
     this.initializeComponent();
   }
 
   ngOnInit() {
+    this.getWorkout();
   }
 
   ngAfterViewChecked() {
     this.authenticationCheck();
+  }
+
+  getWorkout() {
+    this.route.params.subscribe(param => {
+      if (param['workout_id'] !== undefined) {
+        this.workoutService.getWorkout(param['workout_id']).then(workout => this.workout = workout);
+      }
+    });
   }
 
   initializeComponent() {
@@ -61,17 +71,24 @@ export class WorkoutCreateComponent implements OnInit, AfterViewChecked {
 
   private initializeExercises() {
     this.exercises = new Array<Exercise>();
-    this.exercises.push(new Exercise());
+    for (let i = 0; i < this.DAYS_LIMIT; i++) {
+      this.exercises.push(new Exercise());
+    }
   }
 
   private initializeSets() {
     this.sets = new Array<number>();
-    this.sets.push(0);
+    for (let i = 0; i < this.DAYS_LIMIT; i++) {
+      this.sets.push(0);
+    }
+
   }
 
   private initializeReps() {
     this.reps = new Array<number>();
-    this.reps.push(0);
+    for (let i = 0; i < this.DAYS_LIMIT; i++) {
+      this.reps.push(0);
+    }
   }
 
   addDay() {
@@ -79,11 +96,6 @@ export class WorkoutCreateComponent implements OnInit, AfterViewChecked {
       const newDay = new Day();
       newDay.index = this.workout.days.length;
       this.workout.days.push(newDay);
-      if (this.workout.days.length > 1) {
-        this.exercises.push(new Exercise());
-        this.sets.push(0);
-        this.reps.push(0);
-      }
     }
   }
 

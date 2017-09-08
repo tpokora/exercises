@@ -2,7 +2,10 @@
     <button type="submit" class="btn btn-link" (click)="navigateList()">>> List</button>
     <div class="row">
         <h1 class="col">{{ workout.name }}</h1>
-        <button class="btn btn-danger" type="submit" (click)="deleteWorkoutModal.show()">Delete</button>
+        <div class="col-lg-2 btn-group">
+            <button class="btn btn-warning" type="submit" [routerLink]="['/workout-create', workout.id]">Edit</button>
+            <button class="btn btn-danger" type="submit" (click)="deleteWorkoutModal.show()">Delete</button>
+        </div>
         <app-modal #deleteWorkoutModal>
             <div class="app-modal-body">
                 Are you sure you want to remove this workout?

@@ -33,7 +33,9 @@ export class ExerciseCreateComponent implements OnInit, AfterViewChecked {
 
   getExercise() {
     this.route.params.subscribe(param => {
-      this.exerciseService.getExercise(param['exercise_id']).then(exercise => this.exercise = exercise);
+      if (param['exercise_id'] !== undefined) {
+        this.exerciseService.getExercise(param['exercise_id']).then(exercise => this.exercise = exercise);
+      }
     });
   }
 
