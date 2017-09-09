@@ -1,6 +1,6 @@
 <div class="jumbotron">
-    <button type="submit" class="btn btn-link" (click)="navigateList()">>> List</button>
-    <div class="row">
+    <button type="submit" class="btn btn-primary" (click)="navigateList()">>> List</button>
+    <div class="row top-buffer">
         <h1 class="col">{{ workout.name }}</h1>
         <div class="col-lg-2 btn-group" *ngIf="isSignedIn">
             <button class="btn btn-warning" type="submit" [routerLink]="['/workout-create', workout.id]">Edit</button>
