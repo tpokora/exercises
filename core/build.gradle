@@ -16,6 +16,8 @@ description = 'exercises'
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.5.3.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:'1.5.3.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.0.0.M3'
+    compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.2.0.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-devtools'
     compile group: 'org.springframework', name: 'springloaded'
     compile group: 'mysql', name: 'mysql-connector-java', version:'5.1.41'
