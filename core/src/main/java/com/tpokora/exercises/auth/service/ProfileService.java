@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 
@@ -35,6 +34,7 @@ public class ProfileService {
 
             GoogleIdToken.Payload payload = googleIdToken.getPayload();
 
+            profile.setName((String) payload.get("name"));
             profile.setToken(tokenString);
             profile.setEmail(payload.getEmail());
 
