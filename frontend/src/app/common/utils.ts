@@ -10,6 +10,12 @@ export class Utils {
         headers.append('Content-Type', 'application/json');
         return headers;
     }
+
+    static headers_form_urlencoded(): Headers {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        return headers;
+    }
 }
 
 

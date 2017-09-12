@@ -36,12 +36,19 @@ export class GoogleAuthComponent implements AfterViewInit {
 
   onSignIn(googleUser) {
     const profile = googleUser.getBasicProfile();
+    const id_token = googleUser.getAuthResponse().id_token;
 
     this.ngzone.run(() => {
-      this.profile.name = profile.getName();
-      this.profile.email = profile.getEmail();
-      this.signedIn = true;
-      this.profileService.signIn(this.profile);
+      this.profileService.authenticateToken(id_token).then(profile => {
+        if (String(profile) !== '401') {
+          this.profile = profile;
+          this.signedIn = true;
+          this.profileService.signIn(this.profile);
+        } else {
+          this.signOut();
+        }
+
+      });
     });
   }
 
