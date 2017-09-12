@@ -22,7 +22,7 @@ dependencies {
     // spring security
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.0.0.M3'
     compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.2.0.RELEASE'
-    compile group: 'com.google.api-client', name: 'google-api-client', version: '1.8.0-beta'
+    compile group: 'com.google.api-client', name: 'google-api-client', version: '1.22.0'
 
     // database dependencies
     compile group: 'mysql', name: 'mysql-connector-java', version:'5.1.41'
