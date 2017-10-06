@@ -5,10 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 /**
@@ -16,7 +13,12 @@ import javax.validation.constraints.Size;
  */
 @ApiModel(value = "Exercise", description = "Exercise model")
 @Entity
-@Table(name = "EXERCISE")
+@Table(
+        name = "EXERCISE",
+        uniqueConstraints = @UniqueConstraint(
+        columnNames = { "NAME" },
+        name = "uk_name")
+)
 public class Exercise extends AbstractEntity {
 
     @ApiModelProperty(value = "Exercise name", required = true)

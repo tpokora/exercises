@@ -6,6 +6,7 @@ import com.tpokora.exercises.common.utils.Generator;
 import com.tpokora.exercises.common.utils.TestUtils;
 import com.tpokora.exercises.common.web.BaseControllerTest;
 import com.tpokora.exercises.exercise.model.Exercise;
+import com.tpokora.exercises.exercise.service.ExerciseServiceImpl;
 import com.tpokora.exercises.exercise.utils.ExerciseGenerator;
 import org.junit.After;
 import org.junit.Before;
@@ -20,9 +21,12 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import javax.validation.ConstraintViolationException;
+import java.util.*;
 
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -37,12 +41,14 @@ public class ExerciseControllerTest extends BaseControllerTest {
     private static final Logger logger = LoggerFactory.getLogger(ExerciseControllerTest.class);
 
     @Mock
-    private GenericService<Exercise> exerciseService;
+    private ExerciseServiceImpl exerciseService;
 
     @InjectMocks
     private ExerciseController exerciseController;
 
     private Generator<Exercise> exerciseGenerator;
+
+    private ArrayList<Exercise> emptyExerciseList;
 
     @Before
     public void setup() throws Exception {
@@ -52,6 +58,7 @@ public class ExerciseControllerTest extends BaseControllerTest {
         this.mockMvc = MockMvcBuilders.standaloneSetup(exerciseController).build();
 
         exerciseGenerator = new ExerciseGenerator();
+        emptyExerciseList = new ArrayList<>();
     }
 
     @After
@@ -83,16 +90,37 @@ public class ExerciseControllerTest extends BaseControllerTest {
                 .andExpect(jsonPath("$").isArray());
     }
 
+    // TODO: fix create exercise tests
     @Test
     @Transactional
     @Rollback(true)
     public void createNewExercise_success() throws Exception {
         Exercise exercise = new Exercise("ExerciseControllerTest", "ExerciseControllerTestDescription");
 
+        when(exerciseService.createOrUpdate(exercise)).thenReturn(exercise);
+
         mockMvc.perform(post(ConfigsString.EXERCISES_API_URL)
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(exercise)))
                 .andExpect(status().isCreated());
+//                .andExpect(jsonPath("$.name", is(exercise.getName())))
+//                .andExpect(jsonPath("$.description", is(exercise.getDescription())));
+    }
+
+
+    // TODO: fix exception return
+    @Test
+    @Transactional
+    @Rollback
+    public void createNewExercise_unprocessable_entity() throws Exception {
+        Exercise exercise = new Exercise("Exercise", "Description");
+        // when(exerciseService.createOrUpdate(exercise)).thenThrow(exception);
+        //doThrow(ConstraintViolationException.class).when(exerciseService.createOrUpdate(exercise)).;
+
+//        mockMvc.perform(post(ConfigsString.EXERCISES_API_URL)
+//                .contentType(MediaType.APPLICATION_JSON_UTF8)
+//                .content(TestUtils.convertObjectToJsonBytes(exercise)))
+//                .andExpect(status().isUnprocessableEntity());
     }
 
     @Test
@@ -116,5 +144,42 @@ public class ExerciseControllerTest extends BaseControllerTest {
         mockMvc.perform(get(ConfigsString.EXERCISES_API_URL + "/" + exercise.getId()))
                 .andExpect(status().isNotFound());
     }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void getExercisesByName_success() throws Exception {
+        String name = "Exercise";
+        ArrayList exerciseList = (ArrayList) exerciseGenerator.generateList(3);
+        when(exerciseService.getByName(name)).thenReturn(exerciseList);
+
+        mockMvc.perform(get(ConfigsString.EXERCISES_API_URL + "/find-by-name?name=" + name))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray());
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void getExercisesByName_empty() throws Exception {
+        String name = "Exercise";
+        when(exerciseService.getByName(name)).thenReturn(emptyExerciseList);
+
+        mockMvc.perform(get(ConfigsString.EXERCISES_API_URL + "/find-by-name?name=" + name))
+                .andExpect(status().isNotFound());
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void getAllExercises_empty() throws Exception {
+        when(exerciseService.getAll()).thenReturn(emptyExerciseList);
+
+        mockMvc.perform(get(ConfigsString.EXERCISES_API_URL))
+                .andExpect(status().isNotFound());
+    }
+
 
 }
