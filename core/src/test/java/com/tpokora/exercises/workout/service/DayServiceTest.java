@@ -61,6 +61,25 @@ public class DayServiceTest extends BaseServiceTest {
     @Test
     @Transactional
     @Rollback
+    public void test_getAllDays_success() {
+        Workout workout = workoutGenerator.generate(1);
+        workout = workoutGenericService.createOrUpdate(workout);
+
+        Day day1 = dayGenerator.generate(1);
+        day1.setWorkout(workout);
+
+        Day day2 = dayGenerator.generate(2);
+        day2.setWorkout(workout);
+
+        day1 = dayGenericService.createOrUpdate(day1);
+        day2 = dayGenericService.createOrUpdate(day2);
+
+        Assert.assertTrue(dayGenericService.getAll().size() == 2);
+    }
+
+    @Test
+    @Transactional
+    @Rollback
     public void test_getDaysByWorkoutId_success() {
         Workout workout1 = createWorkout(0);
         Workout workout2 = createWorkout(1);
@@ -112,6 +131,7 @@ public class DayServiceTest extends BaseServiceTest {
             List<ExerciseSet> exerciseSetList = list.get(i);
             for (int j = 0; j < exerciseSetList.size(); j++) {
                 Exercise exercise = exerciseSetList.get(j).getExercise();
+                exercise.setName(exercise.getName() + i);
                 exercise = exerciseGenericService.createOrUpdate(exercise);
                 exerciseSetList.get(j).setExercise(exercise);
                 list.set(i, exerciseSetList);
@@ -134,7 +154,7 @@ public class DayServiceTest extends BaseServiceTest {
     @Test
     @Transactional
     @Rollback
-    public void test_removeDaywithoutExercises_success() {
+    public void test_removeDayWithoutExercises_success() {
         Workout workout = createWorkout(0);
         List<Day> firstDayList = ((DayGenerator)dayGenerator).generateList(1, workout);
         workout.setDays(firstDayList);

@@ -23,11 +23,13 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -50,6 +52,8 @@ public class WorkoutControllerTest extends BaseControllerTest {
     private Generator<Day> dayGenerator;
     private Generator<ExerciseSet> exerciseSetGenerator;
 
+    private List<Workout> emptyWorkoutList;
+
     @Before
     public void setup() throws Exception {
         this.mockMvc = webAppContextSetup(this.webApplicationContext).build();
@@ -60,6 +64,8 @@ public class WorkoutControllerTest extends BaseControllerTest {
         workoutGenerator = new WorkoutGenerator();
         dayGenerator = new DayGenerator();
         exerciseSetGenerator = new ExerciseSetGenerator();
+
+        emptyWorkoutList = new ArrayList<>();
     }
 
     @Test
@@ -68,10 +74,28 @@ public class WorkoutControllerTest extends BaseControllerTest {
     public void test_createWorkout_success() throws Exception {
         Workout workout = workoutGenerator.generate();
 
+        when(workoutGenericService.createOrUpdate(any(Workout.class))).thenReturn(workout);
+
         mockMvc.perform(post(ConfigsString.WORKOUT_API_URL)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(TestUtils.convertObjectToJsonBytes(workout)))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.name", is(workout.getName())))
+                .andExpect(jsonPath("$.description", is(workout.getDescription())));
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void test_createWorkout_unprocessable_entity() throws Exception {
+        Workout workout = workoutGenerator.generate();
+
+        when(workoutGenericService.createOrUpdate(any(Workout.class))).thenThrow(ConstraintViolationException.class);
+
+        mockMvc.perform(post(ConfigsString.WORKOUT_API_URL)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(TestUtils.convertObjectToJsonBytes(workout)))
+                .andExpect(status().isUnprocessableEntity());
     }
 
     @Test
@@ -102,6 +126,16 @@ public class WorkoutControllerTest extends BaseControllerTest {
         mockMvc.perform(get(ConfigsString.WORKOUT_API_URL))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray());
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void test_getWorkouts_empty() throws Exception {
+        when(workoutGenericService.getAll()).thenReturn(emptyWorkoutList);
+
+        mockMvc.perform(get(ConfigsString.WORKOUT_API_URL))
+                .andExpect(status().isNotFound());
     }
 
     @Test
