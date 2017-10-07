@@ -67,6 +67,20 @@ public class ExerciseServiceTest extends BaseServiceTest {
     @Test
     @Transactional
     @Rollback(true)
+    public void test_createOrUpdateExerciseWithID_newExercise_success() {
+        Exercise exercise = new Exercise("TestNewExerciseCreateWithID", "TestNewExerciseDesc");
+        exercise = exerciseService.createOrUpdate(exercise);
+        Exercise exerciseWithID = new Exercise(exercise.getId(), "TestExercise", "TestDescription");
+        Exercise updatedExercise = exerciseService.createOrUpdate(exerciseWithID);
+
+        Assert.assertTrue(updatedExercise.getId() == exerciseWithID.getId());
+        Assert.assertTrue(updatedExercise.getName().equals(exerciseWithID.getName()));
+        Assert.assertTrue(updatedExercise.getDescription().equals(exerciseWithID.getDescription()));
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
     public void test_deleteExerciseById_success() {
         exercise = new Exercise("TextExerciseToDelete", "TextExerciseToDeleteDesc");
         exercise = exerciseService.createOrUpdate(exercise);

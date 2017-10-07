@@ -44,9 +44,7 @@ public class ExerciseServiceImpl implements GenericService<Exercise> {
             return exerciseRepository.getOne(newExerciseId);
         }
 
-        Exercise updateExercise = exerciseRepository.findOne(exercise.getId());
-        updateExercise = exercise;
-        updateExercise = exerciseRepository.saveAndFlush(updateExercise);
+        Exercise updateExercise = exerciseRepository.saveAndFlush(exercise);
 
         return exerciseRepository.findOne(updateExercise.getId());
     }
