@@ -1,7 +1,6 @@
 package com.tpokora.exercises.exercise.web;
 
 import com.tpokora.exercises.common.ConfigsString;
-import com.tpokora.exercises.common.service.GenericService;
 import com.tpokora.exercises.common.utils.Generator;
 import com.tpokora.exercises.common.utils.TestUtils;
 import com.tpokora.exercises.common.web.BaseControllerTest;
@@ -25,9 +24,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.*;
 
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -90,37 +87,34 @@ public class ExerciseControllerTest extends BaseControllerTest {
                 .andExpect(jsonPath("$").isArray());
     }
 
-    // TODO: fix create exercise tests
     @Test
     @Transactional
     @Rollback(true)
     public void createNewExercise_success() throws Exception {
-        Exercise exercise = new Exercise("ExerciseControllerTest", "ExerciseControllerTestDescription");
+        Exercise exercise = new Exercise( "ExerciseControllerTest", "ExerciseControllerTestDescription");
 
-        when(exerciseService.createOrUpdate(exercise)).thenReturn(exercise);
+        when(exerciseService.createOrUpdate(any(Exercise.class))).thenReturn(exercise);
 
         mockMvc.perform(post(ConfigsString.EXERCISES_API_URL)
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(exercise)))
-                .andExpect(status().isCreated());
-//                .andExpect(jsonPath("$.name", is(exercise.getName())))
-//                .andExpect(jsonPath("$.description", is(exercise.getDescription())));
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.name", is(exercise.getName())))
+                .andExpect(jsonPath("$.description", is(exercise.getDescription())));
     }
 
 
-    // TODO: fix exception return
     @Test
     @Transactional
     @Rollback
     public void createNewExercise_unprocessable_entity() throws Exception {
         Exercise exercise = new Exercise("Exercise", "Description");
-        // when(exerciseService.createOrUpdate(exercise)).thenThrow(exception);
-        //doThrow(ConstraintViolationException.class).when(exerciseService.createOrUpdate(exercise)).;
+        when(exerciseService.createOrUpdate(any(Exercise.class))).thenThrow(ConstraintViolationException.class);
 
-//        mockMvc.perform(post(ConfigsString.EXERCISES_API_URL)
-//                .contentType(MediaType.APPLICATION_JSON_UTF8)
-//                .content(TestUtils.convertObjectToJsonBytes(exercise)))
-//                .andExpect(status().isUnprocessableEntity());
+        mockMvc.perform(post(ConfigsString.EXERCISES_API_URL)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(TestUtils.convertObjectToJsonBytes(exercise)))
+                .andExpect(status().isUnprocessableEntity());
     }
 
     @Test
