@@ -1,7 +1,7 @@
 package com.tpokora.exercises.auth.web;
 
-import com.tpokora.exercises.auth.domain.Profile;
-import com.tpokora.exercises.auth.service.ProfileService;
+import com.tpokora.exercises.auth.model.Profile;
+import com.tpokora.exercises.auth.service.ProfileServiceImpl;
 import com.tpokora.exercises.common.ConfigsString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,13 +18,12 @@ public class AuthenticationController {
     public static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
 
     @Autowired
-    private ProfileService profileService;
+    private ProfileServiceImpl profileService;
 
     @CrossOrigin
     @RequestMapping(value = "/authtoken", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Profile> authenticateUser(@RequestParam("token") String tokenString) {
         Profile profile = profileService.authenticate(tokenString);
-
         if (profile == null) {
             return new ResponseEntity<Profile>(HttpStatus.UNAUTHORIZED);
         }
