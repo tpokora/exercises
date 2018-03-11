@@ -17,9 +17,9 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class ProfileServiceImpl implements GenericService<Profile> {
+public class ProfileService implements GenericService<Profile> {
 
-    public static final Logger logger = LoggerFactory.getLogger(ProfileServiceImpl.class);
+    public static final Logger logger = LoggerFactory.getLogger(ProfileService.class);
 
     private static final String CLIENT_ID = "356969504268-1q2tfe73dm2nvb3toqaq1p7okcbog586.apps.googleusercontent.com";
 

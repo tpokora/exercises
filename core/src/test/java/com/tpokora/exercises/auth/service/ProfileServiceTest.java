@@ -1,7 +1,7 @@
-package com.tpokora.exercises.profile;
+package com.tpokora.exercises.auth.service;
 
 import com.tpokora.exercises.auth.model.Profile;
-import com.tpokora.exercises.auth.service.ProfileServiceImpl;
+import com.tpokora.exercises.auth.service.ProfileService;
 import com.tpokora.exercises.common.service.BaseServiceTest;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProfileServiceTest extends BaseServiceTest {
 
     @Autowired
-    private ProfileServiceImpl profileService;
+    private ProfileService profileService;
 
     private Profile profile;
 
