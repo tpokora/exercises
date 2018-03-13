@@ -41,7 +41,7 @@ public class ProfileService implements GenericService<Profile> {
             GoogleIdToken.Payload payload = googleIdToken.getPayload();
 
             profile.setName((String) payload.get("name"));
-            profile.setToken(tokenString);
+            profile.setToken(tokenString.getBytes());
             profile.setEmail(payload.getEmail());
 
             return profile;
@@ -73,5 +73,9 @@ public class ProfileService implements GenericService<Profile> {
     @Override
     public void delete(Integer id) {
         profileRepository.delete(id);
+    }
+
+    public Profile getByEmail(String email) {
+        return profileRepository.findByEmail(email);
     }
 }

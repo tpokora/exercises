@@ -25,8 +25,7 @@ public class Profile extends AbstractEntity{
 
     @ApiModelProperty(name = "User profile google token")
     @Column(name = "TOKEN")
-    @Lob
-    private String token;
+    private byte[] token;
 
     @ApiModelProperty(name = "User email")
     @Column(name = "EMAIL")
@@ -34,7 +33,7 @@ public class Profile extends AbstractEntity{
 
     public Profile() {}
 
-    public Profile(String name, String token, String email) {
+    public Profile(String name, byte[] token, String email) {
         this.name = name;
         this.token = token;
         this.email = email;
@@ -48,11 +47,11 @@ public class Profile extends AbstractEntity{
         this.name = name;
     }
 
-    public String getToken() {
+    public byte[] getToken() {
         return token;
     }
 
-    public void setToken(String token) {
+    public void setToken(byte[] token) {
         this.token = token;
     }
 

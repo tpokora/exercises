@@ -27,7 +27,11 @@ public class AuthenticationController {
         if (profile == null) {
             return new ResponseEntity<Profile>(HttpStatus.UNAUTHORIZED);
         }
-
+        Profile profileToUpdate = profileService.getByEmail(profile.getEmail());
+        if (profileToUpdate != null) {
+            profile.setId(profileToUpdate.getId());
+        }
+        profile = profileService.createOrUpdate(profile);
         return new ResponseEntity<Profile>(profile, HttpStatus.OK);
     }
 

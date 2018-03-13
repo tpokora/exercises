@@ -40,7 +40,7 @@ public class AuthenticationControllerTest extends BaseControllerTest {
         this.profile = new Profile();
         this.profile.setId(1);
         this.profile.setName("testProfile");
-        this.profile.setToken("testToken");
+        this.profile.setToken("testToken".getBytes());
         this.profile.setEmail("test@email.com");
     }
 
@@ -48,7 +48,7 @@ public class AuthenticationControllerTest extends BaseControllerTest {
     @Transactional
     @Rollback(true)
     public void test_userAuthentication_success() throws Exception {
-        when(profileService.authenticate(this.profile.getToken())).thenReturn(this.profile);
+        when(profileService.authenticate(this.profile.getToken().toString())).thenReturn(this.profile);
 
         mockMvc.perform(post(ConfigsString.AUTH_API_URL + "/authtoken")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)

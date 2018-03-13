@@ -19,7 +19,7 @@ public class ProfileServiceTest extends BaseServiceTest {
 
     @Before
     public void setup() {
-        profile = new Profile("testProfile", "testToken", "test@email.com");
+        profile = new Profile("testProfile", "testToken".getBytes(), "test@email.com");
     }
 
     @Test
@@ -39,7 +39,7 @@ public class ProfileServiceTest extends BaseServiceTest {
         // check same email
         Assert.assertTrue(profileService.getAll().size() == 1);
 
-        Profile testProfil3 = profileService.createOrUpdate(new Profile("testProfile", "testToken", "diffEmail"));
+        Profile testProfil3 = profileService.createOrUpdate(new Profile("testProfile", "testToken".getBytes(), "diffEmail"));
 
         Assert.assertTrue(profileService.getAll().size() == 2);
     }
