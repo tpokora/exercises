@@ -1,3 +1,4 @@
+import { profile } from './common/profile.testing';
 import { ProfileService } from './common/profile.service';
 import { Profile } from './common/profile.model';
 import { environment } from './../../../environments/environment.prod';
@@ -40,16 +41,22 @@ export class GoogleAuthComponent implements AfterViewInit {
 
     this.ngzone.run(() => {
       this.profileService.authenticateToken(id_token).then(profile => {
-        if (String(profile) !== '401') {
-          this.profile = profile;
-          this.signedIn = true;
-          this.profileService.signIn(this.profile);
-        } else {
-          this.signOut();
-        }
-
+          if (this.isUserValid(profile)) {
+            this.profile = profile;
+            this.signedIn = true;
+            this.profileService.signIn(this.profile);
+          } else {
+            this.signOut();
+          }
       });
     });
+  }
+
+  private isUserValid(profile: any): boolean {
+    if (profile === 0) {
+      return false;
+    }
+    return true;
   }
 
   renderBtn() {
@@ -57,7 +64,7 @@ export class GoogleAuthComponent implements AfterViewInit {
       'onsuccess': param => this.onSignIn(param),
       'scope': 'profile email',
       'longtitle': true,
-      'theme': 'light'
+      'theme': 'dark'
     });
   }
 

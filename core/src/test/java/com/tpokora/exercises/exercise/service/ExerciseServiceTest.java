@@ -1,6 +1,5 @@
 package com.tpokora.exercises.exercise.service;
 
-import com.tpokora.exercises.common.service.GenericService;
 import com.tpokora.exercises.common.utils.Generator;
 import com.tpokora.exercises.common.service.BaseServiceTest;
 import com.tpokora.exercises.exercise.model.Exercise;
@@ -22,7 +21,7 @@ public class ExerciseServiceTest extends BaseServiceTest {
     private Generator<Exercise> generator;
 
     @Autowired
-    private GenericService<Exercise> exerciseService;
+    private ExerciseServiceImpl exerciseService;
 
     private Exercise exercise;
     private List<Exercise> exerciseList;
@@ -103,7 +102,7 @@ public class ExerciseServiceTest extends BaseServiceTest {
         Exercise exerciseWithoutKeyWord = new Exercise("Exercise", "TestNewExerciseDesc");
         exerciseWithoutKeyWord = exerciseService.createOrUpdate(exerciseWithoutKeyWord);
 
-        Assert.assertTrue(((ExerciseServiceImpl) exerciseService).getByName(keyword).size() == 1);
+        Assert.assertTrue(exerciseService.getByName(keyword).size() == 1);
     }
 
 
