@@ -27,7 +27,7 @@ public class WorkoutService implements GenericService<Workout> {
     @Override
     @Transactional
     public Workout getById(Integer id) {
-        return workoutRepository.findOne(id);
+        return workoutRepository.findById(id).get();
     }
 
     @Override
@@ -49,6 +49,6 @@ public class WorkoutService implements GenericService<Workout> {
     @Override
     @Transactional
     public void delete(Integer id) {
-        workoutRepository.delete(id);
+        workoutRepository.deleteById(id);
     }
 }

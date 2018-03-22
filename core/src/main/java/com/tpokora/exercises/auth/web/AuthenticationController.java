@@ -1,7 +1,7 @@
 package com.tpokora.exercises.auth.web;
 
-import com.tpokora.exercises.auth.model.Profile;
-import com.tpokora.exercises.auth.service.ProfileService;
+import com.tpokora.exercises.profile.model.Profile;
+import com.tpokora.exercises.profile.service.ProfileService;
 import com.tpokora.exercises.common.ConfigsString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

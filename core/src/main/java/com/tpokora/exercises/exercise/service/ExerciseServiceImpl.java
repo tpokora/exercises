@@ -28,7 +28,7 @@ public class ExerciseServiceImpl implements GenericService<Exercise> {
     @Override
     @Transactional(readOnly = true)
     public Exercise getById(Integer id) {
-        return exerciseRepository.findOne(id);
+        return exerciseRepository.findById(id).get();
     }
 
     @Transactional(readOnly = true)
@@ -46,12 +46,12 @@ public class ExerciseServiceImpl implements GenericService<Exercise> {
 
         Exercise updateExercise = exerciseRepository.saveAndFlush(exercise);
 
-        return exerciseRepository.findOne(updateExercise.getId());
+        return exerciseRepository.findById(updateExercise.getId()).get();
     }
 
     @Override
     @Transactional
     public void delete(Integer id) {
-        exerciseRepository.delete(id);
+        exerciseRepository.deleteById(id);
     }
 }

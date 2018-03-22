@@ -12,6 +12,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Created by pokor on 13.06.2017.
@@ -77,7 +78,7 @@ public class ExerciseServiceTest extends BaseServiceTest {
         Assert.assertTrue(updatedExercise.getDescription().equals(exerciseWithID.getDescription()));
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     @Transactional
     @Rollback(true)
     public void test_deleteExerciseById_success() {

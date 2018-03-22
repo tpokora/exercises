@@ -29,7 +29,7 @@ public class DayService implements GenericService<Day> {
     @Override
     @Transactional
     public Day getById(Integer id) {
-        return dayRepository.findOne(id);
+        return dayRepository.findById(id).get();
     }
 
     @Override
@@ -37,7 +37,7 @@ public class DayService implements GenericService<Day> {
     public Day createOrUpdate(Day day) {
         Day newDay = day;
         if (day.getWorkout() != null) {
-            day.setWorkout(workoutRepository.findOne(day.getWorkout().getId()));
+            day.setWorkout(workoutRepository.findById(day.getWorkout().getId()).get());
         }
         if (day.getExerciseSets() != null) {
             for (ExerciseSet exerciseSet : day.getExerciseSets()) {
@@ -50,7 +50,7 @@ public class DayService implements GenericService<Day> {
 
     @Override
     public void delete(Integer id) {
-        dayRepository.delete(id);
+        dayRepository.deleteById(id);
     }
 
     public List<Day> getDaysByWorkoutId(Integer id) {

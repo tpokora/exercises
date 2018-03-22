@@ -24,7 +24,7 @@ public class ExerciseSetService implements GenericService<ExerciseSet> {
     @Override
     @Transactional
     public ExerciseSet getById(Integer id) {
-        return exerciseSetRepository.findOne(id);
+        return exerciseSetRepository.findById(id).get();
     }
 
     @Override
@@ -35,6 +35,6 @@ public class ExerciseSetService implements GenericService<ExerciseSet> {
 
     @Override
     public void delete(Integer id) {
-        exerciseSetRepository.delete(id);
+        exerciseSetRepository.deleteById(id);
     }
 }

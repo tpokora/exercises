@@ -1,7 +1,6 @@
-package com.tpokora.exercises.auth.service;
+package com.tpokora.exercises.profile.service;
 
-import com.tpokora.exercises.auth.model.Profile;
-import com.tpokora.exercises.auth.service.ProfileService;
+import com.tpokora.exercises.profile.model.Profile;
 import com.tpokora.exercises.common.service.BaseServiceTest;
 import org.junit.Assert;
 import org.junit.Before;

@@ -2,8 +2,6 @@ package com.tpokora.exercises.config;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
-import com.tpokora.exercises.common.service.GenericService;
-import com.tpokora.exercises.exercise.service.ExerciseServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,11 +13,6 @@ import java.security.GeneralSecurityException;
  */
 @Configuration
 public class AppConfig {
-
-    @Bean(name = "exerciseService")
-    public GenericService getExerciseService() {
-        return new ExerciseServiceImpl();
-    }
 
     @Bean(name = "httpTransport")
     public HttpTransport getHttpTransport() throws GeneralSecurityException, IOException {

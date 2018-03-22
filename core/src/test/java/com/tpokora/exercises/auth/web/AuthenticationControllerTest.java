@@ -1,9 +1,8 @@
 package com.tpokora.exercises.auth.web;
 
-import com.tpokora.exercises.auth.model.Profile;
-import com.tpokora.exercises.auth.service.ProfileService;
+import com.tpokora.exercises.profile.model.Profile;
+import com.tpokora.exercises.profile.service.ProfileService;
 import com.tpokora.exercises.common.ConfigsString;
-import com.tpokora.exercises.common.utils.TestUtils;
 import com.tpokora.exercises.common.web.BaseControllerTest;
 import org.junit.Before;
 import org.junit.Test;

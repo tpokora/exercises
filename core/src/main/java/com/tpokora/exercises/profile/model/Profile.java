@@ -1,4 +1,4 @@
-package com.tpokora.exercises.auth.model;
+package com.tpokora.exercises.profile.model;
 
 import com.tpokora.exercises.common.AbstractEntity;
 import io.swagger.annotations.ApiModel;

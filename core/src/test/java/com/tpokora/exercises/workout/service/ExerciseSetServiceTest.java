@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class ExerciseSetServiceTest extends BaseServiceTest {
 
@@ -96,7 +97,7 @@ public class ExerciseSetServiceTest extends BaseServiceTest {
         Assert.assertTrue(exerciseSetGenericService.getAll().size() == exerciseSetList.size());
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     @Transactional
     @Rollback
     public void test_removeExerciseById_success() {
@@ -109,7 +110,7 @@ public class ExerciseSetServiceTest extends BaseServiceTest {
         Assert.assertTrue(exerciseSetGenericService.getById(this.exerciseSet.getId()) == null);
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     @Transactional
     @Rollback
     public void test_exerciseShouldNotBeRemovedWhenExerciseSetIsRemoved_success() {

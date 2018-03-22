@@ -1,6 +1,6 @@
-package com.tpokora.exercises.auth.domain;
+package com.tpokora.exercises.profile.domain;
 
-import com.tpokora.exercises.auth.model.Profile;
+import com.tpokora.exercises.profile.model.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -12,6 +12,7 @@ public class ConfigsString {
     public static final String WORKOUT_API_URL = REST_API_URL + "/workouts";
     public static final String DAY_API_URL = REST_API_URL + "/days";
     public static final String AUTH_API_URL = REST_API_URL + "/auth";
+    public static final String PROFILE_API_URL = REST_API_URL + "/profile";
 
 
 }

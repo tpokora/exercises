@@ -1,11 +1,11 @@
-package com.tpokora.exercises.auth.service;
+package com.tpokora.exercises.profile.service;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.tpokora.exercises.auth.domain.ProfileRepository;
-import com.tpokora.exercises.auth.model.Profile;
+import com.tpokora.exercises.profile.domain.ProfileRepository;
+import com.tpokora.exercises.profile.model.Profile;
 import com.tpokora.exercises.common.service.GenericService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,6 +65,10 @@ public class ProfileService implements GenericService<Profile> {
         return profileRepository.getOne(id);
     }
 
+    public Profile getById(String id) {
+        return profileRepository.getOne(Integer.parseInt(id));
+    }
+
     @Override
     public Profile createOrUpdate(Profile profile) {
         return profileRepository.saveAndFlush(profile);
@@ -72,7 +76,7 @@ public class ProfileService implements GenericService<Profile> {
 
     @Override
     public void delete(Integer id) {
-        profileRepository.delete(id);
+        profileRepository.deleteById(id);
     }
 
     public Profile getByEmail(String email) {

@@ -99,7 +99,7 @@ public class DayServiceTest extends BaseServiceTest {
         Assert.assertTrue(((DayService)dayGenericService).getDaysByWorkoutId(workout2.getId()).size() == 3);
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     @Transactional
     @Rollback
     public void test_removeDay_success() {
@@ -151,7 +151,7 @@ public class DayServiceTest extends BaseServiceTest {
         }
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     @Transactional
     @Rollback
     public void test_removeDayWithoutExercises_success() {
