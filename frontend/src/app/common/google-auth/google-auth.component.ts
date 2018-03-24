@@ -2,7 +2,9 @@ import { profile } from './common/profile.testing';
 import { ProfileService } from './common/profile.service';
 import { Profile } from './common/profile.model';
 import { environment } from './../../../environments/environment.prod';
-import { Component, AfterViewInit, NgZone } from '@angular/core';
+import { Component, AfterViewInit, NgZone, ViewChild } from '@angular/core';
+import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
+
 declare var gapi: any;
 
 @Component({
@@ -18,6 +20,8 @@ export class GoogleAuthComponent implements AfterViewInit {
 
   private profile = new Profile();
   private signedIn = false;
+
+  @ViewChild('signInPopover') signInPopover: NgbPopover;
 
   constructor(private profileService: ProfileService, private ngzone: NgZone) { }
 
@@ -47,6 +51,7 @@ export class GoogleAuthComponent implements AfterViewInit {
             this.profileService.signIn(this.profile);
           } else {
             this.signOut();
+            this.showLoginErrorPopover();
           }
       });
     });
@@ -78,5 +83,18 @@ export class GoogleAuthComponent implements AfterViewInit {
 
   isSignedIn(): boolean {
     return this.signedIn;
+  }
+
+  private showLoginErrorPopover(): void {
+    this.signInPopover.open();
+    this.hideSignInErrorPopup();
+  }
+
+  private hideSignInErrorPopup(): Promise<any> {
+    return new Promise<number>(resolve => {
+      setTimeout(() => {
+        this.signInPopover.close();
+      }, 3000);
+  });
   }
 }
