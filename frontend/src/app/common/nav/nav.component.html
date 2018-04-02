@@ -1,16 +1,22 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" [routerLink]="['/']">Home</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link" [routerLink]="['/exercise-list']">Exercises</a>
-        <!--<a class="navbar-link" [routerLink]="['/exercise-create']">&gt; Create</a>-->
-        <a class="nav-item nav-link" [routerLink]="['/workout-list']">Workouts</a>
-        <!--<a class="navbar-link" [routerLink]="['/workout-create']">&gt; Create</a>-->
+    <div class="col-sm-10">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+              aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" [routerLink]="['/']">Home</a>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" [routerLink]="['/exercise-list']">Exercises</a>
+          <!--<a class="navbar-link" [routerLink]="['/exercise-create']">&gt; Create</a>-->
+          <a class="nav-item nav-link" [routerLink]="['/workout-list']">Workouts</a>
+          <!--<a class="navbar-link" [routerLink]="['/workout-create']">&gt; Create</a>-->
+        </div>
       </div>
+    </div>
+    <div class="col-sm-2 align-self-start">
+      <app-google-auth></app-google-auth>
     </div>
   </div>
 </nav>
