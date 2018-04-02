@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(ConfigsString.PROFILE_API_URL)
 public class ProfileController {
@@ -18,6 +20,14 @@ public class ProfileController {
 
     @Autowired
     private ProfileService profileService;
+
+    @CrossOrigin
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<Profile>> getProfiles() {
+        List<Profile> profileList = profileService.getAll();
+
+        return new ResponseEntity<>(profileList, HttpStatus.OK);
+    }
 
     @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
