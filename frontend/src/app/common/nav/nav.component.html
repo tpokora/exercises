@@ -1,42 +1,16 @@
-<div>
-    <nav class="navbar navbar-inverse bg-inverse">
-        <div class="container md-3">
-            <div class="row">
-                <div class="col-lg-9" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-brand">{{ title }}</span>
-                </div>
-                <app-google-auth class="col-lg-3"></app-google-auth>
-            </div>
-
-            <div class="collapse" id="navbarToggleExternalContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active nav-item-element">
-                        <a class="navbar-link" [routerLink]="['/']">&gt;&gt; Home</a>
-                    </li>
-                    <li class="nav-item nav-item-element">
-                        <a data-toggle="collapse" data-target="#exerciseNav" aria-controls="exerciseNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-link" [routerLink]="['/exercise-list']">&gt;&gt; Exercises</a>
-                        <ul id="exerciseNav" class="chd-nav-list list-inline collapse">
-                            <li class="list-inline-item" *ngIf="isSignedIn">
-                                <a class="navbar-link" [routerLink]="['/exercise-create']">&gt; Create</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="navbar-link" [routerLink]="['/exercise-list']">&gt; List</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item nav-item-element">
-                        <a data-toggle="collapse" data-target="#workoutNav" aria-controls="exerciseNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-link" [routerLink]="['/workout-list']">&gt;&gt; Workouts</a>
-                        <ul id="workoutNav" class="chd-nav-list list-inline collapse">
-                            <li class="list-inline-item" *ngIf="isSignedIn">
-                                <a class="navbar-link" [routerLink]="['/workout-create']">&gt; Create</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="navbar-link" [routerLink]="['/workout-list']">&gt; List</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</div>
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/']">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" [routerLink]="['/exercise-list']">Exercises</a>
+        <!--<a class="navbar-link" [routerLink]="['/exercise-create']">&gt; Create</a>-->
+        <a class="nav-item nav-link" [routerLink]="['/workout-list']">Workouts</a>
+        <!--<a class="navbar-link" [routerLink]="['/workout-create']">&gt; Create</a>-->
+      </div>
+    </div>
+  </div>
+</nav>
