@@ -33,7 +33,7 @@ export class GoogleAuthComponent implements AfterViewInit {
   googleInit() {
     const component = this;
     gapi.load('auth2', () => {
-      component.auth2 = gapi.auth2.init({
+      gapi.auth2.init({
         client_id: component.clientId,
       });
     });
@@ -66,10 +66,8 @@ export class GoogleAuthComponent implements AfterViewInit {
 
   renderBtn() {
     gapi.signin2.render('googleAuthBtn', {
-      'onsuccess': param => this.onSignIn(param),
-      'scope': 'profile email',
-      'longtitle': true,
-      'theme': 'dark'
+      onSuccess: param => this.onSignIn(param),
+      scope: 'profile email'
     });
   }
 

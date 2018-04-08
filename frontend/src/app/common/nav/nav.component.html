@@ -1,11 +1,13 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container">
-    <div class="col-sm-10">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-              aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a class="navbar-brand" [routerLink]="['/']">Home</a>
+    <div class="col-sm-8">
+      <div>
+        <a class="navbar-brand" [routerLink]="['/']">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-item nav-link" [routerLink]="['/exercise-list']">Exercises</a>
@@ -15,7 +17,7 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-2 align-self-start">
+    <div class="col-sm-4 align-self-start">
       <app-google-auth></app-google-auth>
     </div>
   </div>
