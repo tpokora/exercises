@@ -2,8 +2,9 @@ import { profile } from './common/profile.testing';
 import { ProfileService } from './common/profile.service';
 import { Profile } from './common/profile.model';
 import { environment } from './../../../environments/environment.prod';
-import { Component, AfterViewInit, NgZone, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, NgZone, ViewChild, Output } from '@angular/core';
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
+import { EventEmitter } from 'events';
 
 declare var gapi: any;
 
@@ -18,7 +19,9 @@ export class GoogleAuthComponent implements AfterViewInit {
 
   private auth2: any;
 
-  private profile = new Profile();
+  private profile: Profile;
+
+  @Output() loggedProfile = new EventEmitter<Profile>();
   private signedIn = false;
 
   @ViewChild('signInPopover') signInPopover: NgbPopover;
@@ -26,6 +29,7 @@ export class GoogleAuthComponent implements AfterViewInit {
   constructor(private profileService: ProfileService, private ngzone: NgZone) { }
 
   ngAfterViewInit() {
+    this.profile = new Profile();
     this.googleInit();
     this.renderBtn();
   }
@@ -49,6 +53,7 @@ export class GoogleAuthComponent implements AfterViewInit {
             this.profile = profile;
             this.signedIn = true;
             this.profileService.signIn(this.profile);
+            this.loggedProfile.emit(this.profile);
           } else {
             this.signOut();
             this.showLoginErrorPopover();
@@ -81,6 +86,17 @@ export class GoogleAuthComponent implements AfterViewInit {
 
   isSignedIn(): boolean {
     return this.signedIn;
+  }
+
+  private saveUserInSession() {
+    localStorage.setItem('user', this.profile.id.toString());
+    localStorage.setItem('token', this.profile.token);
+  }
+
+  private clearSessionUser() {
+    localStorage.clear();
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
   }
 
   private showLoginErrorPopover(): void {
