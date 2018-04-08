@@ -2,7 +2,7 @@ import { Http } from '@angular/http/';
 import { Observable } from 'rxjs/Observable';
 import { Profile } from './profile.model';
 import { BaseService } from './../../baseService';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Utils } from 'app/common/utils';
 
@@ -17,6 +17,8 @@ export class ProfileService extends BaseService {
 
     private subjectProfile = new Subject<Profile>();
     private subjectSignedIn = new Subject<boolean>();
+
+    onProfileLogged: EventEmitter<Profile> = new EventEmitter();
 
     constructor(private http: Http) {
         super();

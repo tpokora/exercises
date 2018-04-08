@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/observable/of';
 
-export const profile: Profile = { name: 'profile name', email: 'profile@email.com', token: 'token' }
+export const profile: Profile = { id: 1, name: 'profile name', email: 'profile@email.com', token: 'token' }
 
 @Injectable()
 export class ProfileServiceTests {

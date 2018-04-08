@@ -2,9 +2,8 @@ import { profile } from './common/profile.testing';
 import { ProfileService } from './common/profile.service';
 import { Profile } from './common/profile.model';
 import { environment } from './../../../environments/environment.prod';
-import { Component, AfterViewInit, NgZone, ViewChild, Output } from '@angular/core';
+import { Component, AfterViewInit, NgZone, ViewChild, Output, Input, OnInit, EventEmitter } from '@angular/core';
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
-import { EventEmitter } from 'events';
 
 declare var gapi: any;
 
@@ -21,15 +20,15 @@ export class GoogleAuthComponent implements AfterViewInit {
 
   private profile: Profile;
 
-  @Output() loggedProfile = new EventEmitter<Profile>();
   private signedIn = false;
 
   @ViewChild('signInPopover') signInPopover: NgbPopover;
 
-  constructor(private profileService: ProfileService, private ngzone: NgZone) { }
+  constructor(private profileService: ProfileService, private ngzone: NgZone) {
+    this.profile = new Profile();
+  }
 
   ngAfterViewInit() {
-    this.profile = new Profile();
     this.googleInit();
     this.renderBtn();
   }
@@ -53,7 +52,7 @@ export class GoogleAuthComponent implements AfterViewInit {
             this.profile = profile;
             this.signedIn = true;
             this.profileService.signIn(this.profile);
-            this.loggedProfile.emit(this.profile);
+            this.emitProfile();
           } else {
             this.signOut();
             this.showLoginErrorPopover();
@@ -81,11 +80,16 @@ export class GoogleAuthComponent implements AfterViewInit {
     this.auth2.signOut();
     this.profileService.signOut();
     this.profile = new Profile();
+    this.emitProfile();
     this.signedIn = false;
   }
 
   isSignedIn(): boolean {
     return this.signedIn;
+  }
+
+  private emitProfile() {
+    this.profileService.onProfileLogged.emit(this.profile);
   }
 
   private saveUserInSession() {
