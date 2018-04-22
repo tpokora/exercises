@@ -3,6 +3,7 @@ import { ProfileService } from './common/profile.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GoogleAuthComponent } from './google-auth.component';
+import { Component } from '@angular/core';
 
 describe('GoogleAuthComponent', () => {
   let component: GoogleAuthComponent;
@@ -10,7 +11,9 @@ describe('GoogleAuthComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [GoogleAuthComponent],
+      declarations: [
+        GoogleAuthComponent
+      ],
       providers: [
         { provide: ProfileService, useClass: ProfileServiceTests },
       ]
@@ -22,9 +25,5 @@ describe('GoogleAuthComponent', () => {
     fixture = TestBed.createComponent(GoogleAuthComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should be created', () => {
-    expect(component).toBeTruthy();
   });
 });

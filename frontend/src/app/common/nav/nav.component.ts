@@ -10,8 +10,6 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class NavComponent implements OnInit {
 
-  title = 'Navigation';
-
   private isSignedIn = false;
   private subscription: Subscription;
 
