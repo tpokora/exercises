@@ -1,6 +1,14 @@
 <div class="row float-right" [ngbPopover]="signinPopContent" popoverTitle="Login Error" #signInPopover="ngbPopover" triggers="manual" placement="bottom">
         <div id="googleAuthBtn" (onSignIn)="onSignIn($event)" [hidden]="isSignedIn()"></div>
-        <button class="btn btn-primary" (click)="signOut()" [hidden]="!isSignedIn()">Sign out</button>
+        <div class="dropdown" [hidden]="!isSignedIn()">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ profile.name }}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Profile page</a>
+                  <a class="dropdown-item" href="#" (click)="signOut()">Sign out</a>
+                </div>
+              </div>
 </div>
 <ng-template #signinPopContent>
     <span>Error while signing in! Please try again</span>
